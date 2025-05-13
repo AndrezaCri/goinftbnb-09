@@ -3,78 +3,78 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ThumbsUp, ThumbsDown, User, Album } from "lucide-react";
+import { ThumbsUp, ThumbsDown, User, Calendar, Soccer } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { toast } from "sonner";
 
-// Mock data for community albums
+// Mock data for soccer community albums
 const initialAlbums = [
   {
     id: 1,
-    title: "Crypto Punk Collection",
-    creator: "CryptoArtist",
+    title: "World Cup Legends",
+    creator: "SoccerFan99",
     createdAt: "2025-05-01",
-    imageUrl: "https://picsum.photos/seed/album1/400/400",
-    description: "A unique collection of digital punk characters",
-    upvotes: 24,
-    downvotes: 3,
-    tags: ["punk", "digital", "collection"]
+    imageUrl: "https://picsum.photos/seed/soccer1/400/400",
+    description: "Collection of the greatest World Cup moments in history",
+    upvotes: 124,
+    downvotes: 8,
+    tags: ["world cup", "legends", "history"]
   },
   {
     id: 2,
-    title: "Nature Scenes",
-    creator: "EcoCreator",
+    title: "Premier League Stars",
+    creator: "PLenthusiast",
     createdAt: "2025-05-02",
-    imageUrl: "https://picsum.photos/seed/album2/400/400",
-    description: "Beautiful natural landscapes as NFTs",
-    upvotes: 42,
-    downvotes: 5,
-    tags: ["nature", "landscape", "art"]
+    imageUrl: "https://picsum.photos/seed/soccer2/400/400",
+    description: "The best players from the English Premier League",
+    upvotes: 98,
+    downvotes: 12,
+    tags: ["premier league", "stars", "england"]
   },
   {
     id: 3,
-    title: "Abstract Shapes",
-    creator: "ArtisticMind",
+    title: "Champions League Moments",
+    creator: "UCLfanatic",
     createdAt: "2025-05-03",
-    imageUrl: "https://picsum.photos/seed/album3/400/400",
-    description: "Collection of abstract geometric shapes",
-    upvotes: 18,
-    downvotes: 2,
-    tags: ["abstract", "geometry", "colorful"]
+    imageUrl: "https://picsum.photos/seed/soccer3/400/400",
+    description: "Iconic moments from UEFA Champions League history",
+    upvotes: 87,
+    downvotes: 5,
+    tags: ["champions league", "uefa", "europe"]
   },
   {
     id: 4,
-    title: "Space Exploration",
-    creator: "CosmicArtist",
+    title: "Soccer Stadiums Around the World",
+    creator: "StadiumCollector",
     createdAt: "2025-05-04",
-    imageUrl: "https://picsum.photos/seed/album4/400/400",
-    description: "NFTs inspired by outer space and cosmic wonders",
-    upvotes: 37,
-    downvotes: 4,
-    tags: ["space", "cosmic", "galaxy"]
+    imageUrl: "https://picsum.photos/seed/soccer4/400/400",
+    description: "Beautiful soccer stadiums from across the globe",
+    upvotes: 76,
+    downvotes: 3,
+    tags: ["stadiums", "architecture", "global"]
   },
   {
     id: 5,
-    title: "Digital Pets",
-    creator: "PetLover",
+    title: "Women's Soccer Highlights",
+    creator: "EqualGame",
     createdAt: "2025-05-05",
-    imageUrl: "https://picsum.photos/seed/album5/400/400",
-    description: "Adorable digital pets as collectible NFTs",
-    upvotes: 56,
-    downvotes: 2,
-    tags: ["pets", "cute", "collectible"]
+    imageUrl: "https://picsum.photos/seed/soccer5/400/400",
+    description: "Celebrating the best of women's soccer worldwide",
+    upvotes: 113,
+    downvotes: 7,
+    tags: ["women", "international", "professional"]
   },
   {
     id: 6,
-    title: "Retro Gaming",
-    creator: "GameNostalgia",
+    title: "Classic Soccer Jerseys",
+    creator: "KitCollector",
     createdAt: "2025-05-06",
-    imageUrl: "https://picsum.photos/seed/album6/400/400",
-    description: "NFTs inspired by classic video games",
-    upvotes: 31,
-    downvotes: 7,
-    tags: ["gaming", "retro", "pixel-art"]
+    imageUrl: "https://picsum.photos/seed/soccer6/400/400",
+    description: "Vintage and iconic soccer jerseys through the decades",
+    upvotes: 91,
+    downvotes: 4,
+    tags: ["jerseys", "vintage", "fashion"]
   }
 ];
 
@@ -93,10 +93,10 @@ const Community = () => {
     setAlbums(albums.map(album => {
       if (album.id === id) {
         if (voteType === 'up') {
-          toast.success("Upvoted album!");
+          toast.success("Upvoted soccer album!");
           return { ...album, upvotes: album.upvotes + 1 };
         } else {
-          toast.info("Downvoted album");
+          toast.info("Downvoted soccer album");
           return { ...album, downvotes: album.downvotes + 1 };
         }
       }
@@ -110,7 +110,10 @@ const Community = () => {
       
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Community Albums</h1>
+          <div className="flex items-center">
+            <Soccer className="mr-2 text-green-500" size={24} />
+            <h1 className="text-3xl font-bold">Soccer Community Albums</h1>
+          </div>
           <div className="flex space-x-2">
             <Badge variant="secondary">Latest</Badge>
             <Badge variant="outline">Popular</Badge>
@@ -120,7 +123,7 @@ const Community = () => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {currentAlbums.map((album) => (
-            <Card key={album.id} className="bg-[#111] border-[#333] text-white overflow-hidden hover:border-[#FFEB3B] transition-all">
+            <Card key={album.id} className="bg-[#111] border-[#333] text-white overflow-hidden hover:border-green-500 transition-all">
               <div className="relative">
                 <AspectRatio ratio={1 / 1}>
                   <img
@@ -145,7 +148,7 @@ const Community = () => {
                 
                 <div className="flex flex-wrap gap-1 mb-2">
                   {album.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs">
+                    <Badge key={tag} variant="outline" className="text-xs bg-green-900/20 text-green-400 border-green-900">
                       {tag}
                     </Badge>
                   ))}
@@ -156,7 +159,7 @@ const Community = () => {
                 <div className="flex gap-4">
                   <button 
                     onClick={() => handleVote(album.id, 'up')}
-                    className="flex items-center gap-1 text-gray-400 hover:text-[#FFEB3B]"
+                    className="flex items-center gap-1 text-gray-400 hover:text-green-500"
                   >
                     <ThumbsUp size={18} />
                     <span>{album.upvotes}</span>
@@ -164,7 +167,7 @@ const Community = () => {
                   
                   <button 
                     onClick={() => handleVote(album.id, 'down')}
-                    className="flex items-center gap-1 text-gray-400 hover:text-[#FFEB3B]"
+                    className="flex items-center gap-1 text-gray-400 hover:text-red-500"
                   >
                     <ThumbsDown size={18} />
                     <span>{album.downvotes}</span>
@@ -172,7 +175,7 @@ const Community = () => {
                 </div>
                 
                 <div className="flex items-center gap-1 text-sm text-gray-400">
-                  <Album size={16} />
+                  <Calendar size={16} />
                   <span>{album.createdAt}</span>
                 </div>
               </CardFooter>
