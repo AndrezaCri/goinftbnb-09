@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ThumbsUp, ThumbsDown, User, Calendar, Soccer } from "lucide-react";
+import { ThumbsUp, ThumbsDown, User, Calendar, Football } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { toast } from "sonner";
@@ -111,7 +111,7 @@ const Community = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center">
-            <Soccer className="mr-2 text-green-500" size={24} />
+            <Football className="mr-2 text-green-500" size={24} />
             <h1 className="text-3xl font-bold">Soccer Community Albums</h1>
           </div>
           <div className="flex space-x-2">
