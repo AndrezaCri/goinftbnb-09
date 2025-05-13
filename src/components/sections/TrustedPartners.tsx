@@ -1,6 +1,7 @@
+
 import React from "react";
 
-const partners = ["Solana", "Solart", "DigitalEyes", "DyDx", "Binance"];
+const partners = ["BNB Chain", "Binance", "MetaMask", "Trust Wallet", "OpenSea"];
 
 export const TrustedPartners = () => {
   return (
@@ -10,7 +11,7 @@ export const TrustedPartners = () => {
         {partners.map((partner) => (
           <div
             key={partner}
-            className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="bg-[#222] text-white px-4 py-2 rounded-lg border border-[#333] hover:border-[#FFEB3B] transition-colors"
           >
             {partner}
           </div>
