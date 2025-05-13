@@ -1,9 +1,8 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Flag, Trophy, Soccer, Calendar, User } from "lucide-react";
+import { Flag, Trophy, Users, Calendar, User } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -203,7 +202,7 @@ const Challenges = () => {
                         <span>Deadline: {challenge.deadline}</span>
                       </div>
                       <div className="flex items-center gap-1 text-sm text-gray-400">
-                        <Soccer size={14} />
+                        <Users size={14} />
                         <span>{challenge.participants} participants</span>
                       </div>
                     </div>
