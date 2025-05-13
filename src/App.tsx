@@ -10,6 +10,7 @@ import Albums from "./pages/Albums";
 import AlbumLab from "./pages/AlbumLab";
 import Community from "./pages/Community";
 import Challenges from "./pages/Challenges";
+import Marketplace from "./pages/Marketplace";
 import NotFound from "./pages/NotFound";
 
 // Create a new QueryClient instance
@@ -29,7 +30,7 @@ const App = () => {
               <Route path="/album-lab" element={<AlbumLab />} />
               <Route path="/community" element={<Community />} />
               <Route path="/challenges" element={<Challenges />} />
-              <Route path="/marketplace" element={<NotFound />} />
+              <Route path="/marketplace" element={<Marketplace />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
