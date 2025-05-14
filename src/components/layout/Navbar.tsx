@@ -10,7 +10,7 @@ export const Navbar = () => {
         <img 
           src="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" 
           alt="GoINFT Logo" 
-          className="h-14 w-auto" 
+          className="h-[150px] w-auto" 
         />
       </Link>
       
