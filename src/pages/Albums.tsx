@@ -1,11 +1,9 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { DashboardNav } from "@/components/sections/DashboardNav";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 
@@ -76,8 +74,6 @@ const Albums = () => {
       
       <div className="container mx-auto py-8 px-4">
         <h1 className="text-3xl font-bold mb-8">My Soccer Stars Collection</h1>
-        
-        <DashboardNav />
         
         <div className="mt-8">
           <div className="flex items-center justify-between mb-4">
