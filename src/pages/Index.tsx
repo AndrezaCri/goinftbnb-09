@@ -2,7 +2,6 @@
 import React from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
-import { NFTCollection } from "@/components/sections/NFTCollection";
 import { TrustedPartners } from "@/components/sections/TrustedPartners";
 import { CallToAction } from "@/components/sections/CallToAction";
 import { OnboardingSection } from "@/components/sections/OnboardingSection";
@@ -19,11 +18,8 @@ const Index = () => {
         <OnboardingSection />
         
         <div className="flex-1">
-          <NFTCollection />
-          <div className="mt-12">
-            <TrustedPartners />
-            <CallToAction />
-          </div>
+          <TrustedPartners />
+          <CallToAction />
         </div>
       </div>
     </main>
