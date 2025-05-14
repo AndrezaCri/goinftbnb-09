@@ -6,14 +6,13 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
   return (
     <nav className="flex justify-between items-center px-8 py-4 max-sm:px-4">
-      <div className="flex items-center gap-2">
+      <Link to="/">
         <img 
           src="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" 
           alt="GoINFT Logo" 
-          className="h-8 w-auto"
+          className="h-10 w-auto" 
         />
-        <span className="text-base font-medium">GoINFT</span>
-      </div>
+      </Link>
       
       <div className="flex items-center gap-8 max-sm:hidden">
         <Link to="/" className="text-sm hover:text-[#FFEB3B] transition-colors">Home</Link>
