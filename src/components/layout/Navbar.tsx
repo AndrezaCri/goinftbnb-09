@@ -1,14 +1,15 @@
 
 import React, { useState, useEffect } from "react";
-import { Wallet, BookOpen, UsersRound, Trophy } from "lucide-react";
+import { Wallet, BookOpen, UsersRound, Trophy, DollarSign } from "lucide-react";
 import { Link } from "react-router-dom";
-import { conectarCarteira, verificarCarteiraConectada, isMetaMaskInstalled } from "@/utils/metamaskUtils";
+import { conectarCarteira, verificarCarteiraConectada, isMetaMaskInstalled, verificarSaldo } from "@/utils/metamaskUtils";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
 export const Navbar = () => {
   const [enderecoCarteira, setEnderecoCarteira] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCheckingBalance, setIsCheckingBalance] = useState(false);
   const { toast } = useToast();
 
   // Verificar carteira conectada ao montar o componente
@@ -56,6 +57,37 @@ export const Navbar = () => {
     }
   };
 
+  const handleVerificarSaldo = async () => {
+    if (!enderecoCarteira) {
+      toast({
+        title: "Carteira não conectada",
+        description: "Por favor, conecte sua carteira primeiro",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsCheckingBalance(true);
+    try {
+      const { saldo, sucesso } = await verificarSaldo();
+      if (sucesso) {
+        toast({
+          title: "Saldo verificado",
+          description: `💰 Saldo: ${saldo} BNB`,
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Erro ao verificar saldo",
+          description: "Não foi possível verificar o saldo",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsCheckingBalance(false);
+    }
+  };
+
   // Função para formatar o endereço da carteira
   const formatarEndereco = (endereco: string): string => {
     return `${endereco.substring(0, 6)}...${endereco.substring(endereco.length - 4)}`;
@@ -89,22 +121,36 @@ export const Navbar = () => {
         <Link to="/marketplace" className="text-sm hover:text-[#FFEB3B] transition-colors">Marketplace</Link>
       </div>
 
-      <Button 
-        variant="default"
-        className="bg-[#FFEB3B] text-black font-medium hover:bg-[#FFD700] transition-colors"
-        onClick={handleConectarCarteira}
-        disabled={isLoading}
-      >
-        <div className="flex items-center gap-2">
-          <Wallet className="h-4 w-4" />
-          {isLoading 
-            ? "Conectando..." 
-            : enderecoCarteira 
-              ? formatarEndereco(enderecoCarteira) 
-              : "Conectar Carteira"
-          }
-        </div>
-      </Button>
+      <div className="flex items-center gap-2">
+        {enderecoCarteira && (
+          <Button
+            variant="outline"
+            className="border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10"
+            onClick={handleVerificarSaldo}
+            disabled={isCheckingBalance}
+          >
+            <DollarSign className="h-4 w-4 mr-1" />
+            {isCheckingBalance ? "Verificando..." : "Ver Saldo"}
+          </Button>
+        )}
+        
+        <Button 
+          variant="default"
+          className="bg-[#FFEB3B] text-black font-medium hover:bg-[#FFD700] transition-colors"
+          onClick={handleConectarCarteira}
+          disabled={isLoading}
+        >
+          <div className="flex items-center gap-2">
+            <Wallet className="h-4 w-4" />
+            {isLoading 
+              ? "Conectando..." 
+              : enderecoCarteira 
+                ? formatarEndereco(enderecoCarteira) 
+                : "Conectar Carteira"
+            }
+          </div>
+        </Button>
+      </div>
     </nav>
   );
 };

@@ -2,6 +2,7 @@
 /**
  * Utilitários para interações com a MetaMask
  */
+import { ethers } from "ethers";
 
 /**
  * Verifica se a MetaMask está instalada no navegador
@@ -53,5 +54,32 @@ export const verificarCarteiraConectada = async (): Promise<string | null> => {
   } catch (erro) {
     console.error('Erro ao verificar carteira conectada:', erro);
     return null;
+  }
+};
+
+/**
+ * Verifica o saldo de ETH/BNB na carteira conectada
+ * @returns {Promise<{saldo: string, sucesso: boolean}>} - Promise com o saldo formatado e status da operação
+ */
+export const verificarSaldo = async (): Promise<{saldo: string, sucesso: boolean}> => {
+  if (!isMetaMaskInstalled()) {
+    return { saldo: "0", sucesso: false };
+  }
+
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contas = await provider.listAccounts();
+    
+    if (contas.length === 0) {
+      return { saldo: "0", sucesso: false };
+    }
+    
+    const saldo = await provider.getBalance(contas[0]);
+    const saldoFormatado = ethers.utils.formatEther(saldo);
+    console.log('💰 Saldo verificado:', saldoFormatado);
+    return { saldo: saldoFormatado, sucesso: true };
+  } catch (erro) {
+    console.error('Erro ao verificar saldo:', erro);
+    return { saldo: "0", sucesso: false };
   }
 };
