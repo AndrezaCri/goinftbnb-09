@@ -1,8 +1,8 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Wallet, BookOpen, UsersRound, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
-import { conectarCarteira } from "@/utils/metamaskUtils";
+import { conectarCarteira, verificarCarteiraConectada } from "@/utils/metamaskUtils";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
@@ -10,6 +10,23 @@ export const Navbar = () => {
   const [enderecoCarteira, setEnderecoCarteira] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  // Verificar carteira conectada ao montar o componente
+  useEffect(() => {
+    const checkWallet = async () => {
+      const endereco = await verificarCarteiraConectada();
+      if (endereco) {
+        setEnderecoCarteira(endereco);
+        toast({
+          title: "Carteira detectada",
+          description: `Carteira ${formatarEndereco(endereco)} já está conectada`,
+          variant: "default",
+        });
+      }
+    };
+    
+    checkWallet();
+  }, []);
 
   const handleConectarCarteira = async () => {
     setIsLoading(true);

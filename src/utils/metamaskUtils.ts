@@ -32,3 +32,25 @@ export const conectarCarteira = async (): Promise<string | null> => {
     return null;
   }
 };
+
+/**
+ * Verifica se existe uma carteira já conectada
+ * @returns {Promise<string | null>} - Promise com o endereço da carteira conectada ou null se não houver
+ */
+export const verificarCarteiraConectada = async (): Promise<string | null> => {
+  if (!isMetaMaskInstalled()) {
+    return null;
+  }
+
+  try {
+    const contas = await window.ethereum.request({ method: 'eth_accounts' });
+    if (contas.length > 0) {
+      console.log('✅ Carteira já conectada:', contas[0]);
+      return contas[0];
+    }
+    return null;
+  } catch (erro) {
+    console.error('Erro ao verificar carteira conectada:', erro);
+    return null;
+  }
+};
