@@ -27,12 +27,13 @@
     
     <!-- Script para detectar se o MetaMask está instalado -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      window.addEventListener('DOMContentLoaded', () => {
         // Verifica se o ethereum está disponível (MetaMask injetado)
-        if (window.ethereum) {
-          console.log('MetaMask está instalado! 🦊');
+        if (typeof window.ethereum !== 'undefined') {
+          console.log('✅ MetaMask está instalada! 🦊');
         } else {
-          console.log('MetaMask não está instalado. Por favor, instale a extensão MetaMask para usar este aplicativo.');
+          console.log('❌ MetaMask não está instalado. Por favor, instale a extensão MetaMask para usar este aplicativo.');
+          alert('❌ MetaMask não está instalada. Por favor, instale para continuar.');
         }
       });
     </script>
