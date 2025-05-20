@@ -3,14 +3,28 @@ import React, { useState } from "react";
 import { Wallet, BookOpen, UsersRound, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { conectarCarteira } from "@/utils/metamaskUtils";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 export const Navbar = () => {
   const [enderecoCarteira, setEnderecoCarteira] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleConectarCarteira = async () => {
-    const conta = await conectarCarteira();
-    if (conta) {
-      setEnderecoCarteira(conta);
+    setIsLoading(true);
+    try {
+      const conta = await conectarCarteira();
+      if (conta) {
+        setEnderecoCarteira(conta);
+        toast({
+          title: "Conectado com sucesso!",
+          description: `Carteira ${formatarEndereco(conta)} conectada`,
+          variant: "default",
+        });
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -47,15 +61,22 @@ export const Navbar = () => {
         <Link to="/marketplace" className="text-sm hover:text-[#FFEB3B] transition-colors">Marketplace</Link>
       </div>
 
-      <button 
-        className="bg-[#FFEB3B] text-black text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#FFD700] transition-colors"
+      <Button 
+        variant="default"
+        className="bg-[#FFEB3B] text-black font-medium hover:bg-[#FFD700] transition-colors"
         onClick={handleConectarCarteira}
+        disabled={isLoading}
       >
         <div className="flex items-center gap-2">
           <Wallet className="h-4 w-4" />
-          {enderecoCarteira ? formatarEndereco(enderecoCarteira) : "Conectar Carteira"}
+          {isLoading 
+            ? "Conectando..." 
+            : enderecoCarteira 
+              ? formatarEndereco(enderecoCarteira) 
+              : "Conectar Carteira"
+          }
         </div>
-      </button>
+      </Button>
     </nav>
   );
 };
