@@ -24,5 +24,17 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Script para detectar se o MetaMask está instalado -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Verifica se o ethereum está disponível (MetaMask injetado)
+        if (window.ethereum) {
+          console.log('MetaMask está instalado! 🦊');
+        } else {
+          console.log('MetaMask não está instalado. Por favor, instale a extensão MetaMask para usar este aplicativo.');
+        }
+      });
+    </script>
   </body>
 </html>
