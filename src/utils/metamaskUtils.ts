@@ -39,6 +39,7 @@ export const conectarCarteira = async (): Promise<string | null> => {
  */
 export const verificarCarteiraConectada = async (): Promise<string | null> => {
   if (!isMetaMaskInstalled()) {
+    // Removemos o alerta aqui para que não apareça automaticamente na carga da página
     return null;
   }
 

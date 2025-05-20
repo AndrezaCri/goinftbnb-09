@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Wallet, BookOpen, UsersRound, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
-import { conectarCarteira, verificarCarteiraConectada } from "@/utils/metamaskUtils";
+import { conectarCarteira, verificarCarteiraConectada, isMetaMaskInstalled } from "@/utils/metamaskUtils";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
@@ -14,6 +14,7 @@ export const Navbar = () => {
   // Verificar carteira conectada ao montar o componente
   useEffect(() => {
     const checkWallet = async () => {
+      // Somente verifica se a carteira já está conectada, sem mostrar alertas
       const endereco = await verificarCarteiraConectada();
       if (endereco) {
         setEnderecoCarteira(endereco);
@@ -31,6 +32,16 @@ export const Navbar = () => {
   const handleConectarCarteira = async () => {
     setIsLoading(true);
     try {
+      // Verifica se o MetaMask está instalado antes de tentar conectar
+      if (!isMetaMaskInstalled()) {
+        toast({
+          title: "MetaMask indisponível",
+          description: "MetaMask não está instalada. Por favor, instale para continuar.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
       const conta = await conectarCarteira();
       if (conta) {
         setEnderecoCarteira(conta);
