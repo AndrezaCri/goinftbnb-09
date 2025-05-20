@@ -36,6 +36,23 @@
           alert('❌ MetaMask não está instalada. Por favor, instale para continuar.');
         }
       });
+      
+      async function conectarMetaMask() {
+        if (window.ethereum) {
+          try {
+            const contas = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const conta = contas[0];
+            console.log('🔗 Conta conectada:', conta);
+            document.getElementById('carteira').innerText = `Carteira conectada: ${conta}`;
+            return conta;
+          } catch (erro) {
+            console.error('Erro ao conectar:', erro);
+            alert('Erro ao conectar à MetaMask');
+          }
+        } else {
+          alert('MetaMask não está disponível');
+        }
+      }
     </script>
   </body>
 </html>
