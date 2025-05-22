@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Wallet, BookOpen, UsersRound, Trophy, DollarSign } from "lucide-react";
+import { Wallet, BookOpen, UsersRound, Trophy, DollarSign, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { conectarCarteira, verificarCarteiraConectada, isMetaMaskInstalled, verificarSaldo } from "@/utils/metamaskUtils";
 import { Button } from "@/components/ui/button";
@@ -88,6 +88,17 @@ export const Navbar = () => {
     }
   };
 
+  // Nova função para desconectar a carteira (apenas visualmente)
+  const handleDesconectarCarteira = () => {
+    setEnderecoCarteira(null);
+    toast({
+      title: "Carteira desconectada",
+      description: "Sua carteira foi desconectada visualmente da aplicação",
+      variant: "default",
+    });
+    console.log('Carteira desconectada visualmente (a MetaMask não desconecta de fato via API).');
+  };
+
   // Função para formatar o endereço da carteira
   const formatarEndereco = (endereco: string): string => {
     return `${endereco.substring(0, 6)}...${endereco.substring(endereco.length - 4)}`;
@@ -123,33 +134,41 @@ export const Navbar = () => {
 
       <div className="flex items-center gap-2">
         {enderecoCarteira && (
-          <Button
-            variant="outline"
-            className="border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10"
-            onClick={handleVerificarSaldo}
-            disabled={isCheckingBalance}
-          >
-            <DollarSign className="h-4 w-4 mr-1" />
-            {isCheckingBalance ? "Verificando..." : "Ver Saldo"}
-          </Button>
+          <>
+            <Button
+              variant="outline"
+              className="border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10"
+              onClick={handleVerificarSaldo}
+              disabled={isCheckingBalance}
+            >
+              <DollarSign className="h-4 w-4 mr-1" />
+              {isCheckingBalance ? "Verificando..." : "Ver Saldo"}
+            </Button>
+            
+            <Button
+              variant="outline"
+              className="border-red-500 text-red-500 hover:bg-red-500/10"
+              onClick={handleDesconectarCarteira}
+            >
+              <LogOut className="h-4 w-4 mr-1" />
+              Desconectar
+            </Button>
+          </>
         )}
         
-        <Button 
-          variant="default"
-          className="bg-[#FFEB3B] text-black font-medium hover:bg-[#FFD700] transition-colors"
-          onClick={handleConectarCarteira}
-          disabled={isLoading}
-        >
-          <div className="flex items-center gap-2">
-            <Wallet className="h-4 w-4" />
-            {isLoading 
-              ? "Conectando..." 
-              : enderecoCarteira 
-                ? formatarEndereco(enderecoCarteira) 
-                : "Conectar Carteira"
-            }
-          </div>
-        </Button>
+        {!enderecoCarteira && (
+          <Button 
+            variant="default"
+            className="bg-[#FFEB3B] text-black font-medium hover:bg-[#FFD700] transition-colors"
+            onClick={handleConectarCarteira}
+            disabled={isLoading}
+          >
+            <div className="flex items-center gap-2">
+              <Wallet className="h-4 w-4" />
+              {isLoading ? "Conectando..." : "Conectar Carteira"}
+            </div>
+          </Button>
+        )}
       </div>
     </nav>
   );
