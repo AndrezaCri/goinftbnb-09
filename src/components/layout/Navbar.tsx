@@ -1,15 +1,16 @@
-
 import React, { useState, useEffect } from "react";
 import { Wallet, BookOpen, UsersRound, Trophy, DollarSign, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { conectarCarteira, verificarCarteiraConectada, isMetaMaskInstalled, verificarSaldo } from "@/utils/metamaskUtils";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { MetaMaskInstallDialog } from "@/components/dialogs/MetaMaskInstallDialog";
 
 export const Navbar = () => {
   const [enderecoCarteira, setEnderecoCarteira] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckingBalance, setIsCheckingBalance] = useState(false);
+  const [showMetaMaskDialog, setShowMetaMaskDialog] = useState(false);
   const { toast } = useToast();
 
   // Verificar carteira conectada ao montar o componente
@@ -35,11 +36,7 @@ export const Navbar = () => {
     try {
       // Verifica se o MetaMask está instalado antes de tentar conectar
       if (!isMetaMaskInstalled()) {
-        toast({
-          title: "MetaMask indisponível",
-          description: "MetaMask não está instalada. Por favor, instale para continuar.",
-          variant: "destructive",
-        });
+        setShowMetaMaskDialog(true);
         return;
       }
       
@@ -105,71 +102,78 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center px-8 py-2 max-sm:px-4">
-      <Link to="/">
-        <img 
-          src="/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png" 
-          alt="GoINFT Logo" 
-          className="h-[150px] w-auto" 
-        />
-      </Link>
-      
-      <div className="flex items-center gap-8 max-sm:hidden">
-        <Link to="/" className="text-sm hover:text-[#FFEB3B] transition-colors">Home</Link>
-        <Link to="/albums" className="text-sm hover:text-[#FFEB3B] transition-colors">Albums</Link>
-        <Link to="/album-lab" className="text-sm hover:text-[#FFEB3B] transition-colors flex items-center gap-1">
-          <BookOpen className="h-4 w-4" />
-          <span>Lab</span>
+    <>
+      <nav className="flex justify-between items-center px-8 py-2 max-sm:px-4">
+        <Link to="/">
+          <img 
+            src="/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png" 
+            alt="GoINFT Logo" 
+            className="h-[150px] w-auto" 
+          />
         </Link>
-        <Link to="/community" className="text-sm hover:text-[#FFEB3B] transition-colors flex items-center gap-1">
-          <UsersRound className="h-4 w-4" />
-          <span>Community</span>
-        </Link>
-        <Link to="/challenges" className="text-sm hover:text-[#FFEB3B] transition-colors flex items-center gap-1">
-          <Trophy className="h-4 w-4" />
-          <span>Challenges</span>
-        </Link>
-        <Link to="/marketplace" className="text-sm hover:text-[#FFEB3B] transition-colors">Marketplace</Link>
-      </div>
-
-      <div className="flex items-center gap-2">
-        {enderecoCarteira && (
-          <>
-            <Button
-              variant="outline"
-              className="border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10"
-              onClick={handleVerificarSaldo}
-              disabled={isCheckingBalance}
-            >
-              <DollarSign className="h-4 w-4 mr-1" />
-              {isCheckingBalance ? "Verificando..." : "Ver Saldo"}
-            </Button>
-            
-            <Button
-              variant="outline"
-              className="border-red-500 text-red-500 hover:bg-red-500/10"
-              onClick={handleDesconectarCarteira}
-            >
-              <LogOut className="h-4 w-4 mr-1" />
-              Desconectar
-            </Button>
-          </>
-        )}
         
-        {!enderecoCarteira && (
-          <Button 
-            variant="default"
-            className="bg-[#FFEB3B] text-black font-medium hover:bg-[#FFD700] transition-colors"
-            onClick={handleConectarCarteira}
-            disabled={isLoading}
-          >
-            <div className="flex items-center gap-2">
-              <Wallet className="h-4 w-4" />
-              {isLoading ? "Conectando..." : "Conectar Carteira"}
-            </div>
-          </Button>
-        )}
-      </div>
-    </nav>
+        <div className="flex items-center gap-8 max-sm:hidden">
+          <Link to="/" className="text-sm hover:text-[#FFEB3B] transition-colors">Home</Link>
+          <Link to="/albums" className="text-sm hover:text-[#FFEB3B] transition-colors">Albums</Link>
+          <Link to="/album-lab" className="text-sm hover:text-[#FFEB3B] transition-colors flex items-center gap-1">
+            <BookOpen className="h-4 w-4" />
+            <span>Lab</span>
+          </Link>
+          <Link to="/community" className="text-sm hover:text-[#FFEB3B] transition-colors flex items-center gap-1">
+            <UsersRound className="h-4 w-4" />
+            <span>Community</span>
+          </Link>
+          <Link to="/challenges" className="text-sm hover:text-[#FFEB3B] transition-colors flex items-center gap-1">
+            <Trophy className="h-4 w-4" />
+            <span>Challenges</span>
+          </Link>
+          <Link to="/marketplace" className="text-sm hover:text-[#FFEB3B] transition-colors">Marketplace</Link>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {enderecoCarteira && (
+            <>
+              <Button
+                variant="outline"
+                className="border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10"
+                onClick={handleVerificarSaldo}
+                disabled={isCheckingBalance}
+              >
+                <DollarSign className="h-4 w-4 mr-1" />
+                {isCheckingBalance ? "Verificando..." : "Ver Saldo"}
+              </Button>
+              
+              <Button
+                variant="outline"
+                className="border-red-500 text-red-500 hover:bg-red-500/10"
+                onClick={handleDesconectarCarteira}
+              >
+                <LogOut className="h-4 w-4 mr-1" />
+                Desconectar
+              </Button>
+            </>
+          )}
+          
+          {!enderecoCarteira && (
+            <Button 
+              variant="default"
+              className="bg-[#FFEB3B] text-black font-medium hover:bg-[#FFD700] transition-colors"
+              onClick={handleConectarCarteira}
+              disabled={isLoading}
+            >
+              <div className="flex items-center gap-2">
+                <Wallet className="h-4 w-4" />
+                {isLoading ? "Conectando..." : "Conectar Carteira"}
+              </div>
+            </Button>
+          )}
+        </div>
+      </nav>
+      
+      <MetaMaskInstallDialog 
+        open={showMetaMaskDialog} 
+        onOpenChange={setShowMetaMaskDialog} 
+      />
+    </>
   );
 };
