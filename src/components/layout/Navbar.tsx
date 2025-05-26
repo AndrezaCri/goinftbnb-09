@@ -163,7 +163,7 @@ export const Navbar = () => {
             >
               <div className="flex items-center gap-2">
                 <Wallet className="h-4 w-4" />
-                {isLoading ? "Conectando..." : "Conectar Carteira"}
+                {isLoading ? "Conectando..." : "Connect Wallet"}
               </div>
             </Button>
           )}
