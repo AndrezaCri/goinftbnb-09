@@ -1,6 +1,6 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
+import { useAlbums } from "@/contexts/AlbumContext";
 import { 
   Card, 
   CardContent, 
@@ -24,8 +24,11 @@ import { Label } from "@/components/ui/label";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const AlbumLab = () => {
+  const { addAlbum } = useAlbums();
+  const navigate = useNavigate();
   const [albumTitle, setAlbumTitle] = useState("");
   const [albumDescription, setAlbumDescription] = useState("");
   const [selectedGridType, setSelectedGridType] = useState("3x3");
@@ -69,7 +72,26 @@ const AlbumLab = () => {
       return;
     }
 
-    toast.success(`Album "${albumTitle}" created with a ${selectedGridType} grid!`);
+    // Salvar o álbum usando o contexto
+    addAlbum({
+      title: albumTitle,
+      description: albumDescription,
+      gridType: selectedGridType,
+      stickers: generatedStickers,
+    });
+
+    toast.success(`Album "${albumTitle}" created successfully!`);
+    
+    // Limpar formulário
+    setAlbumTitle("");
+    setAlbumDescription("");
+    setGeneratedStickers([]);
+    setAiPrompt("");
+    
+    // Navegar para a página de álbuns após 1.5 segundos
+    setTimeout(() => {
+      navigate("/albums");
+    }, 1500);
   };
 
   const clearStickers = () => {
