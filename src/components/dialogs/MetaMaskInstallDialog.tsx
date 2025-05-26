@@ -93,10 +93,9 @@ export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDia
             
             <Button
               onClick={handleCancel}
-              variant="outline"
-              className="w-full border-gray-600 text-[#E0E0E0] hover:bg-[#1A1A1A]"
+              className="w-full bg-[#0D0D0D] text-gray-400 hover:bg-[#1A1A1A] border border-[#333]"
             >
-              <X className="h-4 w-4 mr-2" />
+              <X className="h-4 w-4 mr-2 text-red-500" />
               Cancelar
             </Button>
           </div>
