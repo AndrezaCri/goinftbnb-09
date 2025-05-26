@@ -72,6 +72,28 @@ const rarityColors = {
 
 export const TradingSystemSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [cards, setCards] = useState(userCards);
+
+  const handleOfferTrade = (cardId: number) => {
+    setCards(prev => prev.map(card => 
+      card.id === cardId 
+        ? { ...card, isTrading: true }
+        : card
+    ));
+    console.log(`Oferecendo card ${cardId} para troca`);
+  };
+
+  const handleProposeTrade = (tradeId: number) => {
+    console.log(`Propondo troca ${tradeId}`);
+  };
+
+  const handleViewProfile = (username: string) => {
+    console.log(`Visualizando perfil de ${username}`);
+  };
+
+  const filteredCards = cards.filter(card => 
+    card.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">
@@ -106,7 +128,7 @@ export const TradingSystemSection = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {userCards.map((card) => (
+              {filteredCards.map((card) => (
                 <Card key={card.id} className="bg-[#111] border-[#333] overflow-hidden">
                   <div className="p-4">
                     <AspectRatio ratio={1/1}>
@@ -136,6 +158,7 @@ export const TradingSystemSection = () => {
                       className="w-full" 
                       disabled={card.isTrading}
                       variant={card.isTrading ? "outline" : "default"}
+                      onClick={() => !card.isTrading && handleOfferTrade(card.id)}
                     >
                       <RefreshCw className="mr-2 h-4 w-4" />
                       {card.isTrading ? "Em negociação" : "Oferecer para troca"}
@@ -188,7 +211,7 @@ export const TradingSystemSection = () => {
                             className="w-20 h-20 mx-auto rounded-md mb-2"
                           />
                           <p className="font-semibold text-sm">{trade.offering.name}</p>
-                          <Badge className={`${rarityColors[trade.offering.rarity as keyof typeof rarityColors]} text-black mt-1`} size="sm">
+                          <Badge className={`${rarityColors[trade.offering.rarity as keyof typeof rarityColors]} text-black mt-1`}>
                             {trade.offering.rarity}
                           </Badge>
                         </div>
@@ -209,7 +232,7 @@ export const TradingSystemSection = () => {
                             className="w-20 h-20 mx-auto rounded-md mb-2"
                           />
                           <p className="font-semibold text-sm">{trade.requesting.name}</p>
-                          <Badge className={`${rarityColors[trade.requesting.rarity as keyof typeof rarityColors]} text-black mt-1`} size="sm">
+                          <Badge className={`${rarityColors[trade.requesting.rarity as keyof typeof rarityColors]} text-black mt-1`}>
                             {trade.requesting.rarity}
                           </Badge>
                         </div>
@@ -218,10 +241,17 @@ export const TradingSystemSection = () => {
                   </CardContent>
                   <CardFooter className="bg-[#0a0a0a] border-t border-[#333] p-4">
                     <div className="flex gap-2 w-full">
-                      <Button variant="outline" className="flex-1 border-[#333]">
+                      <Button 
+                        variant="outline" 
+                        className="flex-1 border-[#333]"
+                        onClick={() => handleViewProfile(trade.user)}
+                      >
                         Ver Perfil
                       </Button>
-                      <Button className="flex-1">
+                      <Button 
+                        className="flex-1"
+                        onClick={() => handleProposeTrade(trade.id)}
+                      >
                         Propor Troca
                       </Button>
                     </div>
