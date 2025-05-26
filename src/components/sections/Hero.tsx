@@ -1,7 +1,14 @@
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleCollectClick = () => {
+    navigate("/marketplace?tab=packs");
+  };
+
   return (
     <section className="flex-1">
       <h1 className="text-[64px] font-bold leading-[1.1] mb-4 max-sm:text-[40px]">
@@ -13,6 +20,7 @@ export const Hero = () => {
       </div>
       <div className="flex gap-4">
         <button 
+          onClick={handleCollectClick}
           className="bg-[#FFEB3B] text-black px-6 py-2 rounded-full hover:bg-[#FFD700] transition-colors"
         >
           Collect
