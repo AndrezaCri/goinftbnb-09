@@ -9,6 +9,10 @@ export const Hero = () => {
     navigate("/marketplace?tab=packs");
   };
 
+  const handleTradeClick = () => {
+    navigate("/marketplace?tab=trading");
+  };
+
   return (
     <section className="flex-1">
       <h1 className="text-[64px] font-bold leading-[1.1] mb-4 max-sm:text-[40px]">
@@ -26,6 +30,7 @@ export const Hero = () => {
           Collect
         </button>
         <button 
+          onClick={handleTradeClick}
           className="text-white border border-white px-6 py-2 rounded-full hover:bg-gray-800 transition-colors"
         >
           Trade
