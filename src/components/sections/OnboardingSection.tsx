@@ -4,6 +4,10 @@ import { Wallet, Plus, ArrowLeftRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const OnboardingSection = () => {
+  const handleCreateWallet = () => {
+    window.open("https://metamask.io/download/", "_blank");
+  };
+
   return (
     <section className="bg-[#111] p-8 rounded-3xl border border-[#333] max-sm:p-4">
       <h2 className="text-2xl font-bold mb-6">Welcome to GoINFT</h2>
@@ -49,7 +53,7 @@ export const OnboardingSection = () => {
         <Button 
           variant="outline" 
           className="border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10 px-8 py-6 h-auto text-lg"
-          onClick={() => console.log("Create wallet")}
+          onClick={handleCreateWallet}
         >
           <Plus className="mr-2 h-5 w-5" /> Create Wallet
         </Button>
