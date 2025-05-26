@@ -1,11 +1,14 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Wallet, Plus, ArrowLeftRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { MetaMaskInstallDialog } from "@/components/dialogs/MetaMaskInstallDialog";
 
 export const OnboardingSection = () => {
+  const [showMetaMaskDialog, setShowMetaMaskDialog] = useState(false);
+
   const handleCreateWallet = () => {
-    window.open("https://metamask.io/download/", "_blank");
+    setShowMetaMaskDialog(true);
   };
 
   return (
@@ -58,6 +61,11 @@ export const OnboardingSection = () => {
           <Plus className="mr-2 h-5 w-5" /> Create Wallet
         </Button>
       </div>
+
+      <MetaMaskInstallDialog 
+        open={showMetaMaskDialog} 
+        onOpenChange={setShowMetaMaskDialog} 
+      />
     </section>
   );
 };
