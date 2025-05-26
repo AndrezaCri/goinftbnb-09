@@ -85,7 +85,7 @@ export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDia
           <div className="space-y-3 mt-6">
             <Button
               onClick={handleCreateAccount}
-              className="w-full bg-[#B300FF] text-white hover:bg-[#9900CC] transition-colors font-medium"
+              className="w-full bg-[#FFEB3B] text-black hover:bg-[#FFD700] transition-colors font-medium"
             >
               <ExternalLink className="h-4 w-4 mr-2" />
               Criar conta MetaMask
