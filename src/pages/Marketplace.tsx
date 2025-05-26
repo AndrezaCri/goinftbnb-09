@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NFTMarketplaceSection } from "@/components/marketplace/NFTMarketplaceSection";
 import { NFTPacksSection } from "@/components/marketplace/NFTPacksSection";
 import { MyListingsSection } from "@/components/marketplace/MyListingsSection";
+import { TradingSystemSection } from "@/components/marketplace/TradingSystemSection";
 
 const Marketplace = () => {
   const [searchParams] = useSearchParams();
@@ -15,6 +16,8 @@ const Marketplace = () => {
     const tab = searchParams.get("tab");
     if (tab === "packs") {
       setActiveTab("packs");
+    } else if (tab === "trading") {
+      setActiveTab("trading");
     }
   }, [searchParams]);
 
@@ -29,9 +32,10 @@ const Marketplace = () => {
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="mb-8 bg-[#111] border border-[#333]">
-            <TabsTrigger value="browse">Browse Market</TabsTrigger>
+            <TabsTrigger value="browse">Navegar no Mercado</TabsTrigger>
             <TabsTrigger value="packs">Pacotes NFT</TabsTrigger>
-            <TabsTrigger value="my-listings">My Listings</TabsTrigger>
+            <TabsTrigger value="trading">Sistema de Trocas</TabsTrigger>
+            <TabsTrigger value="my-listings">Minhas Listagens</TabsTrigger>
           </TabsList>
           
           <TabsContent value="browse">
@@ -40,6 +44,10 @@ const Marketplace = () => {
           
           <TabsContent value="packs">
             <NFTPacksSection />
+          </TabsContent>
+          
+          <TabsContent value="trading">
+            <TradingSystemSection />
           </TabsContent>
           
           <TabsContent value="my-listings">
