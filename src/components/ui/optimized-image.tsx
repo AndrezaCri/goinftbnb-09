@@ -108,7 +108,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             hasError && "hidden"
           )}
           style={{
-            imageRendering: quality > 80 ? 'optimizeQuality' : 'optimizeSpeed',
+            imageRendering: quality > 80 ? 'crisp-edges' : 'auto',
             backfaceVisibility: 'hidden',
             transform: 'translateZ(0)'
           }}
