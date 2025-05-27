@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
@@ -33,16 +33,25 @@ const Albums = () => {
     { id: 12, isPlaced: false },
   ]);
 
+  // Memoize expensive calculations
+  const completionStats = useMemo(() => {
+    const placedCount = stickers.filter(s => s.isPlaced).length;
+    const total = stickers.length;
+    const percentage = Math.round((placedCount / total) * 100);
+    
+    return { placedCount, total, percentage };
+  }, [stickers]);
+
   const placeSticker = (id: number) => {
-    setStickers(
-      stickers.map((sticker) => {
+    setStickers(prevStickers => 
+      prevStickers.map((sticker) => {
         if (sticker.id === id) {
           // Optimized image URLs for smaller payloads
           const soccerImages = [
-            "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop"
+            "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=300&h=400&q=60",
+            "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=300&h=400&q=60",
+            "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop&w=300&h=400&q=60",
+            "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=300&h=400&q=60"
           ];
           
           const playerNames = ["A. Martinez", "N. Williams", "J. Bellingham", "R. Lewandowski", "V. van Dijk", "T. Kroos", "K. De Bruyne"];
@@ -66,10 +75,6 @@ const Albums = () => {
     );
   };
 
-  const completionPercentage = Math.round(
-    (stickers.filter((s) => s.isPlaced).length / stickers.length) * 100
-  );
-
   return (
     <div className="min-h-screen bg-[#121212] text-white">
       <Navbar />
@@ -82,14 +87,14 @@ const Albums = () => {
             <h2 className="text-xl font-semibold">World Cup Legends</h2>
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-300">
-                {stickers.filter(s => s.isPlaced).length} / {stickers.length} collected
+                {completionStats.placedCount} / {completionStats.total} collected
               </span>
-              <span className="text-sm font-medium text-[#FFEB3B]">{completionPercentage}%</span>
+              <span className="text-sm font-medium text-[#FFEB3B]">{completionStats.percentage}%</span>
             </div>
           </div>
           
           <div className="w-full mb-8">
-            <Progress value={completionPercentage} className="h-2 bg-gray-700" />
+            <Progress value={completionStats.percentage} className="h-2 bg-gray-700" />
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -112,6 +117,7 @@ const Albums = () => {
                             height={200}
                             quality={60}
                             className="w-full h-full object-cover"
+                            loading="lazy"
                           />
                           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
                             <p className="text-white font-bold text-sm">{sticker.playerName}</p>

@@ -9,10 +9,10 @@ Safari >= 14
 Edge >= 80
 
 # Additional filters
-last 2 versions
+last 1 version
 not IE 11
 not dead
-> 0.2%
+> 0.5%
 not op_mini all
 
 # Exclude very old mobile browsers
@@ -20,3 +20,10 @@ not ios_saf < 14
 not chrome < 80
 not and_chr < 80
 not samsung < 12
+
+# Support modern ES features
+supports es6-module
+supports es6-module-dynamic-import
+supports bigint
+supports optional-chaining
+supports nullish-coalescing-operator

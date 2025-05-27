@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -27,33 +28,34 @@ export default defineConfig(({ mode }) => ({
     minify: 'esbuild',
     cssCodeSplit: true,
     sourcemap: false,
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          'ui-core': ['@radix-ui/react-slot', '@radix-ui/react-toast', '@radix-ui/react-dialog'],
-          'ui-form': ['@radix-ui/react-checkbox', '@radix-ui/react-select', '@radix-ui/react-radio-group'],
+          'ui-critical': ['@radix-ui/react-slot'],
+          'ui-secondary': ['@radix-ui/react-toast', '@radix-ui/react-dialog', '@radix-ui/react-checkbox', '@radix-ui/react-select'],
           'ui-layout': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
           query: ['@tanstack/react-query'],
+          web3: ['ethers'],
           icons: ['lucide-react'],
           utils: ['clsx', 'class-variance-authority', 'tailwind-merge']
         },
         chunkFileNames: (chunkInfo) => {
           const name = chunkInfo.name || 'chunk';
-          return `assets/${name}-[hash:8].js`;
+          return `assets/${name}-[hash:6].js`;
         },
-        entryFileNames: 'assets/[name]-[hash:8].js',
+        entryFileNames: 'assets/[name]-[hash:6].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name || '';
           if (info.endsWith('.css')) {
-            return 'assets/css/[name]-[hash:8].[ext]';
+            return 'assets/css/[name]-[hash:6].[ext]';
           }
           if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(info)) {
-            return 'assets/images/[name]-[hash:8].[ext]';
+            return 'assets/images/[name]-[hash:6].[ext]';
           }
-          return 'assets/[name]-[hash:8].[ext]';
+          return 'assets/[name]-[hash:6].[ext]';
         }
       },
       external: (id) => {
@@ -72,7 +74,9 @@ export default defineConfig(({ mode }) => ({
       'bigint': true,
       'top-level-await': true,
       'import-meta': true,
-      'dynamic-import': true
+      'dynamic-import': true,
+      'optional-chaining': true,
+      'nullish-coalescing': true
     }
   },
   optimizeDeps: {
@@ -80,7 +84,9 @@ export default defineConfig(({ mode }) => ({
       target: 'es2020',
       supported: {
         'bigint': true,
-        'top-level-await': true
+        'top-level-await': true,
+        'optional-chaining': true,
+        'nullish-coalescing': true
       }
     },
     include: [
@@ -90,7 +96,8 @@ export default defineConfig(({ mode }) => ({
       'lucide-react',
       'clsx',
       'tailwind-merge'
-    ]
+    ],
+    exclude: ['ethers']
   },
   define: {
     global: 'globalThis',
