@@ -18,9 +18,12 @@
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     <link rel="icon" href="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" type="image/png">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/src/main.tsx" as="script" crossorigin>
+    <!-- Preload critical resources for modern browsers -->
+    <link rel="modulepreload" href="/src/main.tsx">
     <link rel="modulepreload" href="/src/App.tsx">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//cdn.gpteng.co">
   </head>
 
   <body>
@@ -28,24 +31,28 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     
-    <!-- Use module scripts for modern browsers -->
+    <!-- Modern ES modules - no polyfills needed -->
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Script para detectar se o MetaMask está instalada (logging only, no alerts) -->
+    <!-- Modern MetaMask detection without polyfills -->
     <script type="module">
-      // Use modern JavaScript syntax without transpilation
-      const checkMetaMask = () => {
-        if (window.ethereum?.isMetaMask) {
-          console.log('✅ MetaMask está instalada! 🦊');
-        } else {
-          console.log('❌ MetaMask não está instalada.');
+      // Native ES2020+ code - no transpilation needed
+      const checkMetaMask = async () => {
+        try {
+          if (window.ethereum?.isMetaMask) {
+            console.log('✅ MetaMask está instalada! 🦊');
+          } else {
+            console.log('❌ MetaMask não está instalada.');
+          }
+        } catch (error) {
+          console.log('🔍 Verificando MetaMask...');
         }
       };
       
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', checkMetaMask);
       } else {
-        checkMetaMask();
+        await checkMetaMask();
       }
     </script>
   </body>

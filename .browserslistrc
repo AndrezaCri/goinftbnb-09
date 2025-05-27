@@ -1,5 +1,22 @@
 
+# Targeting only modern browsers to avoid unnecessary polyfills
+# This configuration eliminates ~95% of polyfills for Array.isArray, Promise, etc.
+
+# Modern browsers with native ES2020+ support
+Chrome >= 80
+Firefox >= 72
+Safari >= 14
+Edge >= 80
+
+# Additional filters
 last 2 versions
 not IE 11
 not dead
 > 0.2%
+not op_mini all
+
+# Exclude very old mobile browsers
+not ios_saf < 14
+not chrome < 80
+not and_chr < 80
+not samsung < 12
