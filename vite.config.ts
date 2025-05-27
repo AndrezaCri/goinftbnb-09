@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -20,7 +21,7 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Fix ethers/bn.js compatibility issue
+      // Fix ethers/bn.js compatibility issue - use the CommonJS version
       "bn.js": path.resolve(__dirname, "./node_modules/bn.js/lib/bn.js"),
     },
   },
@@ -71,16 +72,16 @@ export default defineConfig(({ mode }) => ({
           }
           return 'assets/[name]-[hash:8].[ext]';
         }
-      },
-      external: (id) => {
-        // Don't externalize in development for easier debugging
-        return false;
       }
     },
     commonjsOptions: {
-      // Handle ethers and its dependencies
+      // Handle ethers and its dependencies including bn.js
       include: [/node_modules/],
       transformMixedEsModules: true,
+      // Explicitly handle bn.js as CommonJS
+      namedExports: {
+        'bn.js': ['BN']
+      }
     }
   },
   esbuild: {
@@ -115,13 +116,14 @@ export default defineConfig(({ mode }) => ({
       'tailwind-merge',
       // Include only critical UI components in main bundle
       '@radix-ui/react-slot',
-      '@radix-ui/react-progress'
+      '@radix-ui/react-progress',
+      // Force include ethers and bn.js to handle compatibility
+      'ethers',
+      'bn.js'
     ],
     exclude: [
       // Lazy load these for better initial bundle size
-      'lucide-react',
-      'ethers',
-      'bn.js'
+      'lucide-react'
     ]
   },
   define: {
