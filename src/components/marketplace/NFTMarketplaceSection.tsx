@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -175,6 +174,8 @@ export const NFTMarketplaceSection = () => {
                   <img 
                     src={nft.image} 
                     alt={nft.name}
+                    width="400"
+                    height="400"
                     className="rounded-md object-cover w-full h-full"
                   />
                 </AspectRatio>
@@ -210,7 +211,9 @@ export const NFTMarketplaceSection = () => {
                       <div className="flex items-center justify-center mb-4">
                         <img 
                           src={nft.image} 
-                          alt={nft.name} 
+                          alt={nft.name}
+                          width="128"
+                          height="128"
                           className="w-32 h-32 rounded-md"
                         />
                       </div>

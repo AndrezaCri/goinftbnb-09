@@ -17,14 +17,14 @@ interface StickerProps {
 
 const Albums = () => {
   const [stickers, setStickers] = useState<StickerProps[]>([
-    { id: 1, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=300", playerName: "M. Silva", team: "Brazil" },
+    { id: 1, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=300&h=400", playerName: "M. Silva", team: "Brazil" },
     { id: 2, isPlaced: false },
-    { id: 3, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=300", playerName: "K. Mbappé", team: "France" },
+    { id: 3, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=300&h=400", playerName: "K. Mbappé", team: "France" },
     { id: 4, isPlaced: false },
     { id: 5, isPlaced: false },
-    { id: 6, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop&w=300", playerName: "L. Messi", team: "Argentina" },
+    { id: 6, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop&w=300&h=400", playerName: "L. Messi", team: "Argentina" },
     { id: 7, isPlaced: false },
-    { id: 8, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=300", playerName: "C. Ronaldo", team: "Portugal" },
+    { id: 8, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=300&h=400", playerName: "C. Ronaldo", team: "Portugal" },
     { id: 9, isPlaced: false },
     { id: 10, isPlaced: false },
     { id: 11, isPlaced: false },
@@ -35,12 +35,12 @@ const Albums = () => {
     setStickers(
       stickers.map((sticker) => {
         if (sticker.id === id) {
-          // Soccer-themed sticker images
+          // Soccer-themed sticker images with explicit dimensions
           const soccerImages = [
-            "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=300",
-            "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=300",
-            "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop&w=300",
-            "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=300"
+            "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=300&h=400",
+            "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=300&h=400",
+            "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop&w=300&h=400",
+            "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=300&h=400"
           ];
           
           const playerNames = ["A. Martinez", "N. Williams", "J. Bellingham", "R. Lewandowski", "V. van Dijk", "T. Kroos", "K. De Bruyne"];
@@ -106,6 +106,8 @@ const Albums = () => {
                           <img 
                             src={sticker.imageUrl} 
                             alt={`${sticker.playerName} sticker`}
+                            width="300"
+                            height="400"
                             className="w-full h-full object-cover"
                           />
                           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
