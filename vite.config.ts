@@ -12,8 +12,6 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
-      // Disable automatic JSX runtime for smaller bundles
-      jsxRuntime: 'automatic',
       // Use SWC for faster compilation without unnecessary polyfills
       tsDecorators: true,
     }),
