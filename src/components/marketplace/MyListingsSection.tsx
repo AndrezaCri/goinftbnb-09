@@ -125,6 +125,8 @@ export const MyListingsSection = () => {
                       <img 
                         src={nft.image} 
                         alt={nft.name}
+                        width="400"
+                        height="400"
                         className="rounded-md object-cover w-full h-full"
                       />
                     </AspectRatio>
@@ -158,7 +160,9 @@ export const MyListingsSection = () => {
                           <div className="flex items-center justify-center mb-4">
                             <img 
                               src={nft.image} 
-                              alt={nft.name} 
+                              alt={nft.name}
+                              width="128"
+                              height="128"
                               className="w-32 h-32 rounded-md"
                             />
                           </div>
@@ -222,6 +226,8 @@ export const MyListingsSection = () => {
                       <img 
                         src={nft.image} 
                         alt={nft.name}
+                        width="400"
+                        height="400"
                         className="rounded-md object-cover w-full h-full"
                       />
                     </AspectRatio>
@@ -255,7 +261,9 @@ export const MyListingsSection = () => {
                           <div className="flex items-center justify-center mb-4">
                             <img 
                               src={nft.image} 
-                              alt={nft.name} 
+                              alt={nft.name}
+                              width="128"
+                              height="128"
                               className="w-32 h-32 rounded-md"
                             />
                           </div>
