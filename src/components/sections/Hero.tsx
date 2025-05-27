@@ -15,7 +15,7 @@ export const Hero = () => {
 
   return (
     <section className="hero-container desktop-enhanced">
-      <div className="hero-content -mt-8">
+      <div className="hero-content -mt-16">
         <h1 className="hero-title desktop-text-large">
           GoINFT
         </h1>
