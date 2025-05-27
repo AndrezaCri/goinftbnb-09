@@ -20,10 +20,3 @@ not ios_saf < 14
 not chrome < 80
 not and_chr < 80
 not samsung < 12
-
-# Support modern ES features
-supports es6-module
-supports es6-module-dynamic-import
-supports bigint
-supports optional-chaining
-supports nullish-coalescing-operator
