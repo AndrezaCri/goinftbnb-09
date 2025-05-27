@@ -12,8 +12,11 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
-      // Use SWC for faster compilation
+      // Use SWC for faster compilation with desktop optimizations
       tsDecorators: true,
+      plugins: mode === 'production' ? [
+        ["@swc/plugin-remove-console", {}]
+      ] : []
     }),
     mode === 'development' &&
     componentTagger(),
@@ -30,47 +33,47 @@ export default defineConfig(({ mode }) => ({
     minify: 'esbuild',
     cssCodeSplit: true,
     sourcemap: false,
-    chunkSizeWarningLimit: 300,
+    chunkSizeWarningLimit: 200, // Reduced for stricter bundle control
     rollupOptions: {
       output: {
         manualChunks: {
-          // Critical vendor chunk - keep small
+          // Ultra-critical vendor chunk - desktop optimized
           'vendor-core': ['react', 'react-dom'],
           'router': ['react-router-dom'],
           
-          // UI chunks by priority
+          // UI chunks by desktop priority
           'ui-critical': ['@radix-ui/react-slot', '@radix-ui/react-progress'],
           'ui-forms': ['@radix-ui/react-checkbox', '@radix-ui/react-select', '@radix-ui/react-dialog'],
-          'ui-layout': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
+          'ui-desktop': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
           'ui-feedback': ['@radix-ui/react-toast'],
           
-          // Data management
+          // Data management - desktop optimized
           'query': ['@tanstack/react-query'],
           
-          // Web3 - lazy loaded
+          // Web3 - ultra-lazy loaded for desktop
           'web3': ['ethers'],
           
-          // Icons - separate chunk for lazy loading
+          // Icons - separate chunk for desktop lazy loading
           'icons': ['lucide-react'],
           
-          // Utilities
+          // Utilities - desktop optimized
           'utils': ['clsx', 'class-variance-authority', 'tailwind-merge']
         },
         chunkFileNames: (chunkInfo) => {
           const name = chunkInfo.name || 'chunk';
-          // Use shorter hash for smaller file names
-          return `assets/js/${name}-[hash:8].js`;
+          // Desktop-optimized chunk naming
+          return `assets/js/${name}-[hash:6].js`;
         },
-        entryFileNames: 'assets/js/[name]-[hash:8].js',
+        entryFileNames: 'assets/js/[name]-[hash:6].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name || '';
           if (info.endsWith('.css')) {
-            return 'assets/css/[name]-[hash:8].[ext]';
+            return 'assets/css/[name]-[hash:6].[ext]';
           }
           if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(info)) {
-            return 'assets/img/[name]-[hash:8].[ext]';
+            return 'assets/img/[name]-[hash:6].[ext]';
           }
-          return 'assets/[name]-[hash:8].[ext]';
+          return 'assets/[name]-[hash:6].[ext]';
         }
       }
     },
@@ -91,7 +94,7 @@ export default defineConfig(({ mode }) => ({
     minifyIdentifiers: true,
     minifySyntax: true,
     minifyWhitespace: true,
-    // Remove some features for better compression
+    // Enhanced drops for desktop production
     drop: mode === 'production' ? ['console', 'debugger'] : [],
     supported: {
       'bigint': true,
@@ -114,15 +117,15 @@ export default defineConfig(({ mode }) => ({
       'react-router-dom',
       'clsx',
       'tailwind-merge',
-      // Include only critical UI components in main bundle
+      // Include critical UI components for desktop
       '@radix-ui/react-slot',
       '@radix-ui/react-progress',
-      // Force include ethers and bn.js to handle compatibility
+      // Force include ethers and bn.js for compatibility
       'ethers',
       'bn.js'
     ],
     exclude: [
-      // Lazy load these for better initial bundle size
+      // Ultra-lazy load for desktop optimization
       'lucide-react'
     ]
   },
