@@ -18,133 +18,40 @@
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     <link rel="icon" href="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" type="image/png" width="32" height="32">
     
-    <!-- Preload critical images for LCP optimization -->
-    <link rel="preload" as="image" href="/placeholder.svg" fetchpriority="high" width="300" height="300">
-    <link rel="preload" as="image" href="/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png" fetchpriority="high" width="400" height="400">
-    <link rel="preload" as="image" href="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" width="32" height="32">
+    <!-- Preload only critical above-the-fold images -->
+    <link rel="preload" as="image" href="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" fetchpriority="high" width="32" height="32">
     
-    <!-- Critical CSS inline for faster first paint -->
+    <!-- Critical CSS inline for faster first paint - optimized for mobile -->
     <style>
-      /* Critical base styles */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      
-      body {
-        font-family: Inter, system-ui, -apple-system, sans-serif;
-        line-height: 1.5;
-        font-weight: 400;
-        background-color: #000000;
-        color: #ffffff;
-        font-synthesis: none;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      #root {
-        width: 100%;
-        min-height: 100vh;
-      }
-
-      /* Critical layout styles for Hero section */
-      .hero-container {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        background-color: #000000;
-        color: #ffffff;
-      }
-
-      .hero-content {
-        flex: 1;
-        padding: 3rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .hero-title {
-        font-size: 4rem;
-        font-weight: bold;
-        line-height: 1.1;
-        margin-bottom: 1rem;
-      }
-
-      .hero-subtitle {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-
-      .hero-tagline {
-        font-size: 2rem;
-        color: #666666;
-        margin-bottom: 2rem;
-      }
-
-      .hero-buttons {
-        display: flex;
-        gap: 1rem;
-      }
-
-      .btn-primary {
-        background-color: #FFEB3B;
-        color: #000000;
-        padding: 0.5rem 1.5rem;
-        border-radius: 9999px;
-        border: none;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background-color 0.2s;
-      }
-
-      .btn-secondary {
-        color: #ffffff;
-        border: 1px solid #ffffff;
-        background: transparent;
-        padding: 0.5rem 1.5rem;
-        border-radius: 9999px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background-color 0.2s;
-      }
-
-      /* Image optimization for mobile CLS */
-      img {
-        height: auto;
-        max-width: 100%;
-      }
-
-      @media (max-width: 640px) {
-        .hero-title {
-          font-size: 2.5rem;
-        }
-        .hero-subtitle,
-        .hero-tagline {
-          font-size: 1.5rem;
-        }
-        .hero-content {
-          padding: 2rem 1rem;
-        }
-        
-        /* Mobile-specific image constraints */
-        img {
-          width: 100%;
-          height: auto;
-          object-fit: cover;
-        }
+      /* Critical base styles - compressed */
+      *{margin:0;padding:0;box-sizing:border-box}
+      body{font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.5;font-weight:400;background-color:#000;color:#fff;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+      #root{width:100%;min-height:100vh}
+      .hero-container{display:flex;flex-direction:column;min-height:100vh;background-color:#000;color:#fff}
+      .hero-content{flex:1;padding:3rem 2rem;max-width:1200px;margin:0 auto}
+      .hero-title{font-size:4rem;font-weight:bold;line-height:1.1;margin-bottom:1rem}
+      .hero-subtitle{font-size:2rem;margin-bottom:1rem}
+      .hero-tagline{font-size:2rem;color:#666;margin-bottom:2rem}
+      .hero-buttons{display:flex;gap:1rem}
+      .btn-primary{background-color:#FFEB3B;color:#000;padding:.5rem 1.5rem;border-radius:9999px;border:none;cursor:pointer;font-weight:500;transition:background-color .2s}
+      .btn-secondary{color:#fff;border:1px solid #fff;background:transparent;padding:.5rem 1.5rem;border-radius:9999px;cursor:pointer;font-weight:500;transition:background-color .2s}
+      img{height:auto;max-width:100%}
+      @media(max-width:640px){
+        .hero-title{font-size:2.5rem}
+        .hero-subtitle,.hero-tagline{font-size:1.5rem}
+        .hero-content{padding:2rem 1rem}
+        img{width:100%;height:auto;object-fit:cover}
       }
     </style>
 
-    <!-- Preload critical resources -->
+    <!-- Preload critical resources with priority -->
     <link rel="modulepreload" href="/src/main.tsx">
     <link rel="modulepreload" href="/src/App.tsx">
     
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="//cdn.gpteng.co">
     
-    <!-- Preload main CSS but don't block rendering -->
+    <!-- Preload main CSS with reduced priority -->
     <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
   </head>
@@ -152,33 +59,18 @@
   <body>
     <div id="root"></div>
     
-    <!-- Critical JavaScript inline for MetaMask detection -->
+    <!-- Inline critical MetaMask detection - compressed -->
     <script>
-      // Inline critical MetaMask detection
-      window.checkMetaMask = function() {
-        try {
-          if (window.ethereum?.isMetaMask) {
-            console.log('✅ MetaMask está instalada! 🦊');
-          } else {
-            console.log('❌ MetaMask não está instalada.');
-          }
-        } catch (error) {
-          console.log('🔍 Verificando MetaMask...');
-        }
-      };
+      window.checkMetaMask=function(){try{window.ethereum?.isMetaMask?console.log('✅ MetaMask está instalada! 🦊'):console.log('❌ MetaMask não está instalada.')}catch{console.log('🔍 Verificando MetaMask...')}};
     </script>
     
-    <!-- Defer non-critical scripts -->
+    <!-- Defer non-critical scripts with lower priority -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module" defer></script>
-    <script type="module" src="/src/main.tsx" defer></script>
+    <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Execute MetaMask check after DOM is ready -->
+    <!-- Execute MetaMask check after DOM ready -->
     <script>
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', window.checkMetaMask);
-      } else {
-        window.checkMetaMask();
-      }
+      document.readyState==='loading'?document.addEventListener('DOMContentLoaded',window.checkMetaMask):window.checkMetaMask();
     </script>
   </body>
 </html>

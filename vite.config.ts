@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -24,22 +23,41 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    target: ['es2020', 'chrome80', 'safari14'], // Specific modern browser targets
+    target: ['es2020', 'chrome80', 'safari14'],
     minify: 'esbuild',
     cssCodeSplit: true,
-    sourcemap: false, // Disable sourcemaps in production for smaller bundles
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          ui: ['@radix-ui/react-slot', '@radix-ui/react-toast'],
-          query: ['@tanstack/react-query']
+          'ui-core': ['@radix-ui/react-slot', '@radix-ui/react-toast', '@radix-ui/react-dialog'],
+          'ui-form': ['@radix-ui/react-checkbox', '@radix-ui/react-select', '@radix-ui/react-radio-group'],
+          'ui-layout': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
+          query: ['@tanstack/react-query'],
+          icons: ['lucide-react'],
+          utils: ['clsx', 'class-variance-authority', 'tailwind-merge']
         },
-        // Optimize chunk names for better caching
-        chunkFileNames: 'assets/[name]-[hash].js',
-        entryFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
+        chunkFileNames: (chunkInfo) => {
+          const name = chunkInfo.name || 'chunk';
+          return `assets/${name}-[hash:8].js`;
+        },
+        entryFileNames: 'assets/[name]-[hash:8].js',
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name || '';
+          if (info.endsWith('.css')) {
+            return 'assets/css/[name]-[hash:8].[ext]';
+          }
+          if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(info)) {
+            return 'assets/images/[name]-[hash:8].[ext]';
+          }
+          return 'assets/[name]-[hash:8].[ext]';
+        }
+      },
+      external: (id) => {
+        return id.includes('ethers') && mode === 'production';
       }
     }
   },
@@ -47,7 +65,9 @@ export default defineConfig(({ mode }) => ({
     target: 'es2020',
     legalComments: 'none',
     treeShaking: true,
-    // Use correct esbuild feature names
+    minifyIdentifiers: mode === 'production',
+    minifySyntax: true,
+    minifyWhitespace: true,
     supported: {
       'bigint': true,
       'top-level-await': true,
@@ -58,16 +78,26 @@ export default defineConfig(({ mode }) => ({
   optimizeDeps: {
     esbuildOptions: {
       target: 'es2020',
-      // Don't transform modern JS features during optimization
       supported: {
         'bigint': true,
         'top-level-await': true
       }
-    }
+    },
+    include: [
+      'react', 
+      'react-dom', 
+      'react-router-dom',
+      'lucide-react',
+      'clsx',
+      'tailwind-merge'
+    ]
   },
-  // Disable legacy polyfills completely
   define: {
-    // Remove unnecessary global polyfills
     global: 'globalThis',
+  },
+  experimental: {
+    renderBuiltUrl(filename) {
+      return { relative: true };
+    }
   }
 }));

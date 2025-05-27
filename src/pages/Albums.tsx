@@ -5,6 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 
@@ -18,14 +19,14 @@ interface StickerProps {
 
 const Albums = () => {
   const [stickers, setStickers] = useState<StickerProps[]>([
-    { id: 1, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=300&h=400", playerName: "M. Silva", team: "Brazil" },
+    { id: 1, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop", playerName: "M. Silva", team: "Brazil" },
     { id: 2, isPlaced: false },
-    { id: 3, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=300&h=400", playerName: "K. Mbappé", team: "France" },
+    { id: 3, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop", playerName: "K. Mbappé", team: "France" },
     { id: 4, isPlaced: false },
     { id: 5, isPlaced: false },
-    { id: 6, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop&w=300&h=400", playerName: "L. Messi", team: "Argentina" },
+    { id: 6, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop", playerName: "L. Messi", team: "Argentina" },
     { id: 7, isPlaced: false },
-    { id: 8, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=300&h=400", playerName: "C. Ronaldo", team: "Portugal" },
+    { id: 8, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop", playerName: "C. Ronaldo", team: "Portugal" },
     { id: 9, isPlaced: false },
     { id: 10, isPlaced: false },
     { id: 11, isPlaced: false },
@@ -36,12 +37,12 @@ const Albums = () => {
     setStickers(
       stickers.map((sticker) => {
         if (sticker.id === id) {
-          // Soccer-themed sticker images with explicit dimensions
+          // Optimized image URLs for smaller payloads
           const soccerImages = [
-            "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=300&h=400",
-            "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=300&h=400",
-            "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop&w=300&h=400",
-            "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=300&h=400"
+            "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3?auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop"
           ];
           
           const playerNames = ["A. Martinez", "N. Williams", "J. Bellingham", "R. Lewandowski", "V. van Dijk", "T. Kroos", "K. De Bruyne"];
@@ -104,14 +105,13 @@ const Albums = () => {
                     <div className="w-full h-full rounded-sm flex items-center justify-center">
                       {sticker.isPlaced ? (
                         <div className="relative w-full h-full">
-                          <img 
-                            src={sticker.imageUrl} 
+                          <OptimizedImage
+                            src={sticker.imageUrl!}
                             alt={`${sticker.playerName} sticker`}
-                            width="150"
-                            height="200"
+                            width={150}
+                            height={200}
+                            quality={60}
                             className="w-full h-full object-cover"
-                            loading="lazy"
-                            decoding="async"
                           />
                           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
                             <p className="text-white font-bold text-sm">{sticker.playerName}</p>
