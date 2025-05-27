@@ -47,15 +47,12 @@ export default defineConfig(({ mode }) => ({
     target: 'es2020',
     legalComments: 'none',
     treeShaking: true,
-    // Disable transformation of modern JS features
+    // Use correct esbuild feature names
     supported: {
       'bigint': true,
       'top-level-await': true,
       'import-meta': true,
-      'dynamic-import': true,
-      'optional-chaining': true,
-      'nullish-coalescing': true,
-      'logical-assignment': true
+      'dynamic-import': true
     }
   },
   optimizeDeps: {
