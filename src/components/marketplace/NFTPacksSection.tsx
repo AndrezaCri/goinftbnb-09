@@ -118,9 +118,11 @@ export const NFTPacksSection = () => {
                   <img 
                     src={pack.image} 
                     alt={pack.name}
-                    width="400"
-                    height="300"
+                    width="320"
+                    height="240"
                     className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </AspectRatio>
@@ -207,9 +209,11 @@ export const NFTPacksSection = () => {
                         <img 
                           src={nft.image} 
                           alt={nft.name}
-                          width="400"
-                          height="400"
+                          width="200"
+                          height="200"
                           className="rounded-md object-cover w-full h-full"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </AspectRatio>
                     </div>

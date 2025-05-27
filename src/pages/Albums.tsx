@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Progress } from "@/components/ui/progress";
@@ -106,9 +107,11 @@ const Albums = () => {
                           <img 
                             src={sticker.imageUrl} 
                             alt={`${sticker.playerName} sticker`}
-                            width="300"
-                            height="400"
+                            width="150"
+                            height="200"
                             className="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
                           />
                           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
                             <p className="text-white font-bold text-sm">{sticker.playerName}</p>

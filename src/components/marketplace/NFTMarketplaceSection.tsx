@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -174,9 +175,11 @@ export const NFTMarketplaceSection = () => {
                   <img 
                     src={nft.image} 
                     alt={nft.name}
-                    width="400"
-                    height="400"
+                    width="300"
+                    height="300"
                     className="rounded-md object-cover w-full h-full"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </AspectRatio>
               </div>
@@ -215,6 +218,8 @@ export const NFTMarketplaceSection = () => {
                           width="128"
                           height="128"
                           className="w-32 h-32 rounded-md"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                       <div className="space-y-2 text-sm">

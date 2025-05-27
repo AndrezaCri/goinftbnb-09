@@ -16,12 +16,12 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-    <link rel="icon" href="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" type="image/png">
+    <link rel="icon" href="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" type="image/png" width="32" height="32">
     
     <!-- Preload critical images for LCP optimization -->
-    <link rel="preload" as="image" href="/placeholder.svg" fetchpriority="high">
-    <link rel="preload" as="image" href="/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png" fetchpriority="high">
-    <link rel="preload" as="image" href="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png">
+    <link rel="preload" as="image" href="/placeholder.svg" fetchpriority="high" width="300" height="300">
+    <link rel="preload" as="image" href="/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png" fetchpriority="high" width="400" height="400">
+    <link rel="preload" as="image" href="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" width="32" height="32">
     
     <!-- Critical CSS inline for faster first paint -->
     <style>
@@ -110,6 +110,12 @@
         transition: background-color 0.2s;
       }
 
+      /* Image optimization for mobile CLS */
+      img {
+        height: auto;
+        max-width: 100%;
+      }
+
       @media (max-width: 640px) {
         .hero-title {
           font-size: 2.5rem;
@@ -120,6 +126,13 @@
         }
         .hero-content {
           padding: 2rem 1rem;
+        }
+        
+        /* Mobile-specific image constraints */
+        img {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
         }
       }
     </style>
