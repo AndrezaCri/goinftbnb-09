@@ -17,19 +17,24 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   alt,
   width,
   height,
-  quality = 75,
+  quality = 60, // Reduced default quality for better performance
   priority = false,
-  placeholder = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PC9zdmc+",
+  placeholder = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMjIyIi8+PC9zdmc+",
   className,
   ...props
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  // Optimize image URL for smaller payloads
-  const optimizedSrc = src.includes('unsplash.com') 
-    ? `${src}&w=${width}&h=${height}&q=${quality}&fm=webp&fit=crop`
-    : src;
+  // Create WebP version with aggressive optimization
+  const createOptimizedSrc = (originalSrc: string) => {
+    if (originalSrc.includes('unsplash.com')) {
+      return `${originalSrc}&w=${width}&h=${height}&q=${quality}&fm=webp&fit=crop&auto=format`;
+    }
+    return originalSrc;
+  };
+
+  const optimizedSrc = createOptimizedSrc(src);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -44,40 +49,48 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       className={cn("relative overflow-hidden", className)}
       style={{ width, height }}
     >
-      {/* Placeholder */}
+      {/* Ultra-light placeholder */}
       {!isLoaded && !hasError && (
-        <img
-          src={placeholder}
-          alt=""
-          width={width}
-          height={height}
-          className="absolute inset-0 w-full h-full object-cover blur-sm"
+        <div
+          className="absolute inset-0 bg-gray-800 animate-pulse"
+          style={{
+            backgroundImage: `url("${placeholder}")`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
           aria-hidden="true"
         />
       )}
       
-      {/* Main image */}
-      <img
-        src={optimizedSrc}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-        onLoad={handleLoad}
-        onError={handleError}
-        className={cn(
-          "w-full h-full object-cover transition-opacity duration-300",
-          isLoaded ? "opacity-100" : "opacity-0",
-          hasError && "hidden"
-        )}
-        {...props}
-      />
+      {/* Main optimized image with WebP support */}
+      <picture>
+        <source 
+          srcSet={optimizedSrc} 
+          type="image/webp"
+        />
+        <img
+          src={optimizedSrc}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          fetchPriority={priority ? "high" : "low"}
+          onLoad={handleLoad}
+          onError={handleError}
+          className={cn(
+            "w-full h-full object-cover transition-opacity duration-200",
+            isLoaded ? "opacity-100" : "opacity-0",
+            hasError && "hidden"
+          )}
+          {...props}
+        />
+      </picture>
       
-      {/* Error fallback */}
+      {/* Minimal error fallback */}
       {hasError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-500">
-          <span className="text-sm">Image not available</span>
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-800 text-gray-400">
+          <span className="text-xs">⚠</span>
         </div>
       )}
     </div>

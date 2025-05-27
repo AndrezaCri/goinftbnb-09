@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -12,7 +11,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
-      // Use SWC for faster compilation without unnecessary polyfills
+      // Use SWC for faster compilation
       tsDecorators: true,
     }),
     mode === 'development' &&
@@ -30,38 +29,52 @@ export default defineConfig(({ mode }) => ({
     minify: 'esbuild',
     cssCodeSplit: true,
     sourcemap: false,
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 300,
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          'ui-critical': ['@radix-ui/react-slot'],
-          'ui-secondary': ['@radix-ui/react-toast', '@radix-ui/react-dialog', '@radix-ui/react-checkbox', '@radix-ui/react-select'],
+          // Critical vendor chunk - keep small
+          'vendor-core': ['react', 'react-dom'],
+          'router': ['react-router-dom'],
+          
+          // UI chunks by priority
+          'ui-critical': ['@radix-ui/react-slot', '@radix-ui/react-progress'],
+          'ui-forms': ['@radix-ui/react-checkbox', '@radix-ui/react-select', '@radix-ui/react-dialog'],
           'ui-layout': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
-          query: ['@tanstack/react-query'],
-          web3: ['ethers'],
-          icons: ['lucide-react'],
-          utils: ['clsx', 'class-variance-authority', 'tailwind-merge']
+          'ui-feedback': ['@radix-ui/react-toast'],
+          
+          // Data management
+          'query': ['@tanstack/react-query'],
+          
+          // Web3 - lazy loaded
+          'web3': ['ethers'],
+          
+          // Icons - separate chunk for lazy loading
+          'icons': ['lucide-react'],
+          
+          // Utilities
+          'utils': ['clsx', 'class-variance-authority', 'tailwind-merge']
         },
         chunkFileNames: (chunkInfo) => {
           const name = chunkInfo.name || 'chunk';
-          return `assets/${name}-[hash:6].js`;
+          // Use shorter hash for smaller file names
+          return `assets/js/${name}-[hash:8].js`;
         },
-        entryFileNames: 'assets/[name]-[hash:6].js',
+        entryFileNames: 'assets/js/[name]-[hash:8].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name || '';
           if (info.endsWith('.css')) {
-            return 'assets/css/[name]-[hash:6].[ext]';
+            return 'assets/css/[name]-[hash:8].[ext]';
           }
           if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(info)) {
-            return 'assets/images/[name]-[hash:6].[ext]';
+            return 'assets/img/[name]-[hash:8].[ext]';
           }
-          return 'assets/[name]-[hash:6].[ext]';
+          return 'assets/[name]-[hash:8].[ext]';
         }
       },
       external: (id) => {
-        return id.includes('ethers') && mode === 'production';
+        // Don't externalize in development for easier debugging
+        return false;
       }
     },
     commonjsOptions: {
@@ -74,9 +87,11 @@ export default defineConfig(({ mode }) => ({
     target: 'es2020',
     legalComments: 'none',
     treeShaking: true,
-    minifyIdentifiers: mode === 'production',
+    minifyIdentifiers: true,
     minifySyntax: true,
     minifyWhitespace: true,
+    // Remove some features for better compression
+    drop: mode === 'production' ? ['console', 'debugger'] : [],
     supported: {
       'bigint': true,
       'top-level-await': true,
@@ -96,13 +111,18 @@ export default defineConfig(({ mode }) => ({
       'react', 
       'react-dom', 
       'react-router-dom',
-      'lucide-react',
       'clsx',
       'tailwind-merge',
+      // Include only critical UI components in main bundle
+      '@radix-ui/react-slot',
+      '@radix-ui/react-progress'
+    ],
+    exclude: [
+      // Lazy load these for better initial bundle size
+      'lucide-react',
       'ethers',
       'bn.js'
-    ],
-    exclude: []
+    ]
   },
   define: {
     global: 'globalThis',

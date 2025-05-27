@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AlbumProvider } from "@/contexts/AlbumContext";
 import Index from "./pages/Index";
 
-// Lazy load non-critical pages
+// Lazy load non-critical pages with better chunking
 const Albums = lazy(() => import("./pages/Albums"));
 const AlbumLab = lazy(() => import("./pages/AlbumLab"));
 const Community = lazy(() => import("./pages/Community"));
@@ -16,22 +16,24 @@ const Challenges = lazy(() => import("./pages/Challenges"));
 const Marketplace = lazy(() => import("./pages/Marketplace"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Create a new QueryClient instance with optimized defaults
+// Optimized QueryClient with aggressive caching
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      gcTime: 1000 * 60 * 10, // 10 minutes
+      staleTime: 1000 * 60 * 10, // 10 minutes
+      gcTime: 1000 * 60 * 30, // 30 minutes
+      retry: 1, // Reduce retries for faster failure
+      refetchOnWindowFocus: false, // Reduce unnecessary requests
     },
   },
 });
 
-// Loading component for Suspense
-const PageLoader = () => (
+// Ultra-fast loading component
+const PageLoader = React.memo(() => (
   <div className="min-h-screen bg-[#121212] flex items-center justify-center">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FFEB3B]"></div>
+    <div className="w-8 h-8 border-3 border-gray-700 border-t-[#FFEB3B] rounded-full animate-spin"></div>
   </div>
-);
+));
 
 const App = () => {
   return (
@@ -50,7 +52,6 @@ const App = () => {
                   <Route path="/community" element={<Community />} />
                   <Route path="/challenges" element={<Challenges />} />
                   <Route path="/marketplace" element={<Marketplace />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
