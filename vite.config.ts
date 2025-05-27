@@ -21,6 +21,8 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Fix ethers/bn.js compatibility issue
+      "bn.js": path.resolve(__dirname, "./node_modules/bn.js/lib/bn.js"),
     },
   },
   build: {
@@ -61,6 +63,11 @@ export default defineConfig(({ mode }) => ({
       external: (id) => {
         return id.includes('ethers') && mode === 'production';
       }
+    },
+    commonjsOptions: {
+      // Handle ethers and its dependencies
+      include: [/node_modules/],
+      transformMixedEsModules: true,
     }
   },
   esbuild: {
@@ -91,9 +98,11 @@ export default defineConfig(({ mode }) => ({
       'react-router-dom',
       'lucide-react',
       'clsx',
-      'tailwind-merge'
+      'tailwind-merge',
+      'ethers',
+      'bn.js'
     ],
-    exclude: ['ethers']
+    exclude: []
   },
   define: {
     global: 'globalThis',
