@@ -74,9 +74,7 @@ export default defineConfig(({ mode }) => ({
       'bigint': true,
       'top-level-await': true,
       'import-meta': true,
-      'dynamic-import': true,
-      'optional-chaining': true,
-      'nullish-coalescing': true
+      'dynamic-import': true
     }
   },
   optimizeDeps: {
@@ -84,9 +82,7 @@ export default defineConfig(({ mode }) => ({
       target: 'es2020',
       supported: {
         'bigint': true,
-        'top-level-await': true,
-        'optional-chaining': true,
-        'nullish-coalescing': true
+        'top-level-await': true
       }
     },
     include: [
