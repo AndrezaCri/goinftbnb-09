@@ -17,25 +17,36 @@
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     <link rel="icon" href="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png" type="image/png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/main.tsx" as="script" crossorigin>
+    <link rel="modulepreload" href="/src/App.tsx">
   </head>
 
   <body>
     <div id="root"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    
+    <!-- Use module scripts for modern browsers -->
     <script type="module" src="/src/main.tsx"></script>
     
     <!-- Script para detectar se o MetaMask está instalada (logging only, no alerts) -->
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        // Verifica se o ethereum está disponível (MetaMask injetado)
-        if (typeof window.ethereum !== 'undefined') {
+    <script type="module">
+      // Use modern JavaScript syntax without transpilation
+      const checkMetaMask = () => {
+        if (window.ethereum?.isMetaMask) {
           console.log('✅ MetaMask está instalada! 🦊');
         } else {
           console.log('❌ MetaMask não está instalada.');
-          // Removido o alerta automático aqui
         }
-      });
+      };
+      
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkMetaMask);
+      } else {
+        checkMetaMask();
+      }
     </script>
   </body>
 </html>
