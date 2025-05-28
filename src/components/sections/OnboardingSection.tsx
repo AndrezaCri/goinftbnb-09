@@ -1,18 +1,13 @@
-
 import React, { useState } from "react";
 import { Wallet, Plus, ArrowLeftRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MetaMaskInstallDialog } from "@/components/dialogs/MetaMaskInstallDialog";
-
 export const OnboardingSection = () => {
   const [showMetaMaskDialog, setShowMetaMaskDialog] = useState(false);
-
   const handleCreateWallet = () => {
     setShowMetaMaskDialog(true);
   };
-
-  return (
-    <section className="bg-[#111] p-8 rounded-3xl border border-[#333] max-sm:p-4">
+  return <section className="bg-[#111] p-8 rounded-3xl border border-[#333] max-sm:p-4">
       <h2 className="text-2xl font-bold mb-6">Welcome to GoINFT</h2>
       
       <p className="text-gray-300 mb-8">
@@ -47,25 +42,14 @@ export const OnboardingSection = () => {
       </div>
       
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button 
-          className="bg-[#FFEB3B] text-black hover:bg-[#FFD700] px-8 py-6 h-auto text-lg"
-          onClick={() => console.log("Connect wallet")}
-        >
+        <Button className="bg-[#FFEB3B] text-black hover:bg-[#FFD700] px-8 py-6 h-auto text-lg" onClick={() => console.log("Connect wallet")}>
           <Wallet className="mr-2 h-5 w-5" /> Connect Wallet
         </Button>
-        <Button 
-          variant="outline" 
-          className="border-[#B300FF] text-[#B300FF] hover:bg-[#B300FF]/10 bg-transparent px-8 py-6 h-auto text-lg"
-          onClick={handleCreateWallet}
-        >
+        <Button variant="outline" onClick={handleCreateWallet} className="border-[ardd\xF3sia-50] px-8 py-6 h-auto text-lg bg-zinc-800 hover:bg-zinc-700 text-slate-50">
           <Plus className="mr-2 h-5 w-5" /> Create Wallet
         </Button>
       </div>
 
-      <MetaMaskInstallDialog 
-        open={showMetaMaskDialog} 
-        onOpenChange={setShowMetaMaskDialog} 
-      />
-    </section>
-  );
+      <MetaMaskInstallDialog open={showMetaMaskDialog} onOpenChange={setShowMetaMaskDialog} />
+    </section>;
 };
