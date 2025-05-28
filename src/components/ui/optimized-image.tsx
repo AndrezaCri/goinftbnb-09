@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 
 interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -10,6 +10,7 @@ interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> 
   quality?: number;
   priority?: boolean;
   placeholder?: string;
+  responsive?: boolean;
 }
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -17,59 +18,82 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   alt,
   width,
   height,
-  quality = 60, // Reduced default quality for better performance
+  quality = 75, // Increased default quality for desktop
   priority = false,
   placeholder = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMjIyIi8+PC9zdmc+",
+  responsive = true,
   className,
   ...props
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  // Create WebP version with aggressive optimization
-  const createOptimizedSrc = (originalSrc: string) => {
+  // Create optimized src with multiple formats and sizes
+  const createOptimizedSrc = useCallback((originalSrc: string) => {
     if (originalSrc.includes('unsplash.com')) {
-      return `${originalSrc}&w=${width}&h=${height}&q=${quality}&fm=webp&fit=crop&auto=format`;
+      const baseParams = `w=${width}&h=${height}&q=${quality}&fit=crop&auto=format`;
+      return {
+        webp: `${originalSrc}&${baseParams}&fm=webp`,
+        avif: `${originalSrc}&${baseParams}&fm=avif`,
+        fallback: `${originalSrc}&${baseParams}&fm=jpg`
+      };
     }
-    return originalSrc;
-  };
+    return {
+      webp: originalSrc,
+      avif: originalSrc,
+      fallback: originalSrc
+    };
+  }, [width, height, quality]);
 
-  const optimizedSrc = createOptimizedSrc(src);
+  const optimizedSrcs = createOptimizedSrc(src);
 
-  const handleLoad = () => {
+  const handleLoad = useCallback(() => {
     setIsLoaded(true);
-  };
+  }, []);
 
-  const handleError = () => {
+  const handleError = useCallback(() => {
     setHasError(true);
-  };
+  }, []);
+
+  // Create responsive srcSet for different screen densities
+  const createSrcSet = useCallback((baseSrc: string) => {
+    if (!responsive) return undefined;
+    return `${baseSrc} 1x, ${baseSrc.replace(`w=${width}`, `w=${width * 2}`)} 2x`;
+  }, [width, responsive]);
 
   return (
     <div 
       className={cn("relative overflow-hidden", className)}
-      style={{ width, height }}
+      style={{ width, height, aspectRatio: `${width}/${height}` }}
     >
-      {/* Ultra-light placeholder */}
+      {/* Enhanced placeholder with blur effect */}
       {!isLoaded && !hasError && (
         <div
           className="absolute inset-0 bg-gray-800 animate-pulse"
           style={{
             backgroundImage: `url("${placeholder}")`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            filter: 'blur(5px)',
+            transform: 'scale(1.1)'
           }}
           aria-hidden="true"
         />
       )}
       
-      {/* Main optimized image with WebP support */}
+      {/* Advanced picture element with multiple formats */}
       <picture>
         <source 
-          srcSet={optimizedSrc} 
+          srcSet={createSrcSet(optimizedSrcs.avif)}
+          type="image/avif"
+        />
+        <source 
+          srcSet={createSrcSet(optimizedSrcs.webp)}
           type="image/webp"
         />
         <img
-          src={optimizedSrc}
+          src={optimizedSrcs.fallback}
+          srcSet={createSrcSet(optimizedSrcs.fallback)}
           alt={alt}
           width={width}
           height={height}
@@ -79,18 +103,26 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           onLoad={handleLoad}
           onError={handleError}
           className={cn(
-            "w-full h-full object-cover transition-opacity duration-200",
-            isLoaded ? "opacity-100" : "opacity-0",
+            "w-full h-full object-cover transition-all duration-300 ease-out",
+            isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105",
             hasError && "hidden"
           )}
+          style={{
+            imageRendering: quality > 80 ? 'crisp-edges' : 'auto',
+            backfaceVisibility: 'hidden',
+            transform: 'translateZ(0)'
+          }}
           {...props}
         />
       </picture>
       
-      {/* Minimal error fallback */}
+      {/* Enhanced error fallback */}
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-800 text-gray-400">
-          <span className="text-xs">⚠</span>
+          <div className="text-center">
+            <div className="text-2xl mb-2">⚠</div>
+            <div className="text-xs">Image failed</div>
+          </div>
         </div>
       )}
     </div>

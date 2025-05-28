@@ -55,7 +55,7 @@ export const OnboardingSection = () => {
         </Button>
         <Button 
           variant="outline" 
-          className="border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10 px-8 py-6 h-auto text-lg"
+          className="border-[#B300FF] text-[#B300FF] hover:bg-[#B300FF]/10 bg-transparent px-8 py-6 h-auto text-lg"
           onClick={handleCreateWallet}
         >
           <Plus className="mr-2 h-5 w-5" /> Create Wallet
