@@ -37,13 +37,46 @@ const AlbumLab = () => {
   const [loading, setLoading] = useState(false);
   const [stickerCategory, setStickerCategory] = useState("sports");
 
-  const handleGenerateSticker = () => {
-    if (!aiPrompt.trim()) {
-      toast.error("Please enter an AI prompt first");
-      return;
-    }
+  const handleGenerateSticker = async () => {
+  if (!aiPrompt.trim()) {
+    toast.error("Please enter an AI prompt first");
+    return;
+  }
 
     setLoading(true);
+    try {
+    const enhancedPrompt = `${aiPrompt} - style: ${stickerCategory}, sticker design`;
+
+    const response = await fetch("https://api.openai.com/v1/images/generations", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "dall-e-3", // ou "dall-e-2" se preferir
+        prompt: enhancedPrompt,
+        n: 1,
+        size: "1024x1024" // ou "512x512" para versões menores
+      })
+    });
+
+    const data = await response.json();
+
+    if (data?.data?.[0]?.url) {
+      setGeneratedStickers(prev => [...prev, data.data[0].url]);
+      toast.success("Sticker generated successfully!");
+    } else {
+      toast.error("Failed to generate image");
+      console.error(data);
+    }
+  } catch (error) {
+    toast.error("Error calling OpenAI API");
+    console.error("OpenAI error", error);
+  } finally {
+    setLoading(false);
+  }
+
     
     // Simulate AI generation
     setTimeout(() => {
