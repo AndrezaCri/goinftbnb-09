@@ -10,10 +10,16 @@ export const OnboardingSection = () => {
     setShowMetaMaskDialog(true);
   };
 
-  // Scroll to top when dialog opens
+  // Scroll to dialog when it opens
   useEffect(() => {
     if (showMetaMaskDialog) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Wait a bit for the dialog to render, then scroll to it
+      setTimeout(() => {
+        const dialogElement = document.querySelector('[role="dialog"]');
+        if (dialogElement) {
+          dialogElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
   }, [showMetaMaskDialog]);
 
