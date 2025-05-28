@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Wallet, Plus, ArrowLeftRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MetaMaskInstallDialog } from "@/components/dialogs/MetaMaskInstallDialog";
+
 export const OnboardingSection = () => {
   const [showMetaMaskDialog, setShowMetaMaskDialog] = useState(false);
+  
   const handleCreateWallet = () => {
     setShowMetaMaskDialog(true);
   };
-  return <section className="bg-[#111] p-8 rounded-3xl border border-[#333] max-sm:p-4">
+
+  // Scroll to top when dialog opens
+  useEffect(() => {
+    if (showMetaMaskDialog) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [showMetaMaskDialog]);
+
+  return (
+    <section className="bg-[#111] p-8 rounded-3xl border border-[#333] max-sm:p-4">
       <h2 className="text-2xl font-bold mb-6">Welcome to GoINFT</h2>
       
       <p className="text-gray-300 mb-8">
@@ -51,5 +62,6 @@ export const OnboardingSection = () => {
       </div>
 
       <MetaMaskInstallDialog open={showMetaMaskDialog} onOpenChange={setShowMetaMaskDialog} />
-    </section>;
+    </section>
+  );
 };
