@@ -30,16 +30,16 @@ export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDia
       <DialogContent className="sm:max-w-md bg-[#0D0D0D] border-[#333] text-white">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-white mb-4">
-            🦊 Como criar sua carteira MetaMask
+            🦊 How to Create Your MetaMask Wallet
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4 text-[#E0E0E0]">
           <div className="space-y-3 text-sm leading-relaxed">
             <div>
-              <span className="font-semibold text-white">1. Instale a MetaMask:</span>
+              <span className="font-semibold text-white">1. Install MetaMask:</span>
               <br />
-              Acesse{" "}
+              Go to{" "}
               <a 
                 href="https://metamask.io/download" 
                 target="_blank" 
@@ -48,37 +48,37 @@ export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDia
               >
                 metamask.io/download
               </a>
-              {" "}e instale a extensão do navegador ou o app no seu celular.
+              {" "}and install the browser extension or mobile app.
             </div>
             
             <div>
-              <span className="font-semibold text-white">2. Crie uma nova carteira:</span>
+              <span className="font-semibold text-white">2. Create a new wallet:</span>
               <br />
-              Ao abrir o app/extensão, clique em <strong>"Criar uma nova carteira"</strong>.
+              When you open the app/extension, click <strong>"Create a new wallet"</strong>.
             </div>
             
             <div>
-              <span className="font-semibold text-white">3. Defina uma senha forte:</span>
+              <span className="font-semibold text-white">3. Set a strong password:</span>
               <br />
-              Essa senha será usada localmente. Evite senhas fracas.
+              This password will be used locally. Avoid weak passwords.
             </div>
             
             <div>
-              <span className="font-semibold text-white">4. Anote a sua frase secreta (Seed Phrase):</span>
+              <span className="font-semibold text-white">4. Write down your secret phrase (Seed Phrase):</span>
               <br />
-              Essa frase de 12 palavras é sua chave de recuperação. <strong>Nunca compartilhe. Anote em local seguro.</strong>
+              This 12-word phrase is your recovery key. <strong>Never share it. Write it down in a safe place.</strong>
             </div>
             
             <div>
-              <span className="font-semibold text-white">5. Confirme a frase secreta:</span>
+              <span className="font-semibold text-white">5. Confirm the secret phrase:</span>
               <br />
-              Clique nas palavras na ordem correta para confirmar.
+              Click on the words in the correct order to confirm.
             </div>
             
             <div>
-              <span className="font-semibold text-white">6. Tudo certo!</span>
+              <span className="font-semibold text-white">6. All set!</span>
               <br />
-              Agora você tem uma carteira Web3 pronta para usar no GoINft.
+              Now you have a Web3 wallet ready to use on GoINFT.
             </div>
           </div>
           
@@ -88,7 +88,7 @@ export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDia
               className="w-full bg-[#FFEB3B] text-black hover:bg-[#FFD700] transition-colors font-medium"
             >
               <ExternalLink className="h-4 w-4 mr-2" />
-              Criar conta MetaMask
+              Create MetaMask Account
             </Button>
             
             <Button
@@ -96,7 +96,7 @@ export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDia
               className="w-full bg-[#0D0D0D] text-gray-400 hover:bg-[#1A1A1A] border border-[#333]"
             >
               <X className="h-4 w-4 mr-2 text-red-500" />
-              Cancelar
+              Cancel
             </Button>
           </div>
         </div>
