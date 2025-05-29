@@ -19,7 +19,7 @@ export const Hero = () => {
         <h1 className="hero-title desktop-text-large">
           GoINFT
         </h1>
-        <div className="hero-subtitle">Football NFT Stickers</div>
+        <div className="hero-subtitle font-medium text-[#e0e0e0]">Football NFT Stickers</div>
         <div className="hero-tagline">
           on BNB Chain
         </div>
