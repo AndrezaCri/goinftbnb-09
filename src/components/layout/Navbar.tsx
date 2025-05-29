@@ -5,6 +5,7 @@ import { conectarCarteira, verificarCarteiraConectada, isMetaMaskInstalled, veri
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { MetaMaskInstallDialog } from "@/components/dialogs/MetaMaskInstallDialog";
+import { ResponsiveLogo } from "@/components/ui/responsive-logo";
 
 export const Navbar = () => {
   const [enderecoCarteira, setEnderecoCarteira] = useState<string | null>(null);
@@ -105,7 +106,7 @@ export const Navbar = () => {
     <>
       <nav className="flex justify-between items-center px-8 py-2 max-sm:px-4">
         <Link to="/">
-          <img 
+          <ResponsiveLogo 
             src="/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png" 
             alt="GoINFT Logo" 
             className="h-[150px] w-auto" 
