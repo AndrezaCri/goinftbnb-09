@@ -39,7 +39,7 @@ export const Footer = () => {
           <DialogTrigger asChild>
             <Button variant="outline" className="flex items-center gap-2">
               <Info size={16} />
-              Sobre o GoINFT
+              About GoINFT
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-black text-white border-gray-800 max-w-2xl max-h-[80vh]">
@@ -51,38 +51,38 @@ export const Footer = () => {
             <ScrollArea ref={scrollAreaRef} className="h-[60vh] pr-4">
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-[#FFEB3B]">Objetivo</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-[#FFEB3B]">Mission</h3>
                   <p className="text-gray-300">
-                    O GoINFT é uma plataforma revolucionária que combina a paixão pelo futebol com a inovação da tecnologia blockchain. 
-                    Nosso objetivo é criar um ecossistema completo para colecionadores de NFTs de futebol.
+                    GoINFT is a revolutionary platform that combines the passion for football with blockchain technology innovation. 
+                    Our goal is to create a complete ecosystem for football NFT collectors.
                   </p>
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-[#FFEB3B]">O que fazemos</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-[#FFEB3B]">What we do</h3>
                   <ul className="space-y-2 text-gray-300">
-                    <li>• <strong>Colecione:</strong> Adquira figurinhas NFT únicas de jogadores de futebol</li>
-                    <li>• <strong>Troque:</strong> Negocie suas cartas com outros colecionadores</li>
-                    <li>• <strong>Complete Álbuns:</strong> Monte coleções completas e ganhe recompensas</li>
-                    <li>• <strong>Marketplace:</strong> Compre e venda NFTs em nosso mercado descentralizado</li>
-                    <li>• <strong>Desafios:</strong> Participe de competições e eventos especiais</li>
-                    <li>• <strong>Comunidade:</strong> Conecte-se com outros fãs de futebol e colecionadores</li>
+                    <li>• <strong>Collect:</strong> Acquire unique football player NFT stickers</li>
+                    <li>• <strong>Trade:</strong> Exchange your cards with other collectors</li>
+                    <li>• <strong>Complete Albums:</strong> Build complete collections and earn rewards</li>
+                    <li>• <strong>Marketplace:</strong> Buy and sell NFTs in our decentralized market</li>
+                    <li>• <strong>Challenges:</strong> Participate in competitions and special events</li>
+                    <li>• <strong>Community:</strong> Connect with other football fans and collectors</li>
                   </ul>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-[#FFEB3B]">Tecnologia</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-[#FFEB3B]">Technology</h3>
                   <p className="text-gray-300">
-                    Construído na BNB Chain para transações rápidas e econômicas, com integração MetaMask 
-                    para uma experiência segura e descentralizada.
+                    Built on BNB Chain for fast and economical transactions, with MetaMask integration 
+                    for a secure and decentralized experience.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-[#FFEB3B]">Parceiros</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-[#FFEB3B]">Partners</h3>
                   <p className="text-gray-300">
-                    Confiado por BNB Chain, Binance e MetaMask, garantindo segurança e qualidade 
-                    em todas as transações.
+                    Trusted by BNB Chain, Binance and MetaMask, ensuring security and quality 
+                    in all transactions.
                   </p>
                 </div>
               </div>
