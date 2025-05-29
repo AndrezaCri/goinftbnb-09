@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -91,16 +90,14 @@ const Community = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {currentAlbums.map((album) => (
             <Card key={album.id} className="bg-[#111] border-[#333] text-white overflow-hidden hover:border-green-500 transition-all">
-              <div className="relative">
+              <div className="relative bg-gray-800">
                 <AspectRatio ratio={1 / 1}>
                   <img
                     src={album.imageUrl}
                     alt={album.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     style={{ 
-                      objectPosition: 'center',
-                      maxWidth: '100%',
-                      maxHeight: '100%'
+                      objectPosition: 'center'
                     }}
                   />
                 </AspectRatio>
