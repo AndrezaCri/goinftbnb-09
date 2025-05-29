@@ -23,7 +23,7 @@ export const TrustedPartners = () => {
               <img 
                 src={partner.src} 
                 alt={partner.name}
-                className="h-8 w-8 object-contain"
+                className="h-12 w-12 object-contain"
               />
             ) : (
               partner.name
