@@ -1,8 +1,7 @@
-
 import React from "react";
 
 const partners = [
-  { name: "BNB Chain", type: "text" },
+  { name: "BNB Chain", type: "logo", src: "/lovable-uploads/b106c9dd-0f1b-480f-9873-a7c888dc9c44.png" },
   { name: "Binance", type: "logo", src: "/lovable-uploads/9760dfd8-0775-48ba-8fc6-859c8dfd1323.png" },
   { name: "MetaMask", type: "text" },
   { name: "Trust Wallet", type: "text" },
