@@ -96,7 +96,7 @@ const Community = () => {
                   <img
                     src={album.imageUrl}
                     alt={album.title}
-                    className="object-cover w-full h-full"
+                    className="object-cover w-full h-full object-center"
                   />
                 </AspectRatio>
               </div>
