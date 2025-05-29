@@ -15,7 +15,7 @@ const initialAlbums = [
     title: "World Cup Legends",
     creator: "SoccerFan99",
     createdAt: "2025-05-01",
-    imageUrl: "https://picsum.photos/seed/soccer1/400/400",
+    imageUrl: "/lovable-uploads/dbf632e2-cd04-465f-ae41-1200d71dd6bd.png",
     description: "Collection of the greatest World Cup moments in history",
     upvotes: 124,
     downvotes: 8,
