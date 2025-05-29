@@ -15,7 +15,7 @@ export const Hero = () => {
 
   return (
     <section className="hero-container desktop-enhanced">
-      <div className="hero-content -mt-16">
+      <div className="hero-content -mt-8 sm:-mt-12 md:-mt-16">
         <h1 className="hero-title desktop-text-large">
           GoINFT
         </h1>
@@ -23,10 +23,10 @@ export const Hero = () => {
         <div className="hero-tagline">
           on BNB Chain
         </div>
-        <div className="hero-buttons">
+        <div className="hero-buttons mt-8 mb-8 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center w-full px-4 sm:px-0">
           <button 
             onClick={handleCollectClick}
-            className="btn-primary"
+            className="btn-primary w-full sm:w-auto min-w-[160px] px-8 py-4 text-lg font-semibold"
             type="button"
             aria-label="Start collecting NFT stickers"
           >
@@ -34,7 +34,7 @@ export const Hero = () => {
           </button>
           <button 
             onClick={handleTradeClick}
-            className="btn-secondary"
+            className="btn-secondary w-full sm:w-auto min-w-[160px] px-8 py-4 text-lg font-semibold"
             type="button"
             aria-label="Start trading NFT stickers"
           >
