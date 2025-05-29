@@ -37,7 +37,10 @@ export const Footer = () => {
       <div className="max-w-6xl mx-auto px-8 flex justify-center">
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline" className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              className="bg-[#111] border-[#333] text-white hover:bg-[#222] hover:border-[#FFEB3B] flex items-center gap-2 transition-colors"
+            >
               <Info size={16} />
               About GoINFT
             </Button>
