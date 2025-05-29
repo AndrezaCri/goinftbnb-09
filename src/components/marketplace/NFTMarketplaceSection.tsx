@@ -157,6 +157,7 @@ export const NFTMarketplaceSection = () => {
             key={collection}
             variant={selectedCollection === collection ? "default" : "outline"}
             className="cursor-pointer hover:bg-[#333] transition-colors"
+            style={{ color: '#ffeb3c', borderColor: '#ffeb3c' }}
             onClick={() => handleCollectionFilter(collection)}
           >
             {collection}
