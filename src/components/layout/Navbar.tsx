@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Wallet, BookOpen, UsersRound, Trophy, DollarSign, LogOut, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -124,35 +123,35 @@ export const Navbar = () => {
   const MobileMenuContent = () => (
     <div className="flex flex-col space-y-4 p-6 min-h-[400px]">
       <DrawerClose asChild>
-        <Link to="/" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
+        <Link to="/" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors" style={{ color: '#e0e0e0' }}>
           Home
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/albums" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
+        <Link to="/albums" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors" style={{ color: '#e0e0e0' }}>
           Albums
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/album-lab" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
+        <Link to="/album-lab" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors" style={{ color: '#e0e0e0' }}>
           <BookOpen className="h-5 w-5" />
           <span>Lab</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/community" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
+        <Link to="/community" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors" style={{ color: '#e0e0e0' }}>
           <UsersRound className="h-5 w-5" />
           <span>Community</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/challenges" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
+        <Link to="/challenges" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors" style={{ color: '#e0e0e0' }}>
           <Trophy className="h-5 w-5" />
           <span>Challenges</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/marketplace" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
+        <Link to="/marketplace" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors" style={{ color: '#e0e0e0' }}>
           Marketplace
         </Link>
       </DrawerClose>
