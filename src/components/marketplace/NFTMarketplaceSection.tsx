@@ -155,7 +155,7 @@ export const NFTMarketplaceSection = () => {
           <Badge 
             key={collection}
             variant={selectedCollection === collection ? "default" : "outline"}
-            className="cursor-pointer hover:bg-[#333] transition-colors text-white border-white"
+            className="cursor-pointer hover:bg-[#333] transition-colors text-white border-[#333]"
             onClick={() => handleCollectionFilter(collection)}
           >
             {collection}
