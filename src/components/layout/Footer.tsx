@@ -19,6 +19,19 @@ export const Footer = () => {
     }
   }, [isOpen]);
 
+  // Scroll to dialog when it opens
+  useEffect(() => {
+    if (isOpen) {
+      // Wait a bit for the dialog to render, then scroll to it
+      setTimeout(() => {
+        const dialogElement = document.querySelector('[role="dialog"]');
+        if (dialogElement) {
+          dialogElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [isOpen]);
+
   return (
     <footer className="bg-black text-white py-6 border-t border-gray-800">
       <div className="max-w-6xl mx-auto px-8 flex justify-center">
