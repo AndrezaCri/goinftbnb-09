@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Wallet, BookOpen, UsersRound, Trophy, DollarSign, LogOut, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -11,6 +12,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -113,73 +115,91 @@ export const Navbar = () => {
     return `${endereco.substring(0, 6)}...${endereco.substring(endereco.length - 4)}`;
   };
 
+  // Debug logs para o menu mobile
+  const handleMobileMenuToggle = (open: boolean) => {
+    console.log('Menu mobile toggle:', open);
+    setMobileMenuOpen(open);
+  };
+
   const MobileMenuContent = () => (
-    <div className="flex flex-col space-y-4 p-4">
+    <div className="flex flex-col space-y-4 p-6 min-h-[400px]">
       <DrawerClose asChild>
-        <Link to="/" className="text-lg py-2 border-b border-gray-200">Home</Link>
+        <Link to="/" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
+          Home
+        </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/albums" className="text-lg py-2 border-b border-gray-200">Albums</Link>
+        <Link to="/albums" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
+          Albums
+        </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/album-lab" className="flex items-center gap-2 text-lg py-2 border-b border-gray-200">
+        <Link to="/album-lab" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
           <BookOpen className="h-5 w-5" />
           <span>Lab</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/community" className="flex items-center gap-2 text-lg py-2 border-b border-gray-200">
+        <Link to="/community" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
           <UsersRound className="h-5 w-5" />
           <span>Community</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/challenges" className="flex items-center gap-2 text-lg py-2 border-b border-gray-200">
+        <Link to="/challenges" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
           <Trophy className="h-5 w-5" />
           <span>Challenges</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/marketplace" className="text-lg py-2 border-b border-gray-200">Marketplace</Link>
+        <Link to="/marketplace" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors">
+          Marketplace
+        </Link>
       </DrawerClose>
       
       {/* Wallet actions in mobile menu */}
-      <div className="pt-4 space-y-3">
+      <div className="pt-6 space-y-4">
         {enderecoCarteira && (
           <>
-            <Button
-              variant="outline"
-              className="w-full border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10"
-              onClick={handleVerificarSaldo}
-              disabled={isCheckingBalance}
-            >
-              <DollarSign className="h-4 w-4 mr-1" />
-              {isCheckingBalance ? "Verificando..." : "Ver Saldo"}
-            </Button>
+            <DrawerClose asChild>
+              <Button
+                variant="outline"
+                className="w-full border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10"
+                onClick={handleVerificarSaldo}
+                disabled={isCheckingBalance}
+              >
+                <DollarSign className="h-4 w-4 mr-2" />
+                {isCheckingBalance ? "Verificando..." : "Ver Saldo"}
+              </Button>
+            </DrawerClose>
             
-            <Button
-              variant="outline"
-              className="w-full border-red-500 text-red-500 hover:bg-red-500/10"
-              onClick={handleDesconectarCarteira}
-            >
-              <LogOut className="h-4 w-4 mr-1" />
-              Desconectar
-            </Button>
+            <DrawerClose asChild>
+              <Button
+                variant="outline"
+                className="w-full border-red-500 text-red-500 hover:bg-red-500/10"
+                onClick={handleDesconectarCarteira}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Desconectar
+              </Button>
+            </DrawerClose>
           </>
         )}
         
         {!enderecoCarteira && (
-          <Button 
-            variant="default"
-            className="w-full bg-[#FFEB3B] text-black font-medium hover:bg-[#FFD700] transition-colors"
-            onClick={handleConectarCarteira}
-            disabled={isLoading}
-          >
-            <div className="flex items-center gap-2">
-              <Wallet className="h-4 w-4" />
-              {isLoading ? "Conectando..." : "Connect Wallet"}
-            </div>
-          </Button>
+          <DrawerClose asChild>
+            <Button 
+              variant="default"
+              className="w-full bg-[#FFEB3B] text-black font-medium hover:bg-[#FFD700] transition-colors"
+              onClick={handleConectarCarteira}
+              disabled={isLoading}
+            >
+              <div className="flex items-center gap-2">
+                <Wallet className="h-4 w-4" />
+                {isLoading ? "Conectando..." : "Connect Wallet"}
+              </div>
+            </Button>
+          </DrawerClose>
         )}
       </div>
     </div>
@@ -257,16 +277,24 @@ export const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
-          <Drawer open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <Drawer open={mobileMenuOpen} onOpenChange={handleMobileMenuToggle}>
             <DrawerTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="text-white hover:bg-white/10"
+                onClick={() => console.log('Hamburger clicked')}
+              >
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Abrir menu</span>
               </Button>
             </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>Menu</DrawerTitle>
+            <DrawerContent className="z-[100] max-h-[85vh]">
+              <DrawerHeader className="text-center">
+                <DrawerTitle className="text-xl font-semibold">Menu de Navegação</DrawerTitle>
+                <DrawerDescription className="text-sm text-muted-foreground">
+                  Navegue pelas seções do site
+                </DrawerDescription>
               </DrawerHeader>
               <MobileMenuContent />
             </DrawerContent>
