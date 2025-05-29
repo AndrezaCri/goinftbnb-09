@@ -121,37 +121,61 @@ export const Navbar = () => {
   };
 
   const MobileMenuContent = () => (
-    <div className="flex flex-col space-y-4 p-6 min-h-[400px]">
+    <div className="flex flex-col space-y-4 p-6 min-h-[400px]" style={{ backgroundColor: '#1a1a1a' }}>
       <DrawerClose asChild>
-        <Link to="/" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors !text-[#e0e0e0]">
+        <Link 
+          to="/" 
+          className="text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
+          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+        >
           Home
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/albums" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors !text-[#e0e0e0]">
+        <Link 
+          to="/albums" 
+          className="text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
+          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+        >
           Albums
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/album-lab" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors !text-[#e0e0e0]">
-          <BookOpen className="h-5 w-5" />
-          <span>Lab</span>
+        <Link 
+          to="/album-lab" 
+          className="flex items-center gap-2 text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
+          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+        >
+          <BookOpen className="h-5 w-5" style={{ color: '#e0e0e0' }} />
+          <span style={{ color: '#e0e0e0' }}>Lab</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/community" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors !text-[#e0e0e0]">
-          <UsersRound className="h-5 w-5" />
-          <span>Community</span>
+        <Link 
+          to="/community" 
+          className="flex items-center gap-2 text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
+          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+        >
+          <UsersRound className="h-5 w-5" style={{ color: '#e0e0e0' }} />
+          <span style={{ color: '#e0e0e0' }}>Community</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/challenges" className="flex items-center gap-2 text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors !text-[#e0e0e0]">
-          <Trophy className="h-5 w-5" />
-          <span>Challenges</span>
+        <Link 
+          to="/challenges" 
+          className="flex items-center gap-2 text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
+          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+        >
+          <Trophy className="h-5 w-5" style={{ color: '#e0e0e0' }} />
+          <span style={{ color: '#e0e0e0' }}>Challenges</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
-        <Link to="/marketplace" className="text-lg py-3 border-b border-gray-200 hover:text-[#FFEB3B] transition-colors !text-[#e0e0e0]">
+        <Link 
+          to="/marketplace" 
+          className="text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
+          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+        >
           Marketplace
         </Link>
       </DrawerClose>
@@ -288,10 +312,10 @@ export const Navbar = () => {
                 <span className="sr-only">Abrir menu</span>
               </Button>
             </DrawerTrigger>
-            <DrawerContent className="z-[100] max-h-[85vh]">
-              <DrawerHeader className="text-center">
-                <DrawerTitle className="text-xl font-semibold">Menu de Navegação</DrawerTitle>
-                <DrawerDescription className="text-sm text-muted-foreground">
+            <DrawerContent className="z-[100] max-h-[85vh]" style={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}>
+              <DrawerHeader className="text-center" style={{ backgroundColor: '#1a1a1a' }}>
+                <DrawerTitle className="text-xl font-semibold" style={{ color: '#e0e0e0' }}>Menu de Navegação</DrawerTitle>
+                <DrawerDescription className="text-sm" style={{ color: '#a0a0a0' }}>
                   Navegue pelas seções do site
                 </DrawerDescription>
               </DrawerHeader>
