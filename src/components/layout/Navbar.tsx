@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Wallet, BookOpen, UsersRound, Trophy, DollarSign, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -104,7 +105,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="flex justify-between items-center px-8 py-2 max-sm:px-4">
+      <nav className="flex justify-between items-center px-8 py-6 max-sm:px-4 max-sm:py-4">
         <Link to="/">
           <ResponsiveLogo 
             src="/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png" 
