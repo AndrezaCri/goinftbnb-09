@@ -15,15 +15,15 @@ export const Hero = () => {
 
   return (
     <section className="hero-container desktop-enhanced">
-      <div className="hero-content -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28">
-        <h1 className="hero-title desktop-text-large mb-3 sm:mb-4">
+      <div className="hero-content -mt-20 sm:-mt-24 md:-mt-28 lg:-mt-32">
+        <h1 className="hero-title desktop-text-large mb-2 sm:mb-3">
           GoINFT
         </h1>
-        <div className="hero-subtitle font-medium text-[#e0e0e0] mb-2 sm:mb-3">Football NFT Stickers</div>
-        <div className="hero-tagline mb-6 sm:mb-8">
+        <div className="hero-subtitle font-medium text-[#e0e0e0] mb-1 sm:mb-2">Football NFT Stickers</div>
+        <div className="hero-tagline mb-4 sm:mb-6">
           on BNB Chain
         </div>
-        <div className="hero-buttons mt-4 mb-6 flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-center w-full px-4 sm:px-0">
+        <div className="hero-buttons mt-2 mb-4 flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-center w-full px-4 sm:px-0">
           <button 
             onClick={handleCollectClick}
             className="btn-primary w-full sm:w-auto min-w-[160px] px-8 py-4 text-lg font-semibold"
