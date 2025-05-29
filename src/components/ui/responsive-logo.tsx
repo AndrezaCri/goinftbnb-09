@@ -29,7 +29,7 @@ export const ResponsiveLogo: React.FC<ResponsiveLogoProps> = ({
       {/* Ultra-light placeholder for logo */}
       {!isLoaded && !hasError && (
         <div
-          className="navbar-logo bg-gray-800 animate-pulse rounded"
+          className={cn("bg-gray-800 animate-pulse rounded", className)}
           aria-hidden="true"
         />
       )}
@@ -38,27 +38,25 @@ export const ResponsiveLogo: React.FC<ResponsiveLogoProps> = ({
       <img
         src={src}
         alt={alt}
-        width={80}
-        height={80}
         loading="eager"
         decoding="sync"
         fetchPriority="high"
         onLoad={handleLoad}
         onError={handleError}
         className={cn(
-          "navbar-logo transition-opacity duration-150",
+          "transition-opacity duration-150",
           isLoaded ? "opacity-100" : "opacity-0",
-          hasError && "hidden"
+          hasError && "hidden",
+          className
         )}
         style={{
-          aspectRatio: '1/1',
           imageRendering: 'crisp-edges'
         }}
       />
       
       {/* Minimal error fallback */}
       {hasError && (
-        <div className="navbar-logo flex items-center justify-center bg-gray-800 text-white text-xs rounded">
+        <div className={cn("flex items-center justify-center bg-gray-800 text-white text-xs rounded", className)}>
           Logo
         </div>
       )}
