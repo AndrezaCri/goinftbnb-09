@@ -1,7 +1,13 @@
 
 import React from "react";
 
-const partners = ["BNB Chain", "Binance", "MetaMask", "Trust Wallet", "OpenSea"];
+const partners = [
+  { name: "BNB Chain", type: "text" },
+  { name: "Binance", type: "logo", src: "/lovable-uploads/9760dfd8-0775-48ba-8fc6-859c8dfd1323.png" },
+  { name: "MetaMask", type: "text" },
+  { name: "Trust Wallet", type: "text" },
+  { name: "OpenSea", type: "text" }
+];
 
 export const TrustedPartners = () => {
   return (
@@ -10,10 +16,18 @@ export const TrustedPartners = () => {
       <div className="flex justify-between gap-4 flex-wrap">
         {partners.map((partner) => (
           <div
-            key={partner}
-            className="bg-[#222] text-white px-4 py-2 rounded-lg border border-[#333] hover:border-[#FFEB3B] transition-colors"
+            key={partner.name}
+            className="bg-[#222] text-white px-4 py-2 rounded-lg border border-[#333] hover:border-[#FFEB3B] transition-colors flex items-center justify-center"
           >
-            {partner}
+            {partner.type === "logo" ? (
+              <img 
+                src={partner.src} 
+                alt={partner.name}
+                className="h-8 w-8 object-contain"
+              />
+            ) : (
+              partner.name
+            )}
           </div>
         ))}
       </div>
