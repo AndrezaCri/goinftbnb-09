@@ -18,7 +18,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   alt,
   width,
   height,
-  quality = 75, // Increased default quality for desktop
+  quality = 75,
   priority = false,
   placeholder = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMjIyIi8+PC9zdmc+",
   responsive = true,
@@ -27,39 +27,54 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState(src);
 
-  // Create optimized src with multiple formats and sizes
-  const createOptimizedSrc = useCallback((originalSrc: string) => {
+  // Simplify Unsplash URLs - just add basic size parameters
+  const createSimplifiedSrc = useCallback((originalSrc: string) => {
     if (originalSrc.includes('unsplash.com')) {
-      const baseParams = `w=${width}&h=${height}&q=${quality}&fit=crop&auto=format`;
-      return {
-        webp: `${originalSrc}&${baseParams}&fm=webp`,
-        avif: `${originalSrc}&${baseParams}&fm=avif`,
-        fallback: `${originalSrc}&${baseParams}&fm=jpg`
-      };
+      // Use simpler parameters for Unsplash
+      const baseUrl = originalSrc.split('?')[0]; // Remove existing parameters
+      return `${baseUrl}?w=${width}&h=${height}&fit=crop&auto=format`;
     }
-    return {
-      webp: originalSrc,
-      avif: originalSrc,
-      fallback: originalSrc
-    };
-  }, [width, height, quality]);
+    return originalSrc;
+  }, [width, height]);
 
-  const optimizedSrcs = createOptimizedSrc(src);
+  // Fallback images for when Unsplash fails
+  const fallbackImages = [
+    `https://picsum.photos/${width}/${height}?random=1`,
+    `https://via.placeholder.com/${width}x${height}/333333/FFEB3B?text=Player`,
+    "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZpbGw9IiNGRkVCM0IiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSIgZm9udC1zaXplPSIxMiI+UGxheWVyPC90ZXh0Pjwvc3ZnPg=="
+  ];
+
+  const [fallbackIndex, setFallbackIndex] = useState(-1);
 
   const handleLoad = useCallback(() => {
+    console.log('Image loaded successfully:', currentSrc);
     setIsLoaded(true);
-  }, []);
+  }, [currentSrc]);
 
   const handleError = useCallback(() => {
-    setHasError(true);
-  }, []);
+    console.log('Image failed to load:', currentSrc);
+    
+    if (fallbackIndex < fallbackImages.length - 1) {
+      const nextIndex = fallbackIndex + 1;
+      setFallbackIndex(nextIndex);
+      setCurrentSrc(fallbackImages[nextIndex]);
+      console.log('Trying fallback image:', fallbackImages[nextIndex]);
+    } else {
+      console.log('All fallback images failed');
+      setHasError(true);
+    }
+  }, [currentSrc, fallbackIndex, fallbackImages]);
 
-  // Create responsive srcSet for different screen densities
-  const createSrcSet = useCallback((baseSrc: string) => {
-    if (!responsive) return undefined;
-    return `${baseSrc} 1x, ${baseSrc.replace(`w=${width}`, `w=${width * 2}`)} 2x`;
-  }, [width, responsive]);
+  // Set the initial simplified source
+  React.useEffect(() => {
+    if (fallbackIndex === -1) {
+      const simplifiedSrc = createSimplifiedSrc(src);
+      setCurrentSrc(simplifiedSrc);
+      console.log('Using simplified source:', simplifiedSrc);
+    }
+  }, [src, createSimplifiedSrc, fallbackIndex]);
 
   return (
     <div 
@@ -81,40 +96,27 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         />
       )}
       
-      {/* Advanced picture element with multiple formats */}
-      <picture>
-        <source 
-          srcSet={createSrcSet(optimizedSrcs.avif)}
-          type="image/avif"
-        />
-        <source 
-          srcSet={createSrcSet(optimizedSrcs.webp)}
-          type="image/webp"
-        />
-        <img
-          src={optimizedSrcs.fallback}
-          srcSet={createSrcSet(optimizedSrcs.fallback)}
-          alt={alt}
-          width={width}
-          height={height}
-          loading={priority ? "eager" : "lazy"}
-          decoding="async"
-          fetchPriority={priority ? "high" : "low"}
-          onLoad={handleLoad}
-          onError={handleError}
-          className={cn(
-            "w-full h-full object-cover transition-all duration-300 ease-out",
-            isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105",
-            hasError && "hidden"
-          )}
-          style={{
-            imageRendering: quality > 80 ? 'crisp-edges' : 'auto',
-            backfaceVisibility: 'hidden',
-            transform: 'translateZ(0)'
-          }}
-          {...props}
-        />
-      </picture>
+      {/* Simplified image loading */}
+      <img
+        src={currentSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        onLoad={handleLoad}
+        onError={handleError}
+        className={cn(
+          "w-full h-full object-cover transition-all duration-300 ease-out",
+          isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105",
+          hasError && "hidden"
+        )}
+        style={{
+          backfaceVisibility: 'hidden',
+          transform: 'translateZ(0)'
+        }}
+        {...props}
+      />
       
       {/* Enhanced error fallback */}
       {hasError && (

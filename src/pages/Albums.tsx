@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo, useCallback } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Progress } from "@/components/ui/progress";
@@ -55,14 +54,14 @@ const PlacedSticker = React.memo(({ sticker }: { sticker: StickerProps }) => (
 
 const Albums = () => {
   const [stickers, setStickers] = useState<StickerProps[]>(() => [
-    { id: 1, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1517466787929-bc90951d0974", playerName: "M. Silva", team: "Brazil" },
+    { id: 1, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b", playerName: "M. Silva", team: "Brazil" },
     { id: 2, isPlaced: false },
-    { id: 3, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55", playerName: "K. Mbappé", team: "France" },
+    { id: 3, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1574680096145-d05b474e2155", playerName: "K. Mbappé", team: "France" },
     { id: 4, isPlaced: false },
     { id: 5, isPlaced: false },
-    { id: 6, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3", playerName: "L. Messi", team: "Argentina" },
+    { id: 6, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1553778263-73a83bab9b0c", playerName: "L. Messi", team: "Argentina" },
     { id: 7, isPlaced: false },
-    { id: 8, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68", playerName: "C. Ronaldo", team: "Portugal" },
+    { id: 8, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12", playerName: "C. Ronaldo", team: "Portugal" },
     { id: 9, isPlaced: false },
     { id: 10, isPlaced: false },
     { id: 11, isPlaced: false },
@@ -78,13 +77,15 @@ const Albums = () => {
     return { placedCount, total, percentage };
   }, [stickers]);
 
-  // Memoize random data arrays
+  // Memoize random data arrays with updated URLs
   const randomData = useMemo(() => ({
     images: [
-      "https://images.unsplash.com/photo-1517466787929-bc90951d0974",
-      "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
-      "https://images.unsplash.com/photo-1624280157150-4d1ed8cbb5d3",
-      "https://images.unsplash.com/photo-1575361204480-aadea25e6e68"
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
+      "https://images.unsplash.com/photo-1574680096145-d05b474e2155",
+      "https://images.unsplash.com/photo-1553778263-73a83bab9b0c",
+      "https://images.unsplash.com/photo-1560272564-c83b66b1ad12",
+      "https://images.unsplash.com/photo-1589487391730-58f20eb2c308",
+      "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d"
     ],
     playerNames: ["A. Martinez", "N. Williams", "J. Bellingham", "R. Lewandowski", "V. van Dijk", "T. Kroos", "K. De Bruyne"],
     teams: ["Argentina", "Spain", "England", "Poland", "Netherlands", "Germany", "Belgium"]
