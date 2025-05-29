@@ -42,46 +42,13 @@ const initialAlbums = [
     upvotes: 87,
     downvotes: 5,
     tags: ["champions league", "uefa", "europe"]
-  },
-  {
-    id: 4,
-    title: "Soccer Stadiums Around the World",
-    creator: "StadiumCollector",
-    createdAt: "2025-05-04",
-    imageUrl: "https://picsum.photos/seed/soccer4/400/400",
-    description: "Beautiful soccer stadiums from across the globe",
-    upvotes: 76,
-    downvotes: 3,
-    tags: ["stadiums", "architecture", "global"]
-  },
-  {
-    id: 5,
-    title: "Women's Soccer Highlights",
-    creator: "EqualGame",
-    createdAt: "2025-05-05",
-    imageUrl: "https://picsum.photos/seed/soccer5/400/400",
-    description: "Celebrating the best of women's soccer worldwide",
-    upvotes: 113,
-    downvotes: 7,
-    tags: ["women", "international", "professional"]
-  },
-  {
-    id: 6,
-    title: "Classic Soccer Jerseys",
-    creator: "KitCollector",
-    createdAt: "2025-05-06",
-    imageUrl: "https://picsum.photos/seed/soccer6/400/400",
-    description: "Vintage and iconic soccer jerseys through the decades",
-    upvotes: 91,
-    downvotes: 4,
-    tags: ["jerseys", "vintage", "fashion"]
   }
 ];
 
 const Community = () => {
   const [albums, setAlbums] = useState(initialAlbums);
   const [currentPage, setCurrentPage] = useState(1);
-  const albumsPerPage = 6;
+  const albumsPerPage = 3;
   
   const indexOfLastAlbum = currentPage * albumsPerPage;
   const indexOfFirstAlbum = indexOfLastAlbum - albumsPerPage;
