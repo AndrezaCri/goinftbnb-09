@@ -16,12 +16,14 @@ export const Hero = () => {
   return (
     <section className="hero-container desktop-enhanced">
       <div className="hero-content -mt-20 sm:-mt-24 md:-mt-28 lg:-mt-32">
-        <h1 className="hero-title desktop-text-large mb-2 sm:mb-3">
-          GoINFT
-        </h1>
-        <div className="hero-subtitle font-medium text-[#e0e0e0] mb-1 sm:mb-2">Football NFT Stickers</div>
-        <div className="hero-tagline mb-4 sm:mb-6">
-          on BNB Chain
+        <div className="text-left w-full">
+          <h1 className="hero-title desktop-text-large mb-2 sm:mb-3">
+            GoINFT
+          </h1>
+          <div className="hero-subtitle font-medium text-[#e0e0e0] mb-1 sm:mb-2">Football NFT Stickers</div>
+          <div className="hero-tagline mb-4 sm:mb-6">
+            on BNB Chain
+          </div>
         </div>
         <div className="hero-buttons mt-2 mb-4 flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-center w-full px-4 sm:px-0">
           <button 
