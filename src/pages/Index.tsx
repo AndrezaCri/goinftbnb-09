@@ -13,7 +13,7 @@ const Index = () => {
         <Navbar />
       </header>
       
-      <div className="flex flex-col gap-12 px-8 py-12 max-sm:px-4">
+      <div className="flex flex-col gap-8 px-8 py-4 max-sm:px-4 max-sm:py-2">
         <Hero />
         <OnboardingSection />
         
