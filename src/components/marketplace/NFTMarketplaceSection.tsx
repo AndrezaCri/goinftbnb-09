@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -156,8 +155,7 @@ export const NFTMarketplaceSection = () => {
           <Badge 
             key={collection}
             variant={selectedCollection === collection ? "default" : "outline"}
-            className="cursor-pointer hover:bg-[#333] transition-colors"
-            style={{ color: '#ffeb3c', borderColor: '#ffeb3c' }}
+            className="cursor-pointer hover:bg-[#333] transition-colors text-white border-white"
             onClick={() => handleCollectionFilter(collection)}
           >
             {collection}
