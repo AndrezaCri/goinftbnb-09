@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -96,7 +95,7 @@ const Community = () => {
                   <img
                     src={album.imageUrl}
                     alt={album.title}
-                    className="object-cover w-full h-full object-center"
+                    className="object-contain w-full h-full object-center"
                   />
                 </AspectRatio>
               </div>
