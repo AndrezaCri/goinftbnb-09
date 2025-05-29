@@ -149,7 +149,7 @@ export const NFTMarketplaceSection = () => {
       </div>
       
       <div className="flex flex-wrap gap-2 mb-6">
-        <div className="text-sm text-gray-400 mr-2 flex items-center">
+        <div className="text-sm mr-2 flex items-center" style={{ color: '#ffeb3c' }}>
           <Tag size={16} className="mr-1" /> Collections:
         </div>
         {collections.map(collection => (
