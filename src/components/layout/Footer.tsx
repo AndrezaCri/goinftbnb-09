@@ -1,15 +1,28 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Info } from "lucide-react";
 
 export const Footer = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && scrollAreaRef.current) {
+      // Scroll to top when dialog opens
+      const viewport = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+      if (viewport) {
+        viewport.scrollTop = 0;
+      }
+    }
+  }, [isOpen]);
+
   return (
     <footer className="bg-black text-white py-6 border-t border-gray-800">
       <div className="max-w-6xl mx-auto px-8 flex justify-center">
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <Button variant="outline" className="flex items-center gap-2">
               <Info size={16} />
@@ -22,7 +35,7 @@ export const Footer = () => {
                 GoINFT - Football NFT Stickers
               </DialogTitle>
             </DialogHeader>
-            <ScrollArea className="h-full pr-4">
+            <ScrollArea ref={scrollAreaRef} className="h-[60vh] pr-4">
               <div className="space-y-4">
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-[#FFEB3B]">Objetivo</h3>
