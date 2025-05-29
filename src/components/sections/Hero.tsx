@@ -25,10 +25,10 @@ export const Hero = () => {
             on BNB Chain
           </div>
         </div>
-        <div className="hero-buttons mt-2 mb-4 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start items-start w-full pl-0">
+        <div className="hero-buttons mt-2 mb-4 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start items-start w-full -ml-2">
           <button 
             onClick={handleCollectClick}
-            className="btn-primary w-auto min-w-[120px] px-6 py-3 text-base font-semibold ml-0"
+            className="btn-primary w-auto min-w-[120px] px-6 py-3 text-base font-semibold"
             type="button"
             aria-label="Start collecting NFT stickers"
           >
@@ -36,7 +36,7 @@ export const Hero = () => {
           </button>
           <button 
             onClick={handleTradeClick}
-            className="btn-secondary w-auto min-w-[120px] px-6 py-3 text-base font-semibold ml-0"
+            className="btn-secondary w-auto min-w-[120px] px-6 py-3 text-base font-semibold"
             type="button"
             aria-label="Start trading NFT stickers"
           >
