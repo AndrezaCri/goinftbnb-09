@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -56,15 +55,6 @@ const mockNFTs = [
     rarity: "Legendary", 
     collection: "Premier League", 
     seller: "0x2468...1357" 
-  },
-  { 
-    id: 6, 
-    name: "Rising Star", 
-    image: "/lovable-uploads/b106c9dd-0f1b-480f-9873-a7c888dc9c44.png", 
-    price: 0.01, 
-    rarity: "Common", 
-    collection: "Ligue 1", 
-    seller: "0x1357...2468" 
   },
 ];
 
