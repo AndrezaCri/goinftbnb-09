@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -37,7 +36,7 @@ const initialAlbums = [
     title: "Binance",
     creator: "Global exchange leader",
     createdAt: "2025-05-03",
-    imageUrl: "https://picsum.photos/seed/soccer3/400/400",
+    imageUrl: "/lovable-uploads/9eada32b-37ba-4cfc-a78e-6e750250b816.png",
     description: "Empowering freedom through crypto and finance",
     upvotes: 87,
     downvotes: 5,
