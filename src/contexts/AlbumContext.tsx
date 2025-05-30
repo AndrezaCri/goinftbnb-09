@@ -1,5 +1,3 @@
-
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export interface Album {
@@ -27,6 +25,7 @@ interface AlbumContextType {
   completionPercentage: number;
   addAlbum: (album: Omit<Album, 'id' | 'createdAt'>) => void;
   deleteAlbum: (id: string) => void;
+  collectSticker: (stickerId: number) => void;
 }
 
 const AlbumContext = createContext<AlbumContextType | undefined>(undefined);
@@ -43,7 +42,7 @@ export const AlbumProvider = ({ children }: { children: React.ReactNode }) => {
   const [albums, setAlbums] = useState<Album[]>([]);
   
   // Sistema de figurinhas Soccer Stars - 12 total, 3 coletadas (25%) - posições 1, 6 e 12
-  const [stickers] = useState<Sticker[]>([
+  const [stickers, setStickers] = useState<Sticker[]>([
     { id: 1, name: "Pelé", image: "/lovable-uploads/3121786f-498c-43f6-938a-2d39160b74b2.png", rarity: 'legendary', collected: true },
     { id: 2, name: "Messi", image: "/lovable-uploads/150546b1-72fa-4491-af20-c03769ac8524.png", rarity: 'legendary', collected: false },
     { id: 3, name: "Cristiano", image: "/lovable-uploads/ecf235a4-ca9f-4979-a92b-abc709669da9.png", rarity: 'legendary', collected: false },
@@ -87,6 +86,14 @@ export const AlbumProvider = ({ children }: { children: React.ReactNode }) => {
     setAlbums(prev => prev.filter(album => album.id !== id));
   };
 
+  const collectSticker = (stickerId: number) => {
+    setStickers(prev => prev.map(sticker => 
+      sticker.id === stickerId 
+        ? { ...sticker, collected: true }
+        : sticker
+    ));
+  };
+
   return (
     <AlbumContext.Provider value={{ 
       albums, 
@@ -95,7 +102,8 @@ export const AlbumProvider = ({ children }: { children: React.ReactNode }) => {
       totalStickers,
       completionPercentage,
       addAlbum, 
-      deleteAlbum 
+      deleteAlbum,
+      collectSticker
     }}>
       {children}
     </AlbumContext.Provider>

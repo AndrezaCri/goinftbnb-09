@@ -4,9 +4,11 @@ import { useAlbums } from '@/contexts/AlbumContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
 
 export const StickerCollection = () => {
-  const { stickers, collectedStickers, totalStickers, completionPercentage } = useAlbums();
+  const { stickers, collectedStickers, totalStickers, completionPercentage, collectSticker } = useAlbums();
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
@@ -16,6 +18,10 @@ export const StickerCollection = () => {
       case 'legendary': return 'bg-yellow-500';
       default: return 'bg-gray-500';
     }
+  };
+
+  const handleCollectSticker = (stickerId: number) => {
+    collectSticker(stickerId);
   };
 
   return (
@@ -48,8 +54,9 @@ export const StickerCollection = () => {
             className={`transition-all duration-300 ${
               sticker.collected 
                 ? 'bg-[#1a1a1a] border-[#333] hover:border-[#FFEB3B]/50' 
-                : 'bg-[#0a0a0a] border-[#222] opacity-30'
+                : 'bg-[#0a0a0a] border-[#222] opacity-60 hover:opacity-80 cursor-pointer'
             }`}
+            onClick={() => !sticker.collected && handleCollectSticker(sticker.id)}
           >
             <CardContent className="p-4">
               {sticker.collected ? (
@@ -72,8 +79,21 @@ export const StickerCollection = () => {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  <div className="aspect-square rounded-lg bg-[#222] flex items-center justify-center">
+                  <div className="aspect-square rounded-lg bg-[#222] flex items-center justify-center relative group">
                     <div className="text-4xl text-gray-600">?</div>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Button 
+                        size="sm" 
+                        className="bg-[#FFEB3B] text-black hover:bg-[#FFEB3B]/90"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCollectSticker(sticker.id);
+                        }}
+                      >
+                        <Plus className="w-4 h-4 mr-1" />
+                        Stick
+                      </Button>
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <h3 className="font-semibold text-sm text-gray-500">???</h3>
