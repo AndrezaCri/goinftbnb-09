@@ -22,8 +22,8 @@ export const TrustedPartners = () => {
               <UltraOptimizedImage
                 src={partner.src}
                 alt={partner.name}
-                width={48}
-                height={48}
+                width={80}
+                height={80}
                 className="object-contain"
                 priority={false}
                 quality={85}
