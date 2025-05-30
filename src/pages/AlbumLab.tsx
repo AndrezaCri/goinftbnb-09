@@ -33,7 +33,16 @@ const AlbumLab = () => {
   const [albumDescription, setAlbumDescription] = useState("");
   const [selectedGridType, setSelectedGridType] = useState("3x3");
   const [aiPrompt, setAiPrompt] = useState("");
-  const [generatedStickers, setGeneratedStickers] = useState<string[]>([]);
+  const [generatedStickers, setGeneratedStickers] = useState<string[]>([
+    "/lovable-uploads/80344331-9269-48f1-82d3-4434d48c11a7.png",
+    "/lovable-uploads/2837a9c3-b272-4196-a96c-3daad0a03103.png",
+    "/lovable-uploads/0983abca-88df-4210-8a62-e53e8eba5231.png",
+    "/lovable-uploads/335ddb23-10eb-4cfa-b92f-a4032a6bb10d.png",
+    "/lovable-uploads/ccf9d52f-fe2c-4962-a1c6-8932da3cbaff.png",
+    "/lovable-uploads/8ae3dc78-3659-4fd5-a3bd-43991715ced4.png",
+    "/lovable-uploads/1b8ffbae-6dd6-42be-8aad-55b2f592e2b6.png",
+    "/lovable-uploads/5d66beca-ee47-4a4e-a404-dc84aa62883f.png"
+  ]);
   const [loading, setLoading] = useState(false);
   const [stickerCategory, setStickerCategory] = useState("sports");
 
@@ -118,7 +127,16 @@ const AlbumLab = () => {
     // Limpar formulário
     setAlbumTitle("");
     setAlbumDescription("");
-    setGeneratedStickers([]);
+    setGeneratedStickers([
+      "/lovable-uploads/80344331-9269-48f1-82d3-4434d48c11a7.png",
+      "/lovable-uploads/2837a9c3-b272-4196-a96c-3daad0a03103.png",
+      "/lovable-uploads/0983abca-88df-4210-8a62-e53e8eba5231.png",
+      "/lovable-uploads/335ddb23-10eb-4cfa-b92f-a4032a6bb10d.png",
+      "/lovable-uploads/ccf9d52f-fe2c-4962-a1c6-8932da3cbaff.png",
+      "/lovable-uploads/8ae3dc78-3659-4fd5-a3bd-43991715ced4.png",
+      "/lovable-uploads/1b8ffbae-6dd6-42be-8aad-55b2f592e2b6.png",
+      "/lovable-uploads/5d66beca-ee47-4a4e-a404-dc84aa62883f.png"
+    ]);
     setAiPrompt("");
     
     // Navegar para a página de álbuns após 1.5 segundos
@@ -128,8 +146,17 @@ const AlbumLab = () => {
   };
 
   const clearStickers = () => {
-    setGeneratedStickers([]);
-    toast.info("Sticker gallery cleared");
+    setGeneratedStickers([
+      "/lovable-uploads/80344331-9269-48f1-82d3-4434d48c11a7.png",
+      "/lovable-uploads/2837a9c3-b272-4196-a96c-3daad0a03103.png",
+      "/lovable-uploads/0983abca-88df-4210-8a62-e53e8eba5231.png",
+      "/lovable-uploads/335ddb23-10eb-4cfa-b92f-a4032a6bb10d.png",
+      "/lovable-uploads/ccf9d52f-fe2c-4962-a1c6-8932da3cbaff.png",
+      "/lovable-uploads/8ae3dc78-3659-4fd5-a3bd-43991715ced4.png",
+      "/lovable-uploads/1b8ffbae-6dd6-42be-8aad-55b2f592e2b6.png",
+      "/lovable-uploads/5d66beca-ee47-4a4e-a404-dc84aa62883f.png"
+    ]);
+    toast.info("Reset to default soccer stickers");
   };
 
   const gridOptions = [
@@ -326,48 +353,38 @@ const AlbumLab = () => {
                   <div>
                     <CardTitle>Generated Stickers</CardTitle>
                     <CardDescription>
-                      Your AI-generated NFT stickers will appear here
+                      Soccer player stickers and AI-generated NFT stickers
                     </CardDescription>
                   </div>
-                  {generatedStickers.length > 0 && (
+                  {generatedStickers.length > 8 && (
                     <Button 
                       variant="ghost" 
                       size="sm"
                       onClick={clearStickers}
                     >
-                      Clear
+                      Reset
                     </Button>
                   )}
                 </CardHeader>
                 <CardContent>
-                  {generatedStickers.length > 0 ? (
-                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-                      {generatedStickers.map((sticker, index) => (
-                        <div key={index} className="group relative rounded-lg overflow-hidden border border-border hover:border-primary/50 transition-all">
-                          <AspectRatio ratio={1/1}>
-                            <img 
-                              src={sticker} 
-                              alt={`Generated sticker ${index + 1}`}
-                              className="object-cover w-full h-full"
-                            />
-                          </AspectRatio>
-                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 transition-opacity">
-                            <Button size="sm" variant="outline" className="h-8 bg-black/80 text-white border-white/30 hover:bg-white/20">
-                              Save
-                            </Button>
-                          </div>
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                    {generatedStickers.map((sticker, index) => (
+                      <div key={index} className="group relative rounded-lg overflow-hidden border border-border hover:border-primary/50 transition-all">
+                        <AspectRatio ratio={1/1}>
+                          <img 
+                            src={sticker} 
+                            alt={`Generated sticker ${index + 1}`}
+                            className="object-cover w-full h-full"
+                          />
+                        </AspectRatio>
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 transition-opacity">
+                          <Button size="sm" variant="outline" className="h-8 bg-black/80 text-white border-white/30 hover:bg-white/20">
+                            Save
+                          </Button>
                         </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center py-8 text-center text-muted-foreground">
-                      <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-3">
-                        <Wand2 className="h-6 w-6" />
                       </div>
-                      <p>No stickers generated yet</p>
-                      <p className="text-sm">Use the generator to create stickers</p>
-                    </div>
-                  )}
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             </div>
