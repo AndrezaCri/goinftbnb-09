@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -42,6 +41,17 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
   onJoin,
   isJoined,
 }) => {
+  // Scroll to top whenever modal opens
+  useEffect(() => {
+    if (isOpen) {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [isOpen]);
+
   if (!challenge) return null;
 
   const getDifficultyColor = (difficulty: string) => {
