@@ -270,18 +270,6 @@ const Challenges = () => {
 
         {/* CastaCripto Section */}
         <div>
-          <div className="bg-gradient-to-r from-[#06B6D4]/20 to-[#06B6D4]/5 border border-[#06B6D4]/30 rounded-lg p-6 mb-6">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-[#06B6D4] rounded-lg flex items-center justify-center">
-                <Trophy className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-[#06B6D4]">CastaCripto Challenges</h2>
-                <p className="text-gray-300">Podcast and content creator challenges</p>
-              </div>
-            </div>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {castaCriptoChallenge.map(renderChallengeCard)}
           </div>
