@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useCallback } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Progress } from "@/components/ui/progress";
@@ -55,16 +56,16 @@ const PlacedSticker = React.memo(({ sticker }: { sticker: StickerProps }) => (
 const Albums = () => {
   const [stickers, setStickers] = useState<StickerProps[]>(() => [
     { id: 1, isPlaced: true, imageUrl: "/lovable-uploads/80344331-9269-48f1-82d3-4434d48c11a7.png", playerName: "M. Silva", team: "Brazil" },
-    { id: 2, isPlaced: true, imageUrl: "/lovable-uploads/2837a9c3-b272-4196-a96c-3daad0a03103.png", playerName: "K. Mbappé", team: "France" },
-    { id: 3, isPlaced: true, imageUrl: "/lovable-uploads/0983abca-88df-4210-8a62-e53e8eba5231.png", playerName: "L. Messi", team: "Argentina" },
+    { id: 2, isPlaced: false },
+    { id: 3, isPlaced: false },
     { id: 4, isPlaced: true, imageUrl: "/lovable-uploads/335ddb23-10eb-4cfa-b92f-a4032a6bb10d.png", playerName: "C. Ronaldo", team: "Portugal" },
-    { id: 5, isPlaced: true, imageUrl: "/lovable-uploads/ccf9d52f-fe2c-4962-a1c6-8932da3cbaff.png", playerName: "E. Haaland", team: "Norway" },
-    { id: 6, isPlaced: true, imageUrl: "/lovable-uploads/8ae3dc78-3659-4fd5-a3bd-43991715ced4.png", playerName: "V. Junior", team: "Brazil" },
-    { id: 7, isPlaced: true, imageUrl: "/lovable-uploads/1b8ffbae-6dd6-42be-8aad-55b2f592e2b6.png", playerName: "K. De Bruyne", team: "Belgium" },
-    { id: 8, isPlaced: true, imageUrl: "/lovable-uploads/5d66beca-ee47-4a4e-a404-dc84aa62883f.png", playerName: "Pedri", team: "Spain" },
-    { id: 9, isPlaced: true, imageUrl: "/lovable-uploads/3ff138cd-7347-4885-a303-e03841fb166c.png", playerName: "J. Felix", team: "Portugal" },
-    { id: 10, isPlaced: true, imageUrl: "/lovable-uploads/26dc6bd3-e9df-4644-8cec-affbf6c79319.png", playerName: "A. Putellas", team: "Spain" },
-    { id: 11, isPlaced: true, imageUrl: "/lovable-uploads/fa9a2fdc-8d89-438a-97ef-bebe851f5a32.png", playerName: "Gavi", team: "Spain" },
+    { id: 5, isPlaced: false },
+    { id: 6, isPlaced: false },
+    { id: 7, isPlaced: false },
+    { id: 8, isPlaced: false },
+    { id: 9, isPlaced: false },
+    { id: 10, isPlaced: false },
+    { id: 11, isPlaced: false },
     { id: 12, isPlaced: true, imageUrl: "/lovable-uploads/dfefb900-144a-4927-8c88-0e8d4f41a17e.png", playerName: "F. Torres", team: "Spain" },
   ]);
 
