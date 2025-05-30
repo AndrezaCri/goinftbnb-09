@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -139,13 +138,13 @@ const Challenges = () => {
   };
   
   return (
-    <div className="min-h-screen bg-[#121212] text-white">
+    <div className="min-h-screen bg-black text-white">
       <Navbar />
       
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center">
-            <Trophy className="mr-2 text-green-500" size={24} />
+            <Trophy className="mr-2 text-[#F97316]" size={24} />
             <h1 className="text-3xl font-bold">Soccer Team Challenges</h1>
           </div>
         </div>
@@ -158,11 +157,11 @@ const Challenges = () => {
         </div>
         
         <Tabs defaultValue="active" className="mb-8" onValueChange={setActiveTab}>
-          <TabsList className="bg-[#1F1F1F] border border-[#333]">
-            <TabsTrigger value="active" className="data-[state=active]:bg-[#2A2A2A] data-[state=active]:text-white">
+          <TabsList className="bg-[#222] border border-[#333]">
+            <TabsTrigger value="active" className="data-[state=active]:bg-[#111] data-[state=active]:text-white">
               Active Challenges
             </TabsTrigger>
-            <TabsTrigger value="past" className="data-[state=active]:bg-[#2A2A2A] data-[state=active]:text-white">
+            <TabsTrigger value="past" className="data-[state=active]:bg-[#111] data-[state=active]:text-white">
               Past Challenges
             </TabsTrigger>
           </TabsList>
@@ -170,8 +169,8 @@ const Challenges = () => {
           <TabsContent value="active" className="mt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {initialChallenges.filter(challenge => challenge.active).map((challenge) => (
-                <Card key={challenge.id} className="bg-[#1F1F1F] border-[#333] text-white overflow-hidden hover:border-green-500 transition-all">
-                  <div className="relative bg-[#2A2A2A]">
+                <Card key={challenge.id} className="bg-[#111] border-[#333] text-white overflow-hidden hover:border-[#F97316] transition-all">
+                  <div className="relative">
                     <AspectRatio ratio={16 / 9}>
                       <img
                         src={challenge.imageUrl}
@@ -179,7 +178,7 @@ const Challenges = () => {
                         className="object-cover w-full h-full"
                       />
                       <div className="absolute top-2 right-2">
-                        <Badge variant="outline" className={`bg-black/70 ${getDifficultyColor(challenge.difficulty)}`}>
+                        <Badge variant="outline" className="bg-black/70 border-[#F97316] text-[#F97316]">
                           {challenge.difficulty.toUpperCase()}
                         </Badge>
                       </div>
@@ -208,14 +207,14 @@ const Challenges = () => {
                       </div>
                     </div>
                     
-                    <div className="bg-[#2A2A2A] border border-[#333] rounded-md p-3 mb-3">
+                    <div className="bg-[#222] border border-[#333] rounded-md p-3 mb-3">
                       <div className="text-xs text-gray-400 mb-1">PRIZE</div>
-                      <div className="text-green-500 font-medium">{challenge.prize}</div>
+                      <div className="text-[#F97316] font-medium">{challenge.prize}</div>
                     </div>
                     
                     <div className="flex flex-wrap gap-1">
                       {challenge.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs bg-green-900/20 text-green-400 border-green-900">
+                        <Badge key={tag} variant="outline" className={`text-xs ${getDifficultyColor(challenge.difficulty)}`}>
                           {tag}
                         </Badge>
                       ))}
@@ -225,9 +224,9 @@ const Challenges = () => {
                   <CardFooter>
                     <Button 
                       onClick={() => handleJoinChallenge(challenge.id)}
-                      className="w-full bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
+                      className="w-full bg-[#F97316] hover:bg-[#E86305] text-black"
                     >
-                      <Flag className="h-4 w-4" />
+                      <Flag className="h-5 w-5" />
                       <span>Join Challenge</span>
                     </Button>
                   </CardFooter>
@@ -239,8 +238,8 @@ const Challenges = () => {
           <TabsContent value="past" className="mt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {pastChallenges.map((challenge) => (
-                <Card key={challenge.id} className="bg-[#1F1F1F] border-[#333] text-white overflow-hidden opacity-80">
-                  <div className="relative bg-[#2A2A2A]">
+                <Card key={challenge.id} className="bg-[#111] border-[#333] text-white overflow-hidden opacity-80">
+                  <div className="relative">
                     <AspectRatio ratio={16 / 9}>
                       <img
                         src={challenge.imageUrl}
@@ -266,10 +265,10 @@ const Challenges = () => {
                   <CardContent className="pb-2">
                     <p className="text-sm text-gray-300 mb-3">{challenge.description}</p>
                     
-                    <div className="bg-[#2A2A2A] border border-[#333] rounded-md p-3 mb-3">
+                    <div className="bg-[#222] border border-[#333] rounded-md p-3 mb-3">
                       <div className="text-xs text-gray-400 mb-1">WINNER</div>
                       <div className="flex items-center gap-2">
-                        <Trophy className="h-4 w-4 text-green-500" />
+                        <Trophy className="h-4 w-4 text-[#F97316]" />
                         <span className="text-white font-medium">{challenge.winner}</span>
                       </div>
                     </div>
@@ -286,7 +285,7 @@ const Challenges = () => {
                   <CardFooter>
                     <Button 
                       variant="outline" 
-                      className="w-full border-[#333] hover:border-green-500 hover:text-green-500 bg-transparent text-white"
+                      className="w-full border-[#333] hover:border-[#F97316] hover:text-[#F97316]"
                     >
                       View Winning Album
                     </Button>
