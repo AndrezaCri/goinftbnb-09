@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -124,10 +123,19 @@ const pastChallenges = [
 
 const Challenges = () => {
   const [activeTab, setActiveTab] = useState("active");
+  const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
   
   const handleJoinChallenge = (id: number) => {
-    toast.success("You've joined the challenge! Get creative with your soccer album.");
+    if (joinedChallenges.includes(id)) {
+      toast.error("You've already joined this challenge!");
+      return;
+    }
+    
+    setJoinedChallenges(prev => [...prev, id]);
+    toast.success("Successfully joined the challenge! Start creating your soccer album.");
   };
+  
+  const isJoined = (id: number) => joinedChallenges.includes(id);
   
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -231,10 +239,15 @@ const Challenges = () => {
                   <CardFooter>
                     <Button 
                       onClick={() => handleJoinChallenge(challenge.id)}
-                      className="w-full bg-[#F97316] hover:bg-[#E86305] text-black"
+                      disabled={isJoined(challenge.id)}
+                      className={`w-full ${
+                        isJoined(challenge.id) 
+                          ? "bg-green-600 hover:bg-green-600 text-white cursor-not-allowed" 
+                          : "bg-[#F97316] hover:bg-[#E86305] text-black"
+                      }`}
                     >
                       <Flag className="h-5 w-5" />
-                      <span>Join Challenge</span>
+                      <span>{isJoined(challenge.id) ? "Joined!" : "Join Challenge"}</span>
                     </Button>
                   </CardFooter>
                 </Card>
