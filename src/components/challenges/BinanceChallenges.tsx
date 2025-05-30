@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -86,7 +85,6 @@ export const BinanceChallenges: React.FC<BinanceChallengesProps> = ({
 
   const handleJoinChallenge = (id: number) => {
     onJoinChallenge(id);
-    setIsModalOpen(false);
   };
 
   const isJoined = (id: number) => joinedChallenges.includes(id);

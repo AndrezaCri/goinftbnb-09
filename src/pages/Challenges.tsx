@@ -123,7 +123,6 @@ const Challenges = () => {
     
     setJoinedChallenges(prev => [...prev, id]);
     toast.success("Successfully joined the challenge! Start creating your album.");
-    setIsModalOpen(false);
   };
   
   const handleOpenChallengeModal = (challenge: typeof allChallenges[0]) => {
