@@ -304,8 +304,8 @@ const Challenges = () => {
                   
                   <CardFooter>
                     <Button 
-                      variant="outline" 
-                      className="w-full border-[#333] hover:border-[#F97316] hover:text-[#F97316]"
+                      variant="ghost" 
+                      className="w-full text-white hover:text-[#F97316] hover:bg-transparent border border-[#333] hover:border-[#F97316] transition-colors"
                     >
                       View Winning Album
                     </Button>
