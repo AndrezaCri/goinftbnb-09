@@ -48,7 +48,7 @@ const initialAlbums = [
     title: "Premier League Collection",
     creator: "Football legends",
     createdAt: "2025-05-04",
-    imageUrl: "/lovable-uploads/f82cef2b-84a8-4582-af21-383a96b8d148.png",
+    imageUrl: "/lovable-uploads/3fbe2d39-07c3-414d-9191-275d52cc520e.png",
     description: "The ultimate collection of Premier League moments and stars",
     upvotes: 156,
     downvotes: 7,
