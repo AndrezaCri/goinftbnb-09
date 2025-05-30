@@ -16,7 +16,7 @@ const binanceChallenges = [
     title: "Binance 7th Anniversary Challenge",
     team: "Binance Community",
     deadline: "2025-07-01",
-    imageUrl: "https://images.unsplash.com/photo-1640161704729-cbe966a08476?w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop",
     description: "Celebrate Binance's 7th anniversary by creating an album showcasing the evolution of crypto trading and DeFi innovations. Highlight key milestones, community achievements, and the future of digital finance.",
     participants: 1247,
     difficulty: "medium",
@@ -73,7 +73,43 @@ const soccerChallenges = [
   }
 ];
 
-const allChallenges = [...binanceChallenges, ...soccerChallenges];
+// Coruja Cripto challenges
+const corujaCriptoChallenge = [
+  {
+    id: 201,
+    title: "Owl's Crypto Wisdom Collection",
+    team: "Coruja Cripto",
+    deadline: "2025-06-25",
+    imageUrl: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop",
+    description: "Create an educational album about cryptocurrency fundamentals and blockchain technology. Share your knowledge and wisdom with the crypto community like a wise owl.",
+    participants: 456,
+    difficulty: "medium",
+    prize: "7,500 OWL tokens + Exclusive Owl NFT",
+    tags: ["education", "blockchain", "cryptocurrency", "wisdom"],
+    active: true,
+    type: "owl"
+  }
+];
+
+// CastaCripto challenges
+const castaCriptoChallenge = [
+  {
+    id: 301,
+    title: "Crypto Podcast Masters",
+    team: "CastaCripto",
+    deadline: "2025-07-10",
+    imageUrl: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop",
+    description: "Design an album featuring the best crypto podcasts, influencers, and educational content creators. Showcase the voices that shape the crypto community.",
+    participants: 325,
+    difficulty: "easy",
+    prize: "4,000 CAST tokens + Podcast Equipment",
+    tags: ["podcast", "influencers", "education", "community"],
+    active: true,
+    type: "cast"
+  }
+];
+
+const allChallenges = [...binanceChallenges, ...soccerChallenges, ...corujaeCriptoChallenge, ...castaCriptoChallenge];
 
 const Challenges = () => {
   const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
@@ -108,9 +144,89 @@ const Challenges = () => {
   };
 
   const getChallengeTheme = (type: string) => {
-    return type === "binance" 
-      ? { border: "hover:border-[#F0B90B]", button: "bg-[#F0B90B] hover:bg-[#D9A441] text-black", badge: "bg-[#F0B90B]/90 text-black", prize: "text-[#F0B90B]" }
-      : { border: "hover:border-[#F97316]", button: "bg-[#F97316] hover:bg-[#E86305] text-black", badge: "bg-[#F97316]/90 text-white", prize: "text-[#F97316]" };
+    switch (type) {
+      case "binance":
+        return { border: "hover:border-[#F0B90B]", button: "bg-[#F0B90B] hover:bg-[#D9A441] text-black", badge: "bg-[#F0B90B]/90 text-black", prize: "text-[#F0B90B]", label: "BINANCE" };
+      case "owl":
+        return { border: "hover:border-[#8B5CF6]", button: "bg-[#8B5CF6] hover:bg-[#7C3AED] text-white", badge: "bg-[#8B5CF6]/90 text-white", prize: "text-[#8B5CF6]", label: "CORUJA CRIPTO" };
+      case "cast":
+        return { border: "hover:border-[#06B6D4]", button: "bg-[#06B6D4] hover:bg-[#0891B2] text-white", badge: "bg-[#06B6D4]/90 text-white", prize: "text-[#06B6D4]", label: "CASTAcripto" };
+      default:
+        return { border: "hover:border-[#F97316]", button: "bg-[#F97316] hover:bg-[#E86305] text-black", badge: "bg-[#F97316]/90 text-white", prize: "text-[#F97316]", label: "SOCCER" };
+    }
+  };
+
+  const renderChallengeCard = (challenge: any) => {
+    const theme = getChallengeTheme(challenge.type);
+    return (
+      <Card key={challenge.id} className={`bg-[#111] border-[#333] text-white overflow-hidden ${theme.border} transition-all`}>
+        <div className="relative">
+          <AspectRatio ratio={16 / 9}>
+            <img
+              src={challenge.imageUrl}
+              alt={challenge.title}
+              className="object-cover w-full h-full"
+            />
+            <div className="absolute top-2 right-2">
+              <Badge variant="outline" className={`bg-black/70 border-current ${theme.prize}`}>
+                {challenge.difficulty.toUpperCase()}
+              </Badge>
+            </div>
+            <div className="absolute top-2 left-2">
+              <Badge variant="outline" className={theme.badge}>
+                {theme.label}
+              </Badge>
+            </div>
+          </AspectRatio>
+        </div>
+        
+        <CardHeader className="pb-2">
+          <CardTitle className="text-xl">{challenge.title}</CardTitle>
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <User size={14} />
+            <span>By {challenge.team}</span>
+          </div>
+        </CardHeader>
+        
+        <CardContent className="pb-2">
+          <p className="text-sm text-gray-300 mb-3">{challenge.description}</p>
+          
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            <div className="flex items-center gap-1 text-sm text-gray-400">
+              <Calendar size={14} />
+              <span>Deadline: {challenge.deadline}</span>
+            </div>
+            <div className="flex items-center gap-1 text-sm text-gray-400">
+              <Users size={14} />
+              <span>{challenge.participants} participants</span>
+            </div>
+          </div>
+          
+          <div className={`bg-gradient-to-r ${challenge.type === 'binance' ? 'from-[#F0B90B]/10 to-[#F0B90B]/5 border-[#F0B90B]/30' : challenge.type === 'owl' ? 'from-[#8B5CF6]/10 to-[#8B5CF6]/5 border-[#8B5CF6]/30' : challenge.type === 'cast' ? 'from-[#06B6D4]/10 to-[#06B6D4]/5 border-[#06B6D4]/30' : 'from-[#F97316]/10 to-[#F97316]/5 border-[#F97316]/30'} border rounded-md p-3 mb-3`}>
+            <div className="text-xs text-gray-400 mb-1">PRIZE</div>
+            <div className={`${theme.prize} font-medium`}>{challenge.prize}</div>
+          </div>
+          
+          <div className="flex flex-wrap gap-1">
+            {challenge.tags.map((tag: string) => (
+              <Badge key={tag} variant="outline" className={`text-xs ${getDifficultyColor(challenge.difficulty)}`}>
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        </CardContent>
+        
+        <CardFooter>
+          <Button 
+            onClick={() => handleOpenChallengeModal(challenge)}
+            className={`w-full ${theme.button} font-medium`}
+          >
+            <Flag className="h-5 w-5" />
+            <span>View Challenge</span>
+          </Button>
+        </CardFooter>
+      </Card>
+    );
   };
   
   return (
@@ -134,86 +250,13 @@ const Challenges = () => {
 
         {/* Binance Section */}
         <div className="mb-12">
-          {/* Removed the Binance Community Challenges highlight section */}
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {binanceChallenges.map((challenge) => {
-              const theme = getChallengeTheme(challenge.type);
-              return (
-                <Card key={challenge.id} className={`bg-[#111] border-[#333] text-white overflow-hidden ${theme.border} transition-all`}>
-                  <div className="relative">
-                    <AspectRatio ratio={16 / 9}>
-                      <img
-                        src={challenge.imageUrl}
-                        alt={challenge.title}
-                        className="object-cover w-full h-full"
-                      />
-                      <div className="absolute top-2 right-2">
-                        <Badge variant="outline" className="bg-black/70 border-[#F0B90B] text-[#F0B90B]">
-                          {challenge.difficulty.toUpperCase()}
-                        </Badge>
-                      </div>
-                      <div className="absolute top-2 left-2">
-                        <Badge variant="outline" className={theme.badge}>
-                          BINANCE
-                        </Badge>
-                      </div>
-                    </AspectRatio>
-                  </div>
-                  
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-xl">{challenge.title}</CardTitle>
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <User size={14} />
-                      <span>By {challenge.team}</span>
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="pb-2">
-                    <p className="text-sm text-gray-300 mb-3">{challenge.description}</p>
-                    
-                    <div className="grid grid-cols-2 gap-2 mb-3">
-                      <div className="flex items-center gap-1 text-sm text-gray-400">
-                        <Calendar size={14} />
-                        <span>Deadline: {challenge.deadline}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-sm text-gray-400">
-                        <Users size={14} />
-                        <span>{challenge.participants} participants</span>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-r from-[#F0B90B]/10 to-[#F0B90B]/5 border border-[#F0B90B]/30 rounded-md p-3 mb-3">
-                      <div className="text-xs text-gray-400 mb-1">PRIZE</div>
-                      <div className={`${theme.prize} font-medium`}>{challenge.prize}</div>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-1">
-                      {challenge.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className={`text-xs ${getDifficultyColor(challenge.difficulty)}`}>
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                  
-                  <CardFooter>
-                    <Button 
-                      onClick={() => handleOpenChallengeModal(challenge)}
-                      className={`w-full ${theme.button} font-medium`}
-                    >
-                      <Flag className="h-5 w-5" />
-                      <span>View Challenge</span>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              );
-            })}
+            {binanceChallenges.map(renderChallengeCard)}
           </div>
         </div>
 
         {/* Soccer Section */}
-        <div>
+        <div className="mb-12">
           <div className="bg-gradient-to-r from-[#F97316]/20 to-[#F97316]/5 border border-[#F97316]/30 rounded-lg p-6 mb-6">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 bg-[#F97316] rounded-lg flex items-center justify-center">
@@ -226,74 +269,46 @@ const Challenges = () => {
             </div>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {soccerChallenges.map(renderChallengeCard)}
+          </div>
+        </div>
+
+        {/* Coruja Cripto Section */}
+        <div className="mb-12">
+          <div className="bg-gradient-to-r from-[#8B5CF6]/20 to-[#8B5CF6]/5 border border-[#8B5CF6]/30 rounded-lg p-6 mb-6">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-[#8B5CF6] rounded-lg flex items-center justify-center">
+                <Trophy className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-[#8B5CF6]">Coruja Cripto Challenges</h2>
+                <p className="text-gray-300">Educational crypto challenges from the wise owl community</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {corujaeCriptoChallenge.map(renderChallengeCard)}
+          </div>
+        </div>
+
+        {/* CastaCripto Section */}
+        <div>
+          <div className="bg-gradient-to-r from-[#06B6D4]/20 to-[#06B6D4]/5 border border-[#06B6D4]/30 rounded-lg p-6 mb-6">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-[#06B6D4] rounded-lg flex items-center justify-center">
+                <Trophy className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-[#06B6D4]">CastaCripto Challenges</h2>
+                <p className="text-gray-300">Podcast and content creator challenges</p>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {soccerChallenges.map((challenge) => {
-              const theme = getChallengeTheme(challenge.type);
-              return (
-                <Card key={challenge.id} className={`bg-[#111] border-[#333] text-white overflow-hidden ${theme.border} transition-all`}>
-                  <div className="relative">
-                    <AspectRatio ratio={16 / 9}>
-                      <img
-                        src={challenge.imageUrl}
-                        alt={challenge.title}
-                        className="object-cover w-full h-full"
-                      />
-                      <div className="absolute top-2 right-2">
-                        <Badge variant="outline" className="bg-black/70 border-[#F97316] text-[#F97316]">
-                          {challenge.difficulty.toUpperCase()}
-                        </Badge>
-                      </div>
-                    </AspectRatio>
-                  </div>
-                  
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-xl">{challenge.title}</CardTitle>
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <User size={14} />
-                      <span>By {challenge.team}</span>
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="pb-2">
-                    <p className="text-sm text-gray-300 mb-3">{challenge.description}</p>
-                    
-                    <div className="grid grid-cols-2 gap-2 mb-3">
-                      <div className="flex items-center gap-1 text-sm text-gray-400">
-                        <Calendar size={14} />
-                        <span>Deadline: {challenge.deadline}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-sm text-gray-400">
-                        <Users size={14} />
-                        <span>{challenge.participants} participants</span>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-[#222] border border-[#333] rounded-md p-3 mb-3">
-                      <div className="text-xs text-gray-400 mb-1">PRIZE</div>
-                      <div className={`${theme.prize} font-medium`}>{challenge.prize}</div>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-1">
-                      {challenge.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className={`text-xs ${getDifficultyColor(challenge.difficulty)}`}>
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                  
-                  <CardFooter>
-                    <Button 
-                      onClick={() => handleOpenChallengeModal(challenge)}
-                      className={`w-full ${theme.button}`}
-                    >
-                      <Flag className="h-5 w-5" />
-                      <span>View Challenge</span>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              );
-            })}
+            {castaCriptoChallenge.map(renderChallengeCard)}
           </div>
         </div>
 

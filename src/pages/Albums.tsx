@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { UserAlbumsSection } from "@/components/albums/UserAlbumsSection";
@@ -5,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import LazyIcon from "@/components/ui/lazy-icon";
 
 const Albums = () => {
   const [albums, setAlbums] = useState([
@@ -51,7 +51,7 @@ const Albums = () => {
           <Button>Create New Album</Button>
         </div>
 
-        <UserAlbumsSection albums={albums} />
+        <UserAlbumsSection />
       </main>
     </div>
   );
