@@ -176,10 +176,13 @@ const Community = () => {
         
         {totalPages > 1 && (
           <Pagination className="mt-8">
-            <PaginationContent>
+            <PaginationContent className="text-white">
               {currentPage > 1 && (
                 <PaginationItem>
-                  <PaginationPrevious onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} />
+                  <PaginationPrevious 
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    className="bg-[#1F1F1F] text-white border-[#333] hover:bg-[#2A2A2A] hover:text-white"
+                  />
                 </PaginationItem>
               )}
               
@@ -188,6 +191,10 @@ const Community = () => {
                   <PaginationLink 
                     isActive={currentPage === page}
                     onClick={() => setCurrentPage(page)}
+                    className={currentPage === page 
+                      ? "bg-green-500 text-white border-green-500 hover:bg-green-600" 
+                      : "bg-[#1F1F1F] text-white border-[#333] hover:bg-[#2A2A2A] hover:text-white"
+                    }
                   >
                     {page}
                   </PaginationLink>
@@ -196,7 +203,10 @@ const Community = () => {
               
               {currentPage < totalPages && (
                 <PaginationItem>
-                  <PaginationNext onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} />
+                  <PaginationNext 
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    className="bg-[#1F1F1F] text-white border-[#333] hover:bg-[#2A2A2A] hover:text-white"
+                  />
                 </PaginationItem>
               )}
             </PaginationContent>
