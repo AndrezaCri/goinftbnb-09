@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -128,6 +127,7 @@ const Challenges = () => {
   };
   
   const handleOpenChallengeModal = (challenge: typeof allChallenges[0]) => {
+    console.log("Opening modal for challenge:", challenge.title, "Type:", challenge.type);
     setSelectedChallenge(challenge);
     setIsModalOpen(true);
   };
