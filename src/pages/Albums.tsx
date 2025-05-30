@@ -14,9 +14,9 @@ const Albums = () => {
 
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold"></h1>
+          <h1 className="text-3xl font-bold">Albums</h1>
           <Link to="/album-lab">
-            <Button></Button>
+            <Button>Create New Album</Button>
           </Link>
         </div>
 
@@ -26,11 +26,13 @@ const Albums = () => {
               value="collection"
               className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
+              Minha Coleção
             </TabsTrigger>
             <TabsTrigger 
               value="my-albums"
               className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
+              Meus Albums
             </TabsTrigger>
           </TabsList>
           
