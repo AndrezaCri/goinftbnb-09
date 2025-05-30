@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -14,7 +15,7 @@ const initialAlbums = [
     title: "World Cup Legends",
     creator: "SoccerFan99",
     createdAt: "2025-05-01",
-    imageUrl: "/lovable-uploads/dbf632e2-cd04-465f-ae41-1200d71dd6bd.png",
+    imageUrl: "/lovable-uploads/84dda1f2-10ca-460d-9dd3-989c68b47ab0.png",
     description: "Collection of the greatest World Cup moments in history",
     upvotes: 124,
     downvotes: 8,
