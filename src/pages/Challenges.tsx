@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 
-// Binance challenges (showing only 2)
+// Binance challenges (expanded to 4)
 const binanceChallenges = [
   {
     id: 101,
@@ -37,10 +37,38 @@ const binanceChallenges = [
     tags: ["trading", "education", "technical analysis"],
     active: true,
     type: "binance"
+  },
+  {
+    id: 103,
+    title: "DeFi Innovation Showcase",
+    team: "Binance Labs",
+    deadline: "2025-07-20",
+    imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=400&fit=crop",
+    description: "Create an album featuring the most innovative DeFi projects and protocols. Showcase the future of decentralized finance and yield farming strategies.",
+    participants: 634,
+    difficulty: "medium",
+    prize: "3,500 BNB + DeFi Project Tokens",
+    tags: ["defi", "innovation", "yield farming"],
+    active: true,
+    type: "binance"
+  },
+  {
+    id: 104,
+    title: "NFT Marketplace Revolution",
+    team: "Binance NFT",
+    deadline: "2025-06-30",
+    imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop",
+    description: "Build an album celebrating the NFT revolution and digital art. Feature top NFT collections, artists, and marketplace trends.",
+    participants: 445,
+    difficulty: "easy",
+    prize: "2,000 BNB + Rare NFT Collection",
+    tags: ["nft", "digital art", "marketplace"],
+    active: true,
+    type: "binance"
   }
 ];
 
-// Soccer challenges (showing only 2)
+// Soccer challenges (expanded to 4)
 const soccerChallenges = [
   {
     id: 1,
@@ -69,10 +97,38 @@ const soccerChallenges = [
     tags: ["manchester united", "premier league", "legacy"],
     active: true,
     type: "soccer"
+  },
+  {
+    id: 3,
+    title: "Champions League Glory",
+    team: "UEFA",
+    deadline: "2025-07-05",
+    imageUrl: "https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=400&h=400&fit=crop",
+    description: "Create an album featuring the most memorable Champions League finals and moments. Celebrate Europe's premier football competition.",
+    participants: 356,
+    difficulty: "medium",
+    prize: "4,500 GOIN tokens + UEFA NFT",
+    tags: ["champions league", "uefa", "finals"],
+    active: true,
+    type: "soccer"
+  },
+  {
+    id: 4,
+    title: "Brazilian Football Legends",
+    team: "CBF Brazil",
+    deadline: "2025-06-28",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop",
+    description: "Showcase the greatest Brazilian football players of all time. From Pelé to Ronaldinho, celebrate the magic of Brazilian football.",
+    participants: 298,
+    difficulty: "easy",
+    prize: "3,200 GOIN tokens + Brazil Jersey NFT",
+    tags: ["brazil", "legends", "seleção"],
+    active: true,
+    type: "soccer"
   }
 ];
 
-// Coruja Cripto challenges
+// Coruja Cripto challenges (expanded to 2)
 const corujaCriptoChallenge = [
   {
     id: 201,
@@ -87,10 +143,24 @@ const corujaCriptoChallenge = [
     tags: ["education", "blockchain", "cryptocurrency", "wisdom"],
     active: true,
     type: "owl"
+  },
+  {
+    id: 202,
+    title: "DeFi Mastery Guide",
+    team: "Coruja Cripto Academy",
+    deadline: "2025-07-08",
+    imageUrl: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=400&h=400&fit=crop",
+    description: "Design an advanced guide to DeFi protocols, liquidity mining, and smart contract interactions. Help the community understand complex DeFi concepts.",
+    participants: 325,
+    difficulty: "hard",
+    prize: "6,000 OWL tokens + DeFi Course Access",
+    tags: ["defi", "protocols", "smart contracts", "advanced"],
+    active: true,
+    type: "owl"
   }
 ];
 
-// CastaCripto challenges
+// CastaCripto challenges (expanded to 2)
 const castaCriptoChallenge = [
   {
     id: 301,
@@ -103,6 +173,20 @@ const castaCriptoChallenge = [
     difficulty: "easy",
     prize: "4,000 CAST tokens + Podcast Equipment",
     tags: ["podcast", "influencers", "education", "community"],
+    active: true,
+    type: "cast"
+  },
+  {
+    id: 302,
+    title: "Crypto Content Creator Awards",
+    team: "CastaCripto Network",
+    deadline: "2025-06-22",
+    imageUrl: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&h=400&fit=crop",
+    description: "Create an album celebrating the best crypto content creators, YouTubers, and educational channels. Highlight their contributions to crypto adoption.",
+    participants: 278,
+    difficulty: "medium",
+    prize: "5,500 CAST tokens + Creator Badge NFT",
+    tags: ["creators", "youtube", "content", "awards"],
     active: true,
     type: "cast"
   }
