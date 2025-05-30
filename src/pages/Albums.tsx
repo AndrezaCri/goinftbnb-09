@@ -54,14 +54,14 @@ const PlacedSticker = React.memo(({ sticker }: { sticker: StickerProps }) => (
 
 const Albums = () => {
   const [stickers, setStickers] = useState<StickerProps[]>(() => [
-    { id: 1, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b", playerName: "M. Silva", team: "Brazil" },
-    { id: 2, isPlaced: false },
-    { id: 3, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1574680096145-d05b474e2155", playerName: "K. Mbappé", team: "France" },
-    { id: 4, isPlaced: false },
-    { id: 5, isPlaced: false },
-    { id: 6, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1553778263-73a83bab9b0c", playerName: "L. Messi", team: "Argentina" },
-    { id: 7, isPlaced: false },
-    { id: 8, isPlaced: true, imageUrl: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12", playerName: "C. Ronaldo", team: "Portugal" },
+    { id: 1, isPlaced: true, imageUrl: "/lovable-uploads/80344331-9269-48f1-82d3-4434d48c11a7.png", playerName: "M. Silva", team: "Brazil" },
+    { id: 2, isPlaced: true, imageUrl: "/lovable-uploads/2837a9c3-b272-4196-a96c-3daad0a03103.png", playerName: "K. Mbappé", team: "France" },
+    { id: 3, isPlaced: true, imageUrl: "/lovable-uploads/0983abca-88df-4210-8a62-e53e8eba5231.png", playerName: "L. Messi", team: "Argentina" },
+    { id: 4, isPlaced: true, imageUrl: "/lovable-uploads/335ddb23-10eb-4cfa-b92f-a4032a6bb10d.png", playerName: "C. Ronaldo", team: "Portugal" },
+    { id: 5, isPlaced: true, imageUrl: "/lovable-uploads/ccf9d52f-fe2c-4962-a1c6-8932da3cbaff.png", playerName: "E. Haaland", team: "Norway" },
+    { id: 6, isPlaced: true, imageUrl: "/lovable-uploads/8ae3dc78-3659-4fd5-a3bd-43991715ced4.png", playerName: "V. Junior", team: "Brazil" },
+    { id: 7, isPlaced: true, imageUrl: "/lovable-uploads/1b8ffbae-6dd6-42be-8aad-55b2f592e2b6.png", playerName: "K. De Bruyne", team: "Belgium" },
+    { id: 8, isPlaced: true, imageUrl: "/lovable-uploads/5d66beca-ee47-4a4e-a404-dc84aa62883f.png", playerName: "Pedri", team: "Spain" },
     { id: 9, isPlaced: false },
     { id: 10, isPlaced: false },
     { id: 11, isPlaced: false },
@@ -80,12 +80,12 @@ const Albums = () => {
   // Memoize random data arrays with updated URLs
   const randomData = useMemo(() => ({
     images: [
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155",
-      "https://images.unsplash.com/photo-1553778263-73a83bab9b0c",
-      "https://images.unsplash.com/photo-1560272564-c83b66b1ad12",
-      "https://images.unsplash.com/photo-1589487391730-58f20eb2c308",
-      "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d"
+      "/lovable-uploads/80344331-9269-48f1-82d3-4434d48c11a7.png",
+      "/lovable-uploads/2837a9c3-b272-4196-a96c-3daad0a03103.png",
+      "/lovable-uploads/0983abca-88df-4210-8a62-e53e8eba5231.png",
+      "/lovable-uploads/335ddb23-10eb-4cfa-b92f-a4032a6bb10d.png",
+      "/lovable-uploads/ccf9d52f-fe2c-4962-a1c6-8932da3cbaff.png",
+      "/lovable-uploads/8ae3dc78-3659-4fd5-a3bd-43991715ced4.png"
     ],
     playerNames: ["A. Martinez", "N. Williams", "J. Bellingham", "R. Lewandowski", "V. van Dijk", "T. Kroos", "K. De Bruyne"],
     teams: ["Argentina", "Spain", "England", "Poland", "Netherlands", "Germany", "Belgium"]
