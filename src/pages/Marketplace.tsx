@@ -28,14 +28,14 @@ const Marketplace = () => {
       </header>
 
       <div className="container mx-auto p-8 max-sm:p-4">
-        <h1 className="text-4xl font-bold mb-6">NFT Marketplace</h1>
+        <h1 className="text-4xl font-bold mb-6" style={{ color: '#FFEB3B' }}>NFT Marketplace</h1>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="mb-8 bg-[#111] border border-[#333]">
-            <TabsTrigger value="browse">Navegar no Mercado</TabsTrigger>
-            <TabsTrigger value="packs">Pacotes NFT</TabsTrigger>
-            <TabsTrigger value="trading">Sistema de Trocas</TabsTrigger>
-            <TabsTrigger value="my-listings">Minhas Listagens</TabsTrigger>
+            <TabsTrigger value="browse" style={{ color: '#FFEB3B' }}>Navegar no Mercado</TabsTrigger>
+            <TabsTrigger value="packs" style={{ color: '#FFEB3B' }}>Pacotes NFT</TabsTrigger>
+            <TabsTrigger value="trading" style={{ color: '#FFEB3B' }}>Sistema de Trocas</TabsTrigger>
+            <TabsTrigger value="my-listings" style={{ color: '#FFEB3B' }}>Minhas Listagens</TabsTrigger>
           </TabsList>
           
           <TabsContent value="browse">
