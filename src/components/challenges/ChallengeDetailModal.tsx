@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -41,14 +41,12 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
   onJoin,
   isJoined,
 }) => {
-  // Scroll to top whenever modal opens
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Scroll modal content to top whenever modal opens
   useEffect(() => {
-    if (isOpen) {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      });
+    if (isOpen && contentRef.current) {
+      contentRef.current.scrollTop = 0;
     }
   }, [isOpen]);
 
@@ -143,7 +141,10 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-[#111] border-[#333] text-white max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent 
+        ref={contentRef}
+        className="bg-[#111] border-[#333] text-white max-w-2xl max-h-[90vh] overflow-y-auto"
+      >
         <DialogHeader>
           <DialogTitle className={`text-2xl font-bold ${theme.title}`}>
             {challenge.title}
