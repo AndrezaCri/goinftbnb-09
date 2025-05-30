@@ -91,7 +91,7 @@ const Community = () => {
   };
   
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#121212] text-white">
       <Navbar />
       
       <main className="container mx-auto px-4 py-8">
@@ -101,16 +101,16 @@ const Community = () => {
             <h1 className="text-3xl font-bold">Soccer Community Albums</h1>
           </div>
           <div className="flex space-x-2">
-            <Badge variant="secondary">Latest</Badge>
-            <Badge variant="outline">Popular</Badge>
-            <Badge variant="outline">Trending</Badge>
+            <Badge variant="secondary" className="bg-[#1F1F1F] text-white border-[#333] hover:bg-[#2A2A2A]">Latest</Badge>
+            <Badge variant="outline" className="bg-transparent text-gray-300 border-[#333] hover:bg-[#1F1F1F]">Popular</Badge>
+            <Badge variant="outline" className="bg-transparent text-gray-300 border-[#333] hover:bg-[#1F1F1F]">Trending</Badge>
           </div>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {currentAlbums.map((album) => (
-            <Card key={album.id} className="bg-[#111] border-[#333] text-white overflow-hidden hover:border-green-500 transition-all">
-              <div className="relative bg-gray-800">
+            <Card key={album.id} className="bg-[#1F1F1F] border-[#333] text-white overflow-hidden hover:border-green-500 transition-all">
+              <div className="relative bg-[#2A2A2A]">
                 <AspectRatio ratio={1 / 1}>
                   <img
                     src={album.imageUrl}
