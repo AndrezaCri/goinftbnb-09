@@ -66,12 +66,6 @@ const Albums = () => {
     { id: 10, isPlaced: true, imageUrl: "/lovable-uploads/26dc6bd3-e9df-4644-8cec-affbf6c79319.png", playerName: "A. Putellas", team: "Spain" },
     { id: 11, isPlaced: true, imageUrl: "/lovable-uploads/fa9a2fdc-8d89-438a-97ef-bebe851f5a32.png", playerName: "Gavi", team: "Spain" },
     { id: 12, isPlaced: true, imageUrl: "/lovable-uploads/dfefb900-144a-4927-8c88-0e8d4f41a17e.png", playerName: "F. Torres", team: "Spain" },
-    { id: 13, isPlaced: true, imageUrl: "/lovable-uploads/80efbc91-4123-4701-85c5-3b444308e344.png", playerName: "M. Ødegaard", team: "Norway" },
-    { id: 14, isPlaced: false },
-    { id: 15, isPlaced: false },
-    { id: 16, isPlaced: false },
-    { id: 17, isPlaced: false },
-    { id: 18, isPlaced: false },
   ]);
 
   // Memoize expensive calculations
