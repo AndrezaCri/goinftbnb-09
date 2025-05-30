@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,7 +40,75 @@ const binanceChallenges = [
   }
 ];
 
-const allChallenges = [...binanceChallenges];
+// Soccer challenges (showing only 2)
+const soccerChallenges = [
+  {
+    id: 1,
+    title: "World Cup Legends Challenge",
+    team: "FIFA Official",
+    deadline: "2025-07-15",
+    imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop",
+    description: "Create an album featuring iconic World Cup moments through history",
+    participants: 248,
+    difficulty: "medium",
+    prize: "5,000 GOIN tokens",
+    tags: ["world cup", "legends", "history"],
+    active: true,
+    type: "soccer"
+  },
+  {
+    id: 2,
+    title: "Manchester United Legacy",
+    team: "Manchester United",
+    deadline: "2025-06-30",
+    imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop",
+    description: "Design an album showcasing Manchester United's greatest players",
+    participants: 187,
+    difficulty: "hard",
+    prize: "Limited edition NFT + 3,000 GOIN tokens",
+    tags: ["manchester united", "premier league", "legacy"],
+    active: true,
+    type: "soccer"
+  }
+];
+
+// Coruja Cripto challenges
+const corujaCriptoChallenge = [
+  {
+    id: 201,
+    title: "Owl's Crypto Wisdom Collection",
+    team: "Coruja Cripto",
+    deadline: "2025-06-25",
+    imageUrl: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop",
+    description: "Create an educational album about cryptocurrency fundamentals and blockchain technology. Share your knowledge and wisdom with the crypto community like a wise owl.",
+    participants: 456,
+    difficulty: "medium",
+    prize: "7,500 OWL tokens + Exclusive Owl NFT",
+    tags: ["education", "blockchain", "cryptocurrency", "wisdom"],
+    active: true,
+    type: "owl"
+  }
+];
+
+// CastaCripto challenges
+const castaCriptoChallenge = [
+  {
+    id: 301,
+    title: "Crypto Podcast Masters",
+    team: "CastaCripto",
+    deadline: "2025-07-10",
+    imageUrl: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop",
+    description: "Design an album featuring the best crypto podcasts, influencers, and educational content creators. Showcase the voices that shape the crypto community.",
+    participants: 325,
+    difficulty: "easy",
+    prize: "4,000 CAST tokens + Podcast Equipment",
+    tags: ["podcast", "influencers", "education", "community"],
+    active: true,
+    type: "cast"
+  }
+];
+
+const allChallenges = [...binanceChallenges, ...soccerChallenges, ...corujaCriptoChallenge, ...castaCriptoChallenge];
 
 const Challenges = () => {
   const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
@@ -184,6 +251,63 @@ const Challenges = () => {
         <div className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {binanceChallenges.map(renderChallengeCard)}
+          </div>
+        </div>
+
+        {/* Soccer Section */}
+        <div className="mb-12">
+          <div className="bg-gradient-to-r from-[#F97316]/20 to-[#F97316]/5 border border-[#F97316]/30 rounded-lg p-6 mb-6">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-[#F97316] rounded-lg flex items-center justify-center">
+                <Trophy className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-[#F97316]">Soccer Team Challenges</h2>
+                <p className="text-gray-300">Official challenges from your favorite soccer teams</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {soccerChallenges.map(renderChallengeCard)}
+          </div>
+        </div>
+
+        {/* Coruja Cripto Section */}
+        <div className="mb-12">
+          <div className="bg-gradient-to-r from-[#8B5CF6]/20 to-[#8B5CF6]/5 border border-[#8B5CF6]/30 rounded-lg p-6 mb-6">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-[#8B5CF6] rounded-lg flex items-center justify-center">
+                <Trophy className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-[#8B5CF6]">Coruja Cripto Challenges</h2>
+                <p className="text-gray-300">Educational crypto challenges from the wise owl community</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {corujaCriptoChallenge.map(renderChallengeCard)}
+          </div>
+        </div>
+
+        {/* CastaCripto Section */}
+        <div>
+          <div className="bg-gradient-to-r from-[#06B6D4]/20 to-[#06B6D4]/5 border border-[#06B6D4]/30 rounded-lg p-6 mb-6">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-[#06B6D4] rounded-lg flex items-center justify-center">
+                <Trophy className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-[#06B6D4]">CastaCripto Challenges</h2>
+                <p className="text-gray-300">Podcast and content creator challenges</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {castaCriptoChallenge.map(renderChallengeCard)}
           </div>
         </div>
 
