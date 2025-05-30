@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { ThumbsUp, ThumbsDown, User, Calendar, Award } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { BackgroundRemover } from "@/components/ui/background-remover";
 import { toast } from "sonner";
 
 // Mock data for soccer community albums
@@ -83,15 +82,6 @@ const Community = () => {
     }));
   };
 
-  const handleImageProcessed = (albumId: number, processedImageUrl: string) => {
-    setAlbums(albums.map(album => {
-      if (album.id === albumId) {
-        return { ...album, imageUrl: processedImageUrl };
-      }
-      return album;
-    }));
-  };
-
   const handleImageLoad = (imageUrl: string) => {
     console.log('Image loaded successfully:', imageUrl);
   };
@@ -133,10 +123,6 @@ const Community = () => {
                     }}
                   />
                 </AspectRatio>
-                <BackgroundRemover
-                  imageUrl={album.imageUrl}
-                  onProcessed={(processedUrl) => handleImageProcessed(album.id, processedUrl)}
-                />
               </div>
               
               <CardContent className="pt-4">
