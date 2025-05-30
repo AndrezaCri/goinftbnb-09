@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -71,7 +72,7 @@ const mockNFTs = [
 const rarityColors = {
   Common: "bg-gray-400",
   Uncommon: "bg-green-500",
-  Rare: "bg-blue-500",
+  Rare: "bg-yellow-400",
   Legendary: "bg-yellow-400"
 };
 
@@ -148,7 +149,7 @@ export const NFTMarketplaceSection = () => {
       </div>
       
       <div className="flex flex-wrap gap-2 mb-6">
-        <div className="text-sm mr-2 flex items-center" style={{ color: '#ffeb3c' }}>
+        <div className="text-sm mr-2 flex items-center" style={{ color: '#FFEB3B' }}>
           <Tag size={16} className="mr-1" /> Collections:
         </div>
         {collections.map(collection => (

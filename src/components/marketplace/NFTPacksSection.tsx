@@ -72,7 +72,7 @@ const possibleNFTs = [
 const rarityColors = {
   Common: "bg-gray-400",
   Uncommon: "bg-green-500",
-  Rare: "bg-blue-500",
+  Rare: "bg-yellow-400",
   Legendary: "bg-yellow-400"
 };
 

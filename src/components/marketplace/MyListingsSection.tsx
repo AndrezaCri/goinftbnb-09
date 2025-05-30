@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -57,7 +56,7 @@ const myNFTs = [
 const rarityColors = {
   Common: "bg-gray-400",
   Uncommon: "bg-green-500",
-  Rare: "bg-blue-500",
+  Rare: "bg-yellow-400",
   Legendary: "bg-yellow-400"
 };
 
@@ -141,7 +140,7 @@ export const MyListingsSection = () => {
                       </Badge>
                     </div>
                     <p className="text-sm text-gray-400 mb-2">Collection: {nft.collection}</p>
-                    <p className="text-sm font-semibold">Listed for: {nft.price} ETH</p>
+                    <p className="text-sm font-semibold">{nft.price} ETH</p>
                   </CardContent>
                   <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
                     <Dialog>

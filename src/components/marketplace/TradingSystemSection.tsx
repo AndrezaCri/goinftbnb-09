@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -66,7 +65,7 @@ const availableTrades = [
 const rarityColors = {
   Common: "bg-gray-400",
   Uncommon: "bg-green-500",
-  Rare: "bg-blue-500",
+  Rare: "bg-yellow-400",
   Legendary: "bg-yellow-400"
 };
 
