@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -83,8 +82,7 @@ export default defineConfig(({ mode }) => ({
       include: [/node_modules/],
       transformMixedEsModules: true,
       namedExports: {
-        'bn.js': ['BN'],
-        'js-sha3': ['keccak256', 'sha3_256', 'sha3_512']
+        'bn.js': ['BN']
       }
     }
   },
@@ -117,12 +115,11 @@ export default defineConfig(({ mode }) => ({
       'react-router-dom',
       'clsx',
       'tailwind-merge',
-      '@radix-ui/react-slot',
-      'js-sha3',
-      'ethers'
+      '@radix-ui/react-slot'
     ],
     exclude: [
       'lucide-react', // Lazy load icons
+      'ethers', // Lazy load Web3
       'recharts' // Lazy load charts
     ]
   },

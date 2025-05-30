@@ -2,11 +2,12 @@
 import React, { Suspense, lazy, memo } from 'react';
 import { LucideProps } from 'lucide-react';
 
-interface LazyIconProps extends Omit<LucideProps, 'ref'> {
+interface IconLazyProps extends Omit<LucideProps, 'ref'> {
   name: string;
+  fallback?: React.ReactNode;
 }
 
-// Create a cache for loaded icons to avoid re-importing
+// Cache para ícones carregados
 const iconCache = new Map<string, React.ComponentType<LucideProps>>();
 
 // Componente de fallback ultra-leve
@@ -17,47 +18,46 @@ const IconFallback = memo(({ size = 16 }: { size?: number }) => (
   />
 ));
 
-export const LazyIcon: React.FC<LazyIconProps> = memo(({ name, ...props }) => {
-  // Check cache first
+export const IconLazy: React.FC<IconLazyProps> = memo(({ 
+  name, 
+  fallback = <IconFallback />, 
+  size = 16,
+  ...props 
+}) => {
+  // Verificar cache primeiro
   const cachedIcon = iconCache.get(name);
   
   if (cachedIcon) {
     const IconComponent = cachedIcon;
-    return <IconComponent {...props} />;
+    return <IconComponent size={size} {...props} />;
   }
 
-  // Dynamically import the icon with proper typing
+  // Import dinâmico otimizado
   const IconComponent = lazy(async () => {
     try {
       const module = await import('lucide-react');
-      const Icon = (module as any)[name] as React.ComponentType<LucideProps>;
+      const Icon = (module as any)[name];
       
       if (Icon) {
         iconCache.set(name, Icon);
         return { default: Icon };
       }
       
-      // Fallback to a basic icon if not found
-      const fallbackIcon = module.Circle as React.ComponentType<LucideProps>;
-      iconCache.set(name, fallbackIcon);
-      return { default: fallbackIcon };
+      // Fallback para ícone básico
+      iconCache.set(name, module.Circle);
+      return { default: module.Circle };
     } catch {
       const module = await import('lucide-react');
-      const fallbackIcon = module.Circle as React.ComponentType<LucideProps>;
-      iconCache.set(name, fallbackIcon);
-      return { default: fallbackIcon };
+      iconCache.set(name, module.Circle);
+      return { default: module.Circle };
     }
   });
 
-  // Convert size para number se for string
-  const iconSize = typeof props.size === 'string' ? parseInt(props.size) || 24 : props.size || 24;
-  const defaultFallback = <IconFallback size={iconSize} />;
-
   return (
-    <Suspense fallback={defaultFallback}>
-      <IconComponent {...props} />
+    <Suspense fallback={typeof fallback === 'function' ? fallback({ size }) : fallback}>
+      <IconComponent size={size} {...props} />
     </Suspense>
   );
 });
 
-LazyIcon.displayName = 'LazyIcon';
+IconLazy.displayName = 'IconLazy';
