@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -12,14 +11,14 @@ import { toast } from "sonner";
 const initialAlbums = [
   {
     id: 1,
-    title: "World Cup Legends",
-    creator: "SoccerFan99",
+    title: "CastaCrypto",
+    creator: "Crypto philosopher",
     createdAt: "2025-05-01",
     imageUrl: "/lovable-uploads/158597eb-8794-4eaa-81bf-c398b03162b1.png",
-    description: "Collection of the greatest World Cup moments in history",
+    description: "Education, privacy and critical thinking in Web3",
     upvotes: 124,
     downvotes: 8,
-    tags: ["world cup", "legends", "history"]
+    tags: ["education", "sovereignty", "blockchain"]
   },
   {
     id: 2,
