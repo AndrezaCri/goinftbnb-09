@@ -165,9 +165,9 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
 
         <DialogFooter className="flex gap-3">
           <Button 
-            variant="outline" 
+            variant="ghost" 
             onClick={onClose}
-            className="border-[#333] text-white hover:bg-[#222]"
+            className="text-white hover:bg-transparent border border-[#333] hover:border-[#F97316] transition-colors"
           >
             Close
           </Button>
