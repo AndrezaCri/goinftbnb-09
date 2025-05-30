@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Wallet, BookOpen, UsersRound, Trophy, DollarSign, LogOut, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -187,7 +188,7 @@ export const Navbar = () => {
             <DrawerClose asChild>
               <Button
                 variant="outline"
-                className="w-full border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10"
+                className="w-full bg-[#1F1F1F] text-white border-[#FFEB3B] hover:bg-[#FFEB3B] hover:text-black transition-colors"
                 onClick={handleVerificarSaldo}
                 disabled={isCheckingBalance}
               >
@@ -199,7 +200,7 @@ export const Navbar = () => {
             <DrawerClose asChild>
               <Button
                 variant="outline"
-                className="w-full border-red-500 text-red-500 hover:bg-red-500/10"
+                className="w-full bg-[#1F1F1F] text-white border-[#FFEB3B] hover:bg-[#FFEB3B] hover:text-black transition-colors"
                 onClick={handleDesconectarCarteira}
               >
                 <LogOut className="h-4 w-4 mr-2" />
@@ -264,7 +265,7 @@ export const Navbar = () => {
             <>
               <Button
                 variant="outline"
-                className="border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10"
+                className="bg-[#1F1F1F] text-white border-[#FFEB3B] hover:bg-[#FFEB3B] hover:text-black transition-colors"
                 onClick={handleVerificarSaldo}
                 disabled={isCheckingBalance}
               >
@@ -274,7 +275,7 @@ export const Navbar = () => {
               
               <Button
                 variant="outline"
-                className="border-red-500 text-red-500 hover:bg-red-500/10"
+                className="bg-[#1F1F1F] text-white border-[#FFEB3B] hover:bg-[#FFEB3B] hover:text-black transition-colors"
                 onClick={handleDesconectarCarteira}
               >
                 <LogOut className="h-4 w-4 mr-1" />
