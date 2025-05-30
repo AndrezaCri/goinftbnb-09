@@ -175,52 +175,54 @@ const AlbumLab = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#121212] text-white">
       <Navbar />
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Album Lab</h1>
-          <p className="text-muted-foreground">Create custom NFT albums and stickers</p>
+          <p className="text-gray-300">Create custom NFT albums and stickers</p>
         </div>
 
         <Tabs defaultValue="create-album" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="create-album">Create Album</TabsTrigger>
-            <TabsTrigger value="generate-stickers">Generate Stickers</TabsTrigger>
+          <TabsList className="bg-gray-800 border-gray-700">
+            <TabsTrigger value="create-album" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Create Album</TabsTrigger>
+            <TabsTrigger value="generate-stickers" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Generate Stickers</TabsTrigger>
           </TabsList>
 
           <TabsContent value="create-album">
-            <Card>
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
-                <CardTitle>Design Your Album</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-white">Design Your Album</CardTitle>
+                <CardDescription className="text-gray-300">
                   Create a custom album by selecting grid type and adding details
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-3">
-                  <Label htmlFor="album-title">Album Title</Label>
+                  <Label htmlFor="album-title" className="text-white">Album Title</Label>
                   <Input 
                     id="album-title" 
                     placeholder="Enter album title" 
                     value={albumTitle}
                     onChange={(e) => setAlbumTitle(e.target.value)}
+                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                   />
                 </div>
 
                 <div className="space-y-3">
-                  <Label htmlFor="album-description">Album Description</Label>
+                  <Label htmlFor="album-description" className="text-white">Album Description</Label>
                   <Textarea 
                     id="album-description" 
                     placeholder="Enter album description"
                     value={albumDescription}
                     onChange={(e) => setAlbumDescription(e.target.value)}
                     rows={3}
+                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                   />
                 </div>
 
                 <div className="space-y-3">
-                  <Label>Grid Type</Label>
+                  <Label className="text-white">Grid Type</Label>
                   <RadioGroup 
                     value={selectedGridType} 
                     onValueChange={setSelectedGridType}
@@ -228,10 +230,10 @@ const AlbumLab = () => {
                   >
                     {gridOptions.map((option) => (
                       <div key={option.value} className="flex items-center space-x-2">
-                        <RadioGroupItem value={option.value} id={option.value} />
+                        <RadioGroupItem value={option.value} id={option.value} className="border-gray-600" />
                         <Label 
                           htmlFor={option.value} 
-                          className="flex items-center gap-2 cursor-pointer"
+                          className="flex items-center gap-2 cursor-pointer text-white"
                         >
                           {option.icon}
                           <span>{option.label}</span>
@@ -242,7 +244,10 @@ const AlbumLab = () => {
                 </div>
 
                 <div className="pt-3">
-                  <Button onClick={handleCreateAlbum}>
+                  <Button 
+                    onClick={handleCreateAlbum}
+                    className="bg-[#FFEB3B] text-black hover:bg-[#FFEB3B]/90"
+                  >
                     Create Album
                   </Button>
                 </div>
@@ -252,19 +257,19 @@ const AlbumLab = () => {
 
           <TabsContent value="generate-stickers">
             <div className="grid gap-8 md:grid-cols-2">
-              <Card className="md:sticky md:top-24 h-fit">
+              <Card className="md:sticky md:top-24 h-fit bg-gray-800 border-gray-700">
                 <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-white">
                     <Sparkles className="h-5 w-5 text-purple-500" />
                     AI Sticker Generator
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-gray-300">
                     Use AI to create unique NFT stickers for your albums
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="ai-prompt">Describe your sticker</Label>
+                    <Label htmlFor="ai-prompt" className="text-white">Describe your sticker</Label>
                     <div className="relative">
                       <Textarea 
                         id="ai-prompt" 
@@ -272,20 +277,20 @@ const AlbumLab = () => {
                         value={aiPrompt}
                         onChange={(e) => setAiPrompt(e.target.value)}
                         rows={4}
-                        className="pr-10"
+                        className="pr-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                       />
-                      <Wand2 className="absolute right-3 top-3 h-5 w-5 text-muted-foreground opacity-70" />
+                      <Wand2 className="absolute right-3 top-3 h-5 w-5 text-gray-400 opacity-70" />
                     </div>
                     
                     {/* Prompt suggestions */}
                     <div className="pt-2">
-                      <p className="text-xs text-muted-foreground mb-2">Try these suggestions:</p>
+                      <p className="text-xs text-gray-400 mb-2">Try these suggestions:</p>
                       <div className="flex flex-wrap gap-2">
                         {stickerPromptSuggestions.map((suggestion, index) => (
                           <button
                             key={index}
                             onClick={() => setAiPrompt(suggestion)}
-                            className="text-xs bg-muted hover:bg-muted/80 px-2 py-1 rounded-md transition-colors"
+                            className="text-xs bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md transition-colors text-white"
                           >
                             {suggestion.length > 20 ? `${suggestion.substring(0, 20)}...` : suggestion}
                           </button>
@@ -295,36 +300,36 @@ const AlbumLab = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Sticker Category</Label>
+                    <Label className="text-white">Sticker Category</Label>
                     <Select 
                       value={stickerCategory} 
                       onValueChange={setStickerCategory}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="sports">Sports</SelectItem>
-                        <SelectItem value="animals">Animals</SelectItem>
-                        <SelectItem value="fantasy">Fantasy</SelectItem>
-                        <SelectItem value="art">Art</SelectItem>
-                        <SelectItem value="cartoon">Cartoon</SelectItem>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="sports" className="text-white">Sports</SelectItem>
+                        <SelectItem value="animals" className="text-white">Animals</SelectItem>
+                        <SelectItem value="fantasy" className="text-white">Fantasy</SelectItem>
+                        <SelectItem value="art" className="text-white">Art</SelectItem>
+                        <SelectItem value="cartoon" className="text-white">Cartoon</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   
                   <div className="space-y-2">
-                    <Label>Art Style</Label>
+                    <Label className="text-white">Art Style</Label>
                     <div className="grid grid-cols-3 gap-3">
-                      <Button variant="outline" className="aspect-square p-2 h-auto" title="Photorealistic">
+                      <Button variant="outline" className="aspect-square p-2 h-auto border-gray-600 text-white hover:bg-gray-700" title="Photorealistic">
                         <Image className="h-6 w-6 opacity-70" />
                         <span className="sr-only">Photorealistic</span>
                       </Button>
-                      <Button variant="outline" className="aspect-square p-2 h-auto bg-muted" title="Cartoon">
+                      <Button variant="outline" className="aspect-square p-2 h-auto bg-gray-700 border-gray-600 text-white hover:bg-gray-600" title="Cartoon">
                         <ImagePlus className="h-6 w-6 opacity-70" />
                         <span className="sr-only">Cartoon</span>
                       </Button>
-                      <Button variant="outline" className="aspect-square p-2 h-auto" title="Pixel Art">
+                      <Button variant="outline" className="aspect-square p-2 h-auto border-gray-600 text-white hover:bg-gray-700" title="Pixel Art">
                         <GridIcon className="h-6 w-6 opacity-70" />
                         <span className="sr-only">Pixel Art</span>
                       </Button>
@@ -348,11 +353,11 @@ const AlbumLab = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-gray-800 border-gray-700">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <div>
-                    <CardTitle>Generated Stickers</CardTitle>
-                    <CardDescription>
+                    <CardTitle className="text-white">Generated Stickers</CardTitle>
+                    <CardDescription className="text-gray-300">
                       Soccer player stickers and AI-generated NFT stickers
                     </CardDescription>
                   </div>
@@ -361,6 +366,7 @@ const AlbumLab = () => {
                       variant="ghost" 
                       size="sm"
                       onClick={clearStickers}
+                      className="text-white hover:bg-gray-700"
                     >
                       Reset
                     </Button>
@@ -369,7 +375,7 @@ const AlbumLab = () => {
                 <CardContent>
                   <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                     {generatedStickers.map((sticker, index) => (
-                      <div key={index} className="group relative rounded-lg overflow-hidden border border-border hover:border-primary/50 transition-all">
+                      <div key={index} className="group relative rounded-lg overflow-hidden border border-gray-600 hover:border-[#FFEB3B]/50 transition-all">
                         <AspectRatio ratio={1/1}>
                           <img 
                             src={sticker} 
