@@ -70,6 +70,14 @@ const Community = () => {
       return album;
     }));
   };
+
+  const handleImageLoad = (imageUrl: string) => {
+    console.log('Image loaded successfully:', imageUrl);
+  };
+
+  const handleImageError = (imageUrl: string) => {
+    console.log('Image failed to load:', imageUrl);
+  };
   
   return (
     <div className="min-h-screen bg-black text-white">
@@ -97,6 +105,8 @@ const Community = () => {
                     src={album.imageUrl}
                     alt={album.title}
                     className="w-full h-full object-contain"
+                    onLoad={() => handleImageLoad(album.imageUrl)}
+                    onError={() => handleImageError(album.imageUrl)}
                     style={{ 
                       objectPosition: 'center'
                     }}
