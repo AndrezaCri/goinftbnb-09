@@ -171,6 +171,11 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
 
   const advantages = getAdvantages(challenge.type);
 
+  const handleJoinClick = () => {
+    onJoin(challenge.id);
+    // Modal stays open - removed setIsModalOpen(false)
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[80vh] bg-[#0A0A0A] border-[#333] text-white p-0 flex flex-col">
@@ -299,7 +304,7 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
             Close
           </Button>
           <Button 
-            onClick={() => onJoin(challenge.id)}
+            onClick={handleJoinClick}
             disabled={isJoined}
             className={`flex-1 transition-all duration-200 ${
               isJoined 
