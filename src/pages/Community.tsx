@@ -181,7 +181,7 @@ const Community = () => {
                 <PaginationItem>
                   <PaginationPrevious 
                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    className="bg-[#1F1F1F] text-white border-[#333] hover:bg-[#2A2A2A] hover:text-white"
+                    className="bg-[#1F1F1F] text-white border-[#FFEB3B] hover:bg-[#FFEB3B] hover:text-black transition-colors"
                   />
                 </PaginationItem>
               )}
@@ -192,8 +192,8 @@ const Community = () => {
                     isActive={currentPage === page}
                     onClick={() => setCurrentPage(page)}
                     className={currentPage === page 
-                      ? "bg-green-500 text-white border-green-500 hover:bg-green-600" 
-                      : "bg-[#1F1F1F] text-white border-[#333] hover:bg-[#2A2A2A] hover:text-white"
+                      ? "bg-[#FFEB3B] text-black border-[#FFEB3B] hover:bg-[#FFEB3B]/90" 
+                      : "bg-[#1F1F1F] text-white border-[#FFEB3B] hover:bg-[#FFEB3B] hover:text-black transition-colors"
                     }
                   >
                     {page}
@@ -205,7 +205,7 @@ const Community = () => {
                 <PaginationItem>
                   <PaginationNext 
                     onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                    className="bg-[#1F1F1F] text-white border-[#333] hover:bg-[#2A2A2A] hover:text-white"
+                    className="bg-[#1F1F1F] text-white border-[#FFEB3B] hover:bg-[#FFEB3B] hover:text-black transition-colors"
                   />
                 </PaginationItem>
               )}
