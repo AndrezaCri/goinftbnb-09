@@ -172,7 +172,7 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] bg-[#0A0A0A] border-[#333] text-white p-0 flex flex-col">
+      <DialogContent className="max-w-2xl max-h-[80vh] bg-[#0A0A0A] border-[#333] text-white p-0 flex flex-col">
         {/* Header with gradient accent */}
         <div className={`bg-gradient-to-r ${theme.gradient} border-b border-[#333] p-4 relative flex-shrink-0`}>
           {/* Close button */}
