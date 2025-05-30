@@ -53,11 +53,13 @@ export const IconLazy: React.FC<IconLazyProps> = memo(({
     }
   });
 
-  const defaultFallback = <IconFallback size={size} />;
+  // Converter size para number se for string
+  const iconSize = typeof size === 'string' ? parseInt(size) || 16 : size;
+  const defaultFallback = <IconFallback size={iconSize} />;
 
   return (
     <Suspense fallback={fallback || defaultFallback}>
-      <IconComponent size={size} {...props} />
+      <IconComponent size={iconSize} {...props} />
     </Suspense>
   );
 });
