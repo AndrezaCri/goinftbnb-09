@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -127,7 +128,7 @@ export const NFTMarketplaceSection = () => {
         </div>
         
         <div className="flex flex-col gap-2 min-w-[200px]">
-          <span className="text-sm text-gray-400">Price Range (ETH): {priceRange[0].toFixed(2)} - {priceRange[1].toFixed(2)}</span>
+          <span className="text-sm text-white">Price Range (ETH): {priceRange[0].toFixed(2)} - {priceRange[1].toFixed(2)}</span>
           <Slider 
             defaultValue={[0, 0.1]} 
             max={0.1} 
@@ -139,7 +140,7 @@ export const NFTMarketplaceSection = () => {
       </div>
       
       <div className="flex flex-wrap gap-2 mb-6">
-        <div className="text-sm mr-2 flex items-center" style={{ color: '#FFEB3B' }}>
+        <div className="text-sm mr-2 flex items-center text-white">
           <Tag size={16} className="mr-1" /> Collections:
         </div>
         {collections.map(collection => (
@@ -175,16 +176,16 @@ export const NFTMarketplaceSection = () => {
               </div>
               <CardContent>
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-bold text-lg">{nft.name}</h3>
+                  <h3 className="font-bold text-lg text-white">{nft.name}</h3>
                   <Badge className={`${rarityColors[nft.rarity as keyof typeof rarityColors]} text-black`}>
                     {nft.rarity}
                   </Badge>
                 </div>
-                <p className="text-sm text-gray-400 mb-2">Collection: {nft.collection}</p>
-                <p className="text-sm text-gray-400">Seller: {nft.seller}</p>
+                <p className="text-sm text-white mb-2">Collection: {nft.collection}</p>
+                <p className="text-sm text-white">Seller: {nft.seller}</p>
               </CardContent>
               <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
-                <div className="font-semibold">{nft.price} ETH</div>
+                <div className="font-semibold text-white">{nft.price} ETH</div>
                 
                 <Dialog>
                   <DialogTrigger asChild>
@@ -196,7 +197,7 @@ export const NFTMarketplaceSection = () => {
                   <DialogContent className="bg-[#111] border-[#333] text-white">
                     <DialogHeader>
                       <DialogTitle>Purchase NFT</DialogTitle>
-                      <DialogDescription className="text-gray-400">
+                      <DialogDescription className="text-white">
                         You are about to purchase {nft.name} for {nft.price} ETH.
                       </DialogDescription>
                     </DialogHeader>
@@ -214,17 +215,17 @@ export const NFTMarketplaceSection = () => {
                       </div>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-gray-400">Item Price:</span>
-                          <span>{nft.price} ETH</span>
+                          <span className="text-white">Item Price:</span>
+                          <span className="text-white">{nft.price} ETH</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-400">Platform Fee:</span>
-                          <span>{(nft.price * 0.025).toFixed(4)} ETH</span>
+                          <span className="text-white">Platform Fee:</span>
+                          <span className="text-white">{(nft.price * 0.025).toFixed(4)} ETH</span>
                         </div>
                         <Separator className="my-2 bg-[#333]" />
                         <div className="flex justify-between font-bold">
-                          <span>Total:</span>
-                          <span>{(nft.price * 1.025).toFixed(4)} ETH</span>
+                          <span className="text-white">Total:</span>
+                          <span className="text-white">{(nft.price * 1.025).toFixed(4)} ETH</span>
                         </div>
                       </div>
                     </div>
@@ -242,7 +243,7 @@ export const NFTMarketplaceSection = () => {
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-gray-400">No NFTs found matching your criteria.</p>
+          <p className="text-white">No NFTs found matching your criteria.</p>
         </div>
       )}
     </div>
