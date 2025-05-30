@@ -1,4 +1,5 @@
 
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export interface Album {
@@ -41,20 +42,20 @@ export const useAlbums = () => {
 export const AlbumProvider = ({ children }: { children: React.ReactNode }) => {
   const [albums, setAlbums] = useState<Album[]>([]);
   
-  // Sistema de figurinhas Soccer Stars - 12 total, 3 coletadas (25%)
+  // Sistema de figurinhas Soccer Stars - 12 total, 3 coletadas (25%) - posições 1, 6 e 12
   const [stickers] = useState<Sticker[]>([
-    { id: 1, name: "Pelé", image: "/lovable-uploads/0983abca-88df-4210-8a62-e53e8eba5231.png", rarity: 'legendary', collected: true },
-    { id: 2, name: "Maradona", image: "/lovable-uploads/158597eb-8794-4eaa-81bf-c398b03162b1.png", rarity: 'legendary', collected: true },
-    { id: 3, name: "Ronaldinho", image: "/lovable-uploads/1b8ffbae-6dd6-42be-8aad-55b2f592e2b6.png", rarity: 'epic', collected: true },
-    { id: 4, name: "Messi", image: "/lovable-uploads/22e30fe0-5459-49e4-b297-d2b110aad8e5.png", rarity: 'legendary', collected: false },
-    { id: 5, name: "Cristiano Ronaldo", image: "/lovable-uploads/26dc6bd3-e9df-4644-8cec-affbf6c79319.png", rarity: 'legendary', collected: false },
-    { id: 6, name: "Neymar", image: "/lovable-uploads/2837a9c3-b272-4196-a96c-3daad0a03103.png", rarity: 'epic', collected: false },
-    { id: 7, name: "Ronaldo Fenômeno", image: "/lovable-uploads/335ddb23-10eb-4cfa-b92f-a4032a6bb10d.png", rarity: 'legendary', collected: false },
-    { id: 8, name: "Zinedine Zidane", image: "/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png", rarity: 'epic', collected: false },
+    { id: 1, name: "Pelé", image: "/lovable-uploads/3121786f-498c-43f6-938a-2d39160b74b2.png", rarity: 'legendary', collected: true },
+    { id: 2, name: "Messi", image: "/lovable-uploads/150546b1-72fa-4491-af20-c03769ac8524.png", rarity: 'legendary', collected: false },
+    { id: 3, name: "Cristiano", image: "/lovable-uploads/ecf235a4-ca9f-4979-a92b-abc709669da9.png", rarity: 'legendary', collected: false },
+    { id: 4, name: "Neymar Jr", image: "/lovable-uploads/edda13e2-4967-47b2-922a-11d95d8c5a24.png", rarity: 'epic', collected: false },
+    { id: 5, name: "Mbappé", image: "/lovable-uploads/66a51bba-ded5-4a66-9028-2437120eb10b.png", rarity: 'epic', collected: false },
+    { id: 6, name: "Ronaldinho", image: "/lovable-uploads/bbf691dd-219d-4f84-8565-71bf1077c9aa.png", rarity: 'epic', collected: true },
+    { id: 7, name: "Ansu Fati", image: "/lovable-uploads/a3594a7c-698e-4bd0-a685-f26c3e9c057a.png", rarity: 'rare', collected: false },
+    { id: 8, name: "Maradona", image: "/lovable-uploads/158597eb-8794-4eaa-81bf-c398b03162b1.png", rarity: 'legendary', collected: false },
     { id: 9, name: "Kaká", image: "/lovable-uploads/3fbe2d39-07c3-414d-9191-275d52cc520e.png", rarity: 'rare', collected: false },
-    { id: 10, name: "Ronaldinho Gaúcho", image: "/lovable-uploads/3ff138cd-7347-4885-a303-e03841fb166c.png", rarity: 'epic', collected: false },
+    { id: 10, name: "Zidane", image: "/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png", rarity: 'epic', collected: false },
     { id: 11, name: "Roberto Carlos", image: "/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png", rarity: 'rare', collected: false },
-    { id: 12, name: "Cafu", image: "/lovable-uploads/5d66beca-ee47-4a4e-a404-dc84aa62883f.png", rarity: 'rare', collected: false }
+    { id: 12, name: "Cafu", image: "/lovable-uploads/5d66beca-ee47-4a4e-a404-dc84aa62883f.png", rarity: 'rare', collected: true }
   ]);
 
   const collectedStickers = stickers.filter(sticker => sticker.collected).length;
@@ -69,7 +70,6 @@ export const AlbumProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  // Salvar álbuns no localStorage quando houver mudanças
   useEffect(() => {
     localStorage.setItem('user-albums', JSON.stringify(albums));
   }, [albums]);
