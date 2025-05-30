@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -41,6 +42,17 @@ const initialAlbums = [
     upvotes: 87,
     downvotes: 5,
     tags: ["trading", "blockchain", "innovation"]
+  },
+  {
+    id: 4,
+    title: "Premier League Collection",
+    creator: "Football legends",
+    createdAt: "2025-05-04",
+    imageUrl: "/lovable-uploads/f82cef2b-84a8-4582-af21-383a96b8d148.png",
+    description: "The ultimate collection of Premier League moments and stars",
+    upvotes: 156,
+    downvotes: 7,
+    tags: ["football", "premier league", "collectibles"]
   }
 ];
 
