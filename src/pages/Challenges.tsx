@@ -261,16 +261,10 @@ const Challenges = () => {
           </div>
         </div>
 
-        {/* Coruja Cripto Section */}
-        <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {corujaCriptoChallenge.map(renderChallengeCard)}
-          </div>
-        </div>
-
-        {/* CastaCripto Section */}
+        {/* Coruja Cripto and CastaCripto Section - Side by Side */}
         <div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {corujaCriptoChallenge.map(renderChallengeCard)}
             {castaCriptoChallenge.map(renderChallengeCard)}
           </div>
         </div>
