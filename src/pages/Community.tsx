@@ -23,14 +23,14 @@ const initialAlbums = [
   },
   {
     id: 2,
-    title: "Coruja Cripto",
+    title: "Digital explorers",
     creator: "PLenthusiast",
     createdAt: "2025-05-02",
     imageUrl: "/lovable-uploads/92627ff6-fee9-43e4-af64-9fcfcf4e34f3.png",
-    description: "The best players from the English Premier League",
+    description: "Learning and evolving in the Web3 universe",
     upvotes: 98,
     downvotes: 12,
-    tags: ["premier league", "stars", "england"]
+    tags: ["education", "blockchain", "community"]
   },
   {
     id: 3,
