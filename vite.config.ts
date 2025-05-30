@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -29,36 +30,21 @@ export default defineConfig(({ mode }) => ({
     minify: 'esbuild',
     cssCodeSplit: true,
     sourcemap: false,
-    chunkSizeWarningLimit: 150, // Reduced for stricter bundle control
+    chunkSizeWarningLimit: 150,
     rollupOptions: {
       output: {
         manualChunks: {
-          // Ultra-critical core - keep minimal
           'vendor-core': ['react', 'react-dom'],
           'router': ['react-router-dom'],
-          
-          // UI components - aggressive splitting
           'ui-primitives': ['@radix-ui/react-slot'],
           'ui-interactive': ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-checkbox'],
           'ui-layout': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
           'ui-feedback': ['@radix-ui/react-toast', '@radix-ui/react-progress'],
-          
-          // Data management - lazy loaded
           'query': ['@tanstack/react-query'],
-          
-          // Web3 - ultra-lazy loaded only when needed
           'web3': ['ethers'],
-          
-          // Icons - completely separate for lazy loading
           'icons': ['lucide-react'],
-          
-          // Chart library - lazy loaded
           'charts': ['recharts'],
-          
-          // Utilities
           'utils': ['clsx', 'class-variance-authority', 'tailwind-merge'],
-          
-          // Form handling
           'forms': ['react-hook-form', '@hookform/resolvers', 'zod']
         },
         chunkFileNames: (chunkInfo) => {
@@ -82,7 +68,8 @@ export default defineConfig(({ mode }) => ({
       include: [/node_modules/],
       transformMixedEsModules: true,
       namedExports: {
-        'bn.js': ['BN']
+        'bn.js': ['BN'],
+        'js-sha3': ['keccak256', 'sha3_256', 'sha3_512']
       }
     }
   },
@@ -115,12 +102,13 @@ export default defineConfig(({ mode }) => ({
       'react-router-dom',
       'clsx',
       'tailwind-merge',
-      '@radix-ui/react-slot'
+      '@radix-ui/react-slot',
+      'js-sha3'
     ],
     exclude: [
-      'lucide-react', // Lazy load icons
-      'ethers', // Lazy load Web3
-      'recharts' // Lazy load charts
+      'lucide-react',
+      'ethers',
+      'recharts'
     ]
   },
   define: {
