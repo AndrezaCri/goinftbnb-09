@@ -20,7 +20,7 @@ const IconFallback = memo(({ size = 16 }: { size?: number }) => (
 
 export const IconLazy: React.FC<IconLazyProps> = memo(({ 
   name, 
-  fallback = <IconFallback />, 
+  fallback, 
   size = 16,
   ...props 
 }) => {
@@ -53,8 +53,10 @@ export const IconLazy: React.FC<IconLazyProps> = memo(({
     }
   });
 
+  const defaultFallback = <IconFallback size={size} />;
+
   return (
-    <Suspense fallback={typeof fallback === 'function' ? fallback({ size }) : fallback}>
+    <Suspense fallback={fallback || defaultFallback}>
       <IconComponent size={size} {...props} />
     </Suspense>
   );
