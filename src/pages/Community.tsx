@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -33,14 +34,14 @@ const initialAlbums = [
   },
   {
     id: 3,
-    title: "Champions League Moments",
-    creator: "UCLfanatic",
+    title: "Binance",
+    creator: "Global exchange leader",
     createdAt: "2025-05-03",
     imageUrl: "https://picsum.photos/seed/soccer3/400/400",
-    description: "Iconic moments from UEFA Champions League history",
+    description: "Empowering freedom through crypto and finance",
     upvotes: 87,
     downvotes: 5,
-    tags: ["champions league", "uefa", "europe"]
+    tags: ["trading", "blockchain", "innovation"]
   }
 ];
 
