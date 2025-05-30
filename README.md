@@ -1,73 +1,47 @@
-# Welcome to your Lovable project
+# ⚽ GoINft BNB – Seu Álbum de Figurinhas Web3 na Blockchain!
 
-## Project info
+## 🧩 O que é o GoINft?
 
-**URL**: https://preview-707c92b1--goinftbnb-09.lovable.app/
+**GoINft BNB** é um aplicativo Web3 que transforma a experiência clássica de colecionar figurinhas em algo totalmente digital, divertido e descentralizado! Aqui, torcedores e fãs de futebol podem:
 
-## How can I edit this code?
+- 📦 Comprar pacotes de figurinhas digitais (NFTs)
+- 🔄 Trocar figurinhas com outros usuários
+- 🏆 Completar álbuns temáticos de clubes e seleções
+- 🎉 Desbloquear experiências exclusivas com suas coleções
 
-There are several ways of editing your application.
+Tudo isso sobre a poderosa **BNB Chain**, garantindo **propriedade real**, **escassez digital** e **transparência blockchain**.
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/dfb37097-51d8-4c2a-8d83-d3a29e4bfa09) and start prompting.
+## 💡 Funcionalidades Principais
 
-Changes made via Lovable will be committed automatically to this repo.
+| Funcionalidade       | Descrição                                                                 |
+|----------------------|---------------------------------------------------------------------------|
+| 🧑 Perfil Web3        | Conecte sua carteira via **MetaMask** e gerencie seus ativos digitais.     |
+| 📁 Meus Álbuns        | Crie seus álbuns temáticos, veja progresso e itens duplicados.          |
+| 🛒 Marketplace         | Compre, venda ou troque figurinhas diretamente com outros colecionadores. |
+| 🎁 Pacotes Surpresa   | Compre pacotes aleatórios e descubra quais NFTs raros você encontrou!     |
+| 🔗 Blockchain BNB      | Totalmente integrado à BNB Chain (BEP-721), com leitura e escrita on-chain. |
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🌐 Tecnologias Usadas
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Frontend:** 
+- **Blockchain:** BNB Smart Chain (BEP-721 para NFTs)
+- **Carteira Web3:** Integração com **MetaMask** (Ethereum Provider via `window.ethereum`)
+- **Autenticação:** Supabase Auth
+- **Armazenamento:** IPFS ou Supabase Storage
+- **Deploy:** Hospedado via Lovable Cloud Preview
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🚀 Próximos Passos
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- 🔐 Adicionar sistema de staking e recompensas
+- 📈 Criar sistema de raridade e ranking entre usuários
+- 🏟️ Parcerias com clubes para experiências reais
+- 💳 Integração com on-ramp para compra de tokens
 
-# Step 3: Install the necessary dependencies.
-npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/dfb37097-51d8-4c2a-8d83-d3a29e4bfa09) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+> 🎉 **GoINft BNB** está reinventando o colecionismo com o poder da Web3. Junte-se à revolução digital no futebol!
