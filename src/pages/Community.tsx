@@ -23,8 +23,8 @@ const initialAlbums = [
   },
   {
     id: 2,
-    title: "Digital explorers",
-    creator: "PLenthusiast",
+    title: "Coruja Cripto",
+    creator: "Digital explorers",
     createdAt: "2025-05-02",
     imageUrl: "/lovable-uploads/92627ff6-fee9-43e4-af64-9fcfcf4e34f3.png",
     description: "Learning and evolving in the Web3 universe",
