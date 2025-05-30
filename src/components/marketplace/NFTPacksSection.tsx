@@ -10,14 +10,14 @@ import {
   DialogHeader, DialogTitle, DialogTrigger 
 } from "@/components/ui/dialog";
 
-// Mock data for packs
+// Mock data for packs with appropriate images
 const packs = [
   {
     id: 1,
     name: "Premier League Starter Pack",
     description: "Get started with 3 random Premier League NFTs",
     price: 0.05,
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop",
     containsRarity: ["Common", "Uncommon", "Rare"]
   },
   {
@@ -25,7 +25,7 @@ const packs = [
     name: "Champions Elite Pack",
     description: "3 NFTs with higher chance of Rare and Legendary cards",
     price: 0.08,
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop",
     containsRarity: ["Uncommon", "Rare", "Legendary"]
   },
   {
@@ -33,7 +33,7 @@ const packs = [
     name: "International Stars Pack",
     description: "3 NFTs featuring international soccer stars",
     price: 0.06,
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=300&fit=crop",
     containsRarity: ["Common", "Uncommon", "Rare", "Legendary"]
   }
 ];
@@ -53,7 +53,7 @@ const PackOpeningAnimation = ({ onComplete }: { onComplete: () => void }) => {
       <div className="relative w-64 h-64 animate-pulse">
         <PackageOpen className="w-full h-full text-[#FFEB3B]" />
       </div>
-      <p className="mt-4 text-xl font-semibold animate-bounce">Opening your pack...</p>
+      <p className="mt-4 text-xl font-semibold animate-bounce text-white">Opening your pack...</p>
     </div>
   );
 };
@@ -101,8 +101,8 @@ export const NFTPacksSection = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold mb-4">NFT Packs</h2>
-        <p className="text-gray-400 mb-6">
+        <h2 className="text-2xl font-bold mb-4 text-white">NFT Packs</h2>
+        <p className="text-white mb-6">
           Purchase packs containing 3 random NFTs to complete your collection.
           Each pack has different odds of containing rare and legendary cards!
         </p>
@@ -114,26 +114,26 @@ export const NFTPacksSection = () => {
             <div className="p-4">
               <AspectRatio ratio={4/3}>
                 <div className="relative w-full h-full rounded-md overflow-hidden bg-[#0a0a0a] flex items-center justify-center">
-                  <Package className="w-24 h-24 text-[#FFEB3B]" />
                   <img 
                     src={pack.image} 
                     alt={pack.name}
                     width="320"
                     height="240"
-                    className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60"
+                    className="absolute inset-0 w-full h-full object-cover"
                     loading="lazy"
                     decoding="async"
                   />
+                  <Package className="w-24 h-24 text-[#FFEB3B] relative z-10 opacity-80" />
                 </div>
               </AspectRatio>
             </div>
             <CardHeader>
-              <CardTitle>{pack.name}</CardTitle>
+              <CardTitle className="text-white">{pack.name}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-400 mb-4">{pack.description}</p>
+              <p className="text-white mb-4">{pack.description}</p>
               <div className="flex flex-wrap gap-2 mb-2">
-                <div className="text-sm text-gray-400">Contains:</div>
+                <div className="text-sm text-white">Contains:</div>
                 {pack.containsRarity.map(rarity => (
                   <Badge 
                     key={rarity}
@@ -145,7 +145,7 @@ export const NFTPacksSection = () => {
               </div>
             </CardContent>
             <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
-              <div className="font-semibold">{pack.price} ETH</div>
+              <div className="font-semibold text-white">{pack.price} ETH</div>
               
               <Dialog>
                 <DialogTrigger asChild>
@@ -157,7 +157,7 @@ export const NFTPacksSection = () => {
                 <DialogContent className="bg-[#111] border-[#333] text-white">
                   <DialogHeader>
                     <DialogTitle>Purchase Pack</DialogTitle>
-                    <DialogDescription className="text-gray-400">
+                    <DialogDescription className="text-white">
                       You are about to purchase {pack.name} for {pack.price} ETH.
                     </DialogDescription>
                   </DialogHeader>
@@ -165,7 +165,7 @@ export const NFTPacksSection = () => {
                     <div className="flex items-center justify-center mb-4">
                       <Package className="w-24 h-24 text-[#FFEB3B]" />
                     </div>
-                    <p className="text-center mb-4">{pack.description}</p>
+                    <p className="text-center mb-4 text-white">{pack.description}</p>
                     <div className="flex justify-center space-x-2 mb-4">
                       {pack.containsRarity.map(rarity => (
                         <Badge 
@@ -178,7 +178,7 @@ export const NFTPacksSection = () => {
                     </div>
                   </div>
                   <DialogFooter>
-                    <Button variant="outline" className="border-[#333]">Cancel</Button>
+                    <Button variant="outline" className="border-[#333] text-white">Cancel</Button>
                     <Button onClick={handleOpenPack}>
                       Purchase & Open
                     </Button>
@@ -219,7 +219,7 @@ export const NFTPacksSection = () => {
                     </div>
                     <CardContent className="p-3">
                       <div className="flex justify-between items-start">
-                        <h3 className="font-bold">{nft.name}</h3>
+                        <h3 className="font-bold text-white">{nft.name}</h3>
                         <Badge className={`${rarityColors[nft.rarity as keyof typeof rarityColors]} text-black`}>
                           {nft.rarity}
                         </Badge>
@@ -229,7 +229,7 @@ export const NFTPacksSection = () => {
                 ))}
               </div>
               <div className="text-center mt-6">
-                <p className="text-gray-400 mb-4">
+                <p className="text-white mb-4">
                   These NFTs have been added to your collection!
                 </p>
                 <Button onClick={() => setShowRevealDialog(false)}>
