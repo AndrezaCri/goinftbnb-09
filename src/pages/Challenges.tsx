@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
+import { BinanceChallenges } from "@/components/challenges/BinanceChallenges";
 
 // Mock data for soccer team challenges
 const initialChallenges = [
@@ -123,7 +124,7 @@ const pastChallenges = [
 ];
 
 const Challenges = () => {
-  const [activeTab, setActiveTab] = useState("active");
+  const [activeTab, setActiveTab] = useState("binance");
   const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
   const [selectedChallenge, setSelectedChallenge] = useState<typeof initialChallenges[0] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -163,24 +164,30 @@ const Challenges = () => {
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center">
             <Trophy className="mr-2 text-[#FFEB3B]" size={24} />
-            <h1 className="text-3xl font-bold">Soccer Team Challenges</h1>
+            <h1 className="text-3xl font-bold">Community Challenges</h1>
           </div>
         </div>
         
         <div className="mb-6">
           <p className="text-gray-300">
-            Join exclusive challenges from your favorite soccer teams and create themed albums. 
-            Earn rewards, showcase your creativity, and celebrate the beautiful game!
+            Join exclusive challenges from your favorite teams and communities. 
+            Earn rewards, showcase your creativity, and celebrate your passions!
           </p>
         </div>
         
-        <Tabs defaultValue="active" className="mb-8" onValueChange={setActiveTab}>
+        <Tabs defaultValue="binance" className="mb-8" onValueChange={setActiveTab}>
           <TabsList className="bg-[#222] border border-[#333]">
+            <TabsTrigger 
+              value="binance" 
+              className="data-[state=active]:bg-[#111] data-[state=active]:text-white data-[state=inactive]:text-[#FFEB3B] hover:text-white transition-colors"
+            >
+              Binance Community
+            </TabsTrigger>
             <TabsTrigger 
               value="active" 
               className="data-[state=active]:bg-[#111] data-[state=active]:text-white data-[state=inactive]:text-[#FFEB3B] hover:text-white transition-colors"
             >
-              Active Challenges
+              Soccer Teams
             </TabsTrigger>
             <TabsTrigger 
               value="past" 
@@ -189,6 +196,13 @@ const Challenges = () => {
               Past Challenges
             </TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="binance" className="mt-6">
+            <BinanceChallenges 
+              joinedChallenges={joinedChallenges}
+              onJoinChallenge={handleJoinChallenge}
+            />
+          </TabsContent>
           
           <TabsContent value="active" className="mt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
