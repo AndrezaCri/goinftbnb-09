@@ -7,6 +7,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 
 // Mock data for soccer team challenges
 const initialChallenges = [
@@ -124,6 +125,8 @@ const pastChallenges = [
 const Challenges = () => {
   const [activeTab, setActiveTab] = useState("active");
   const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
+  const [selectedChallenge, setSelectedChallenge] = useState<typeof initialChallenges[0] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   const handleJoinChallenge = (id: number) => {
     if (joinedChallenges.includes(id)) {
@@ -133,6 +136,12 @@ const Challenges = () => {
     
     setJoinedChallenges(prev => [...prev, id]);
     toast.success("Successfully joined the challenge! Start creating your soccer album.");
+    setIsModalOpen(false);
+  };
+  
+  const handleOpenChallengeModal = (challenge: typeof initialChallenges[0]) => {
+    setSelectedChallenge(challenge);
+    setIsModalOpen(true);
   };
   
   const isJoined = (id: number) => joinedChallenges.includes(id);
@@ -238,16 +247,11 @@ const Challenges = () => {
                   
                   <CardFooter>
                     <Button 
-                      onClick={() => handleJoinChallenge(challenge.id)}
-                      disabled={isJoined(challenge.id)}
-                      className={`w-full ${
-                        isJoined(challenge.id) 
-                          ? "bg-green-600 hover:bg-green-600 text-white cursor-not-allowed" 
-                          : "bg-[#F97316] hover:bg-[#E86305] text-black"
-                      }`}
+                      onClick={() => handleOpenChallengeModal(challenge)}
+                      className="w-full bg-[#F97316] hover:bg-[#E86305] text-black"
                     >
                       <Flag className="h-5 w-5" />
-                      <span>{isJoined(challenge.id) ? "Joined!" : "Join Challenge"}</span>
+                      <span>View Challenge</span>
                     </Button>
                   </CardFooter>
                 </Card>
@@ -315,6 +319,14 @@ const Challenges = () => {
             </div>
           </TabsContent>
         </Tabs>
+
+        <ChallengeDetailModal
+          challenge={selectedChallenge}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onJoin={handleJoinChallenge}
+          isJoined={selectedChallenge ? isJoined(selectedChallenge.id) : false}
+        />
       </main>
     </div>
   );
