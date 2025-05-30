@@ -26,7 +26,7 @@ const initialAlbums = [
     title: "Premier League Stars",
     creator: "PLenthusiast",
     createdAt: "2025-05-02",
-    imageUrl: "https://picsum.photos/seed/soccer2/400/400",
+    imageUrl: "/lovable-uploads/92627ff6-fee9-43e4-af64-9fcfcf4e34f3.png",
     description: "The best players from the English Premier League",
     upvotes: 98,
     downvotes: 12,
