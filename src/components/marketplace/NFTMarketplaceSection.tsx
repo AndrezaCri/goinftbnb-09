@@ -10,12 +10,12 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Package, Tag, ShoppingCart } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
-// Mock NFT data
+// Mock NFT data with real images mapped by collection and rarity
 const mockNFTs = [
   { 
     id: 1, 
     name: "Golden Striker", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/fa9a2fdc-8d89-438a-97ef-bebe851f5a32.png", 
     price: 0.05, 
     rarity: "Legendary", 
     collection: "Premier League", 
@@ -24,7 +24,7 @@ const mockNFTs = [
   { 
     id: 2, 
     name: "Midfield Maestro", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/3ff138cd-7347-4885-a303-e03841fb166c.png", 
     price: 0.03, 
     rarity: "Rare", 
     collection: "La Liga", 
@@ -33,7 +33,7 @@ const mockNFTs = [
   { 
     id: 3, 
     name: "Top Defender", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/92627ff6-fee9-43e4-af64-9fcfcf4e34f3.png", 
     price: 0.02, 
     rarity: "Uncommon", 
     collection: "Serie A", 
@@ -42,7 +42,7 @@ const mockNFTs = [
   { 
     id: 4, 
     name: "Star Goalkeeper", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/26dc6bd3-e9df-4644-8cec-affbf6c79319.png", 
     price: 0.04, 
     rarity: "Rare", 
     collection: "Bundesliga", 
@@ -51,7 +51,7 @@ const mockNFTs = [
   { 
     id: 5, 
     name: "Team Captain", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/edda13e2-4967-47b2-922a-11d95d8c5a24.png", 
     price: 0.06, 
     rarity: "Legendary", 
     collection: "Premier League", 
@@ -60,7 +60,7 @@ const mockNFTs = [
   { 
     id: 6, 
     name: "Rising Star", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/b106c9dd-0f1b-480f-9873-a7c888dc9c44.png", 
     price: 0.01, 
     rarity: "Common", 
     collection: "Ligue 1", 
