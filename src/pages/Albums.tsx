@@ -5,6 +5,7 @@ import { StickerCollection } from "@/components/albums/StickerCollection";
 import { UserAlbumsSection } from "@/components/albums/UserAlbumsSection";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link } from "react-router-dom";
 
 const Albums = () => {
   return (
@@ -14,7 +15,9 @@ const Albums = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Albums</h1>
-          <Button>Create New Album</Button>
+          <Link to="/album-lab">
+            <Button>Create New Album</Button>
+          </Link>
         </div>
 
         <Tabs defaultValue="collection" className="w-full">
