@@ -13,12 +13,12 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 const mockNFTs = [
   { 
     id: 1, 
-    name: "Golden Striker", 
-    image: "/lovable-uploads/fa9a2fdc-8d89-438a-97ef-bebe851f5a32.png", 
-    price: 0.05, 
-    rarity: "Legendary", 
-    collection: "Premier League", 
-    seller: "0x1234...5678" 
+    name: "", 
+    image: "", 
+    price: 0, 
+    rarity: "", 
+    collection: "", 
+    seller: "" 
   },
   { 
     id: 2, 
