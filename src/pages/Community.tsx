@@ -15,7 +15,7 @@ const initialAlbums = [
     title: "World Cup Legends",
     creator: "SoccerFan99",
     createdAt: "2025-05-01",
-    imageUrl: "/lovable-uploads/84dda1f2-10ca-460d-9dd3-989c68b47ab0.png",
+    imageUrl: "/lovable-uploads/158597eb-8794-4eaa-81bf-c398b03162b1.png",
     description: "Collection of the greatest World Cup moments in history",
     upvotes: 124,
     downvotes: 8,
