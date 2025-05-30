@@ -79,9 +79,9 @@ export const StickerCollection = () => {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  <div className="aspect-square rounded-lg bg-[#222] flex items-center justify-center relative group">
+                  <div className="aspect-square rounded-lg bg-[#222] flex items-center justify-center relative">
                     <div className="text-4xl text-gray-600">?</div>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute inset-0 flex items-center justify-center">
                       <Button 
                         size="sm" 
                         className="bg-[#FFEB3B] text-black hover:bg-[#FFEB3B]/90"
