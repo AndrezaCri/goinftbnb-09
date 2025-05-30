@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { Wallet, BookOpen, UsersRound, Trophy, DollarSign, LogOut, Menu } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { conectarCarteira, verificarCarteiraConectada, isMetaMaskInstalled, verificarSaldo } from "@/utils/metamaskUtils";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -26,6 +25,30 @@ export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { toast } = useToast();
   const isMobile = useIsMobile();
+  const location = useLocation();
+
+  // Função para verificar se o link está ativo
+  const isActiveLink = (path: string): boolean => {
+    return location.pathname === path;
+  };
+
+  // Função para aplicar classes do link ativo
+  const getLinkClasses = (path: string): string => {
+    const baseClasses = "text-sm transition-colors flex items-center gap-1";
+    const activeClasses = "text-[#FFEB3B] font-medium";
+    const inactiveClasses = "hover:text-[#FFEB3B]";
+    
+    return `${baseClasses} ${isActiveLink(path) ? activeClasses : inactiveClasses}`;
+  };
+
+  // Função para aplicar classes do link móvel ativo
+  const getMobileLinkClasses = (path: string): string => {
+    const baseClasses = "text-lg py-3 border-b border-gray-600 transition-colors";
+    const activeClasses = "text-[#FFEB3B] font-medium border-[#FFEB3B]";
+    const inactiveClasses = "hover:text-[#FFEB3B]";
+    
+    return `${baseClasses} ${isActiveLink(path) ? activeClasses : inactiveClasses}`;
+  };
 
   // Verificar carteira conectada ao montar o componente
   useEffect(() => {
@@ -126,8 +149,8 @@ export const Navbar = () => {
       <DrawerClose asChild>
         <Link 
           to="/" 
-          className="text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
-          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+          className={getMobileLinkClasses('/')}
+          style={{ color: isActiveLink('/') ? '#FFEB3B' : '#e0e0e0', textDecoration: 'none' }}
         >
           Home
         </Link>
@@ -135,8 +158,8 @@ export const Navbar = () => {
       <DrawerClose asChild>
         <Link 
           to="/albums" 
-          className="text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
-          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+          className={getMobileLinkClasses('/albums')}
+          style={{ color: isActiveLink('/albums') ? '#FFEB3B' : '#e0e0e0', textDecoration: 'none' }}
         >
           Albums
         </Link>
@@ -144,38 +167,38 @@ export const Navbar = () => {
       <DrawerClose asChild>
         <Link 
           to="/album-lab" 
-          className="flex items-center gap-2 text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
-          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+          className={getMobileLinkClasses('/album-lab')}
+          style={{ color: isActiveLink('/album-lab') ? '#FFEB3B' : '#e0e0e0', textDecoration: 'none' }}
         >
-          <BookOpen className="h-5 w-5" style={{ color: '#e0e0e0' }} />
-          <span style={{ color: '#e0e0e0' }}>Lab</span>
+          <BookOpen className="h-5 w-5" style={{ color: isActiveLink('/album-lab') ? '#FFEB3B' : '#e0e0e0' }} />
+          <span style={{ color: isActiveLink('/album-lab') ? '#FFEB3B' : '#e0e0e0' }}>Lab</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
         <Link 
           to="/community" 
-          className="flex items-center gap-2 text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
-          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+          className={getMobileLinkClasses('/community')}
+          style={{ color: isActiveLink('/community') ? '#FFEB3B' : '#e0e0e0', textDecoration: 'none' }}
         >
-          <UsersRound className="h-5 w-5" style={{ color: '#e0e0e0' }} />
-          <span style={{ color: '#e0e0e0' }}>Community</span>
+          <UsersRound className="h-5 w-5" style={{ color: isActiveLink('/community') ? '#FFEB3B' : '#e0e0e0' }} />
+          <span style={{ color: isActiveLink('/community') ? '#FFEB3B' : '#e0e0e0' }}>Community</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
         <Link 
           to="/challenges" 
-          className="flex items-center gap-2 text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
-          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+          className={getMobileLinkClasses('/challenges')}
+          style={{ color: isActiveLink('/challenges') ? '#FFEB3B' : '#e0e0e0', textDecoration: 'none' }}
         >
-          <Trophy className="h-5 w-5" style={{ color: '#e0e0e0' }} />
-          <span style={{ color: '#e0e0e0' }}>Challenges</span>
+          <Trophy className="h-5 w-5" style={{ color: isActiveLink('/challenges') ? '#FFEB3B' : '#e0e0e0' }} />
+          <span style={{ color: isActiveLink('/challenges') ? '#FFEB3B' : '#e0e0e0' }}>Challenges</span>
         </Link>
       </DrawerClose>
       <DrawerClose asChild>
         <Link 
           to="/marketplace" 
-          className="text-lg py-3 border-b border-gray-600 hover:text-[#FFEB3B] transition-colors"
-          style={{ color: '#e0e0e0', textDecoration: 'none' }}
+          className={getMobileLinkClasses('/marketplace')}
+          style={{ color: isActiveLink('/marketplace') ? '#FFEB3B' : '#e0e0e0', textDecoration: 'none' }}
         >
           Marketplace
         </Link>
@@ -242,21 +265,21 @@ export const Navbar = () => {
         
         {/* Desktop Menu */}
         <div className="flex items-center gap-8 max-md:hidden">
-          <Link to="/" className="text-sm hover:text-[#FFEB3B] transition-colors">Home</Link>
-          <Link to="/albums" className="text-sm hover:text-[#FFEB3B] transition-colors">Albums</Link>
-          <Link to="/album-lab" className="text-sm hover:text-[#FFEB3B] transition-colors flex items-center gap-1">
+          <Link to="/" className={getLinkClasses('/')}>Home</Link>
+          <Link to="/albums" className={getLinkClasses('/albums')}>Albums</Link>
+          <Link to="/album-lab" className={getLinkClasses('/album-lab')}>
             <BookOpen className="h-4 w-4" />
             <span>Lab</span>
           </Link>
-          <Link to="/community" className="text-sm hover:text-[#FFEB3B] transition-colors flex items-center gap-1">
+          <Link to="/community" className={getLinkClasses('/community')}>
             <UsersRound className="h-4 w-4" />
             <span>Community</span>
           </Link>
-          <Link to="/challenges" className="text-sm hover:text-[#FFEB3B] transition-colors flex items-center gap-1">
+          <Link to="/challenges" className={getLinkClasses('/challenges')}>
             <Trophy className="h-4 w-4" />
             <span>Challenges</span>
           </Link>
-          <Link to="/marketplace" className="text-sm hover:text-[#FFEB3B] transition-colors">Marketplace</Link>
+          <Link to="/marketplace" className={getLinkClasses('/marketplace')}>Marketplace</Link>
         </div>
 
         {/* Desktop Wallet Actions */}
