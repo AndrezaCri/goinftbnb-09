@@ -134,31 +134,7 @@ const Challenges = () => {
 
         {/* Binance Section */}
         <div className="mb-12">
-          <div className="bg-gradient-to-r from-[#F0B90B]/20 to-[#F0B90B]/5 border border-[#F0B90B]/30 rounded-lg p-6 mb-6">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-[#F0B90B] rounded-lg flex items-center justify-center">
-                <Coins className="w-6 h-6 text-black" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-[#F0B90B]">Binance Community Challenges</h2>
-                <p className="text-gray-300">Exclusive challenges for the Binance ecosystem</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-              <div className="flex items-center gap-2 text-sm">
-                <TrendingUp className="w-4 h-4 text-[#F0B90B]" />
-                <span className="text-gray-300">High Rewards</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <Zap className="w-4 h-4 text-[#F0B90B]" />
-                <span className="text-gray-300">Fast Track to Recognition</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <Users className="w-4 h-4 text-[#F0B90B]" />
-                <span className="text-gray-300">Active Community</span>
-              </div>
-            </div>
-          </div>
+          {/* Removed the Binance Community Challenges highlight section */}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {binanceChallenges.map((challenge) => {
