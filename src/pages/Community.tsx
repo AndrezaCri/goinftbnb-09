@@ -23,7 +23,7 @@ const initialAlbums = [
   },
   {
     id: 2,
-    title: "Premier League Stars",
+    title: "Coruja Cripto",
     creator: "PLenthusiast",
     createdAt: "2025-05-02",
     imageUrl: "/lovable-uploads/92627ff6-fee9-43e4-af64-9fcfcf4e34f3.png",
@@ -34,7 +34,7 @@ const initialAlbums = [
   },
   {
     id: 3,
-    title: "Coruja Cripto",
+    title: "Champions League Moments",
     creator: "UCLfanatic",
     createdAt: "2025-05-03",
     imageUrl: "https://picsum.photos/seed/soccer3/400/400",
