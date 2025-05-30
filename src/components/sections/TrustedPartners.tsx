@@ -1,5 +1,6 @@
 
 import React from "react";
+import { UltraOptimizedImage } from "@/components/ui/ultra-optimized-image";
 
 const partners = [
   { name: "BNB Chain", type: "logo", src: "/lovable-uploads/b106c9dd-0f1b-480f-9873-a7c888dc9c44.png" },
@@ -18,10 +19,14 @@ export const TrustedPartners = () => {
             className="bg-[#222] text-white px-4 py-2 rounded-lg border border-[#333] hover:border-[#FFEB3B] transition-colors flex items-center justify-center"
           >
             {partner.type === "logo" ? (
-              <img 
-                src={partner.src} 
+              <UltraOptimizedImage
+                src={partner.src}
                 alt={partner.name}
-                className="h-12 w-12 object-contain"
+                width={48}
+                height={48}
+                className="object-contain"
+                priority={false}
+                quality={85}
               />
             ) : (
               partner.name

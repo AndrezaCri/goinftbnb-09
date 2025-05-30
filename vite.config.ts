@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -12,19 +11,16 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
-      // Use SWC for faster compilation with desktop optimizations
       tsDecorators: true,
       plugins: mode === 'production' ? [
         ["@swc/plugin-remove-console", {}]
       ] : []
     }),
-    mode === 'development' &&
-    componentTagger(),
+    mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Fix ethers/bn.js compatibility issue - use the CommonJS version
       "bn.js": path.resolve(__dirname, "./node_modules/bn.js/lib/bn.js"),
     },
   },
@@ -33,55 +29,58 @@ export default defineConfig(({ mode }) => ({
     minify: 'esbuild',
     cssCodeSplit: true,
     sourcemap: false,
-    chunkSizeWarningLimit: 200, // Reduced for stricter bundle control
+    chunkSizeWarningLimit: 150, // Reduced for stricter bundle control
     rollupOptions: {
       output: {
         manualChunks: {
-          // Ultra-critical vendor chunk - desktop optimized
+          // Ultra-critical core - keep minimal
           'vendor-core': ['react', 'react-dom'],
           'router': ['react-router-dom'],
           
-          // UI chunks by desktop priority
-          'ui-critical': ['@radix-ui/react-slot', '@radix-ui/react-progress'],
-          'ui-forms': ['@radix-ui/react-checkbox', '@radix-ui/react-select', '@radix-ui/react-dialog'],
-          'ui-desktop': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
-          'ui-feedback': ['@radix-ui/react-toast'],
+          // UI components - aggressive splitting
+          'ui-primitives': ['@radix-ui/react-slot'],
+          'ui-interactive': ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-checkbox'],
+          'ui-layout': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
+          'ui-feedback': ['@radix-ui/react-toast', '@radix-ui/react-progress'],
           
-          // Data management - desktop optimized
+          // Data management - lazy loaded
           'query': ['@tanstack/react-query'],
           
-          // Web3 - ultra-lazy loaded for desktop
+          // Web3 - ultra-lazy loaded only when needed
           'web3': ['ethers'],
           
-          // Icons - separate chunk for desktop lazy loading
+          // Icons - completely separate for lazy loading
           'icons': ['lucide-react'],
           
-          // Utilities - desktop optimized
-          'utils': ['clsx', 'class-variance-authority', 'tailwind-merge']
+          // Chart library - lazy loaded
+          'charts': ['recharts'],
+          
+          // Utilities
+          'utils': ['clsx', 'class-variance-authority', 'tailwind-merge'],
+          
+          // Form handling
+          'forms': ['react-hook-form', '@hookform/resolvers', 'zod']
         },
         chunkFileNames: (chunkInfo) => {
           const name = chunkInfo.name || 'chunk';
-          // Desktop-optimized chunk naming
-          return `assets/js/${name}-[hash:6].js`;
+          return `assets/js/${name}-[hash:8].js`;
         },
-        entryFileNames: 'assets/js/[name]-[hash:6].js',
+        entryFileNames: 'assets/js/[name]-[hash:8].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name || '';
           if (info.endsWith('.css')) {
-            return 'assets/css/[name]-[hash:6].[ext]';
+            return 'assets/css/[name]-[hash:8].[ext]';
           }
           if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(info)) {
-            return 'assets/img/[name]-[hash:6].[ext]';
+            return 'assets/img/[name]-[hash:8].[ext]';
           }
-          return 'assets/[name]-[hash:6].[ext]';
+          return 'assets/[name]-[hash:8].[ext]';
         }
       }
     },
     commonjsOptions: {
-      // Handle ethers and its dependencies including bn.js
       include: [/node_modules/],
       transformMixedEsModules: true,
-      // Explicitly handle bn.js as CommonJS
       namedExports: {
         'bn.js': ['BN']
       }
@@ -94,7 +93,6 @@ export default defineConfig(({ mode }) => ({
     minifyIdentifiers: true,
     minifySyntax: true,
     minifyWhitespace: true,
-    // Enhanced drops for desktop production
     drop: mode === 'production' ? ['console', 'debugger'] : [],
     supported: {
       'bigint': true,
@@ -117,16 +115,12 @@ export default defineConfig(({ mode }) => ({
       'react-router-dom',
       'clsx',
       'tailwind-merge',
-      // Include critical UI components for desktop
-      '@radix-ui/react-slot',
-      '@radix-ui/react-progress',
-      // Force include ethers and bn.js for compatibility
-      'ethers',
-      'bn.js'
+      '@radix-ui/react-slot'
     ],
     exclude: [
-      // Ultra-lazy load for desktop optimization
-      'lucide-react'
+      'lucide-react', // Lazy load icons
+      'ethers', // Lazy load Web3
+      'recharts' // Lazy load charts
     ]
   },
   define: {
