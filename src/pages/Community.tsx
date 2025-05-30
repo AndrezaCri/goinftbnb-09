@@ -34,7 +34,7 @@ const initialAlbums = [
   },
   {
     id: 3,
-    title: "Champions League Moments",
+    title: "Coruja Cripto",
     creator: "UCLfanatic",
     createdAt: "2025-05-03",
     imageUrl: "https://picsum.photos/seed/soccer3/400/400",
