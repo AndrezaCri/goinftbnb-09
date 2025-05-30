@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 import {
   Dialog,
@@ -9,7 +10,6 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Calendar, Users, Trophy, Star, Clock, Target, X } from "lucide-react";
 
 interface Challenge {
@@ -199,22 +199,6 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
           className="flex-1 overflow-y-auto scrollbar-thin scrollbar-track-[#222] scrollbar-thumb-[#444] hover:scrollbar-thumb-[#555]"
         >
           <div className="p-4 space-y-4 text-white">
-            {/* Challenge Image */}
-            <div className="relative">
-              <AspectRatio ratio={16 / 9}>
-                <img
-                  src={challenge.imageUrl}
-                  alt={challenge.title}
-                  className="object-cover w-full h-full rounded-lg shadow-lg"
-                />
-                <div className="absolute top-2 right-2">
-                  <Badge variant="outline" className={`${getDifficultyColor(challenge.difficulty)} backdrop-blur-sm text-xs`}>
-                    {challenge.difficulty.toUpperCase()}
-                  </Badge>
-                </div>
-              </AspectRatio>
-            </div>
-
             {/* Challenge Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="flex items-center gap-2 text-gray-300 bg-[#1A1A1A] p-3 rounded-lg border border-[#333]">
@@ -225,6 +209,13 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
                 <Users size={16} className={theme.accent} />
                 <span className="font-medium text-sm">{challenge.participants} participants</span>
               </div>
+            </div>
+
+            {/* Difficulty Badge */}
+            <div className="flex justify-center">
+              <Badge variant="outline" className={`${getDifficultyColor(challenge.difficulty)} text-sm px-4 py-2`}>
+                {challenge.difficulty.toUpperCase()} DIFFICULTY
+              </Badge>
             </div>
 
             {/* Description */}
