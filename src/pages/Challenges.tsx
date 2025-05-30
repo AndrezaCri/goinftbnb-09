@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -138,13 +139,13 @@ const Challenges = () => {
   };
   
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#121212] text-white">
       <Navbar />
       
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center">
-            <Trophy className="mr-2 text-[#F97316]" size={24} />
+            <Trophy className="mr-2 text-[#FFEB3B]" size={24} />
             <h1 className="text-3xl font-bold">Soccer Team Challenges</h1>
           </div>
         </div>
@@ -158,10 +159,16 @@ const Challenges = () => {
         
         <Tabs defaultValue="active" className="mb-8" onValueChange={setActiveTab}>
           <TabsList className="bg-[#222] border border-[#333]">
-            <TabsTrigger value="active" className="data-[state=active]:bg-[#111] data-[state=active]:text-white">
+            <TabsTrigger 
+              value="active" 
+              className="data-[state=active]:bg-[#111] data-[state=active]:text-white data-[state=inactive]:text-[#FFEB3B] hover:text-white transition-colors"
+            >
               Active Challenges
             </TabsTrigger>
-            <TabsTrigger value="past" className="data-[state=active]:bg-[#111] data-[state=active]:text-white">
+            <TabsTrigger 
+              value="past" 
+              className="data-[state=active]:bg-[#111] data-[state=active]:text-white data-[state=inactive]:text-[#FFEB3B] hover:text-white transition-colors"
+            >
               Past Challenges
             </TabsTrigger>
           </TabsList>
