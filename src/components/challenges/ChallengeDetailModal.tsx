@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 import {
   Dialog,
@@ -165,9 +166,9 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[85vh] bg-[#0A0A0A] border-[#333] text-white p-0 overflow-hidden">
+      <DialogContent className="max-w-2xl max-h-[90vh] bg-[#0A0A0A] border-[#333] text-white p-0 flex flex-col">
         {/* Header with gradient accent */}
-        <div className={`bg-gradient-to-r ${theme.gradient} border-b border-[#333] p-4 relative`}>
+        <div className={`bg-gradient-to-r ${theme.gradient} border-b border-[#333] p-4 relative flex-shrink-0`}>
           {/* Close button */}
           <button
             onClick={onClose}
@@ -189,7 +190,7 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
         {/* Scrollable Content */}
         <div 
           ref={contentRef}
-          className="max-h-[calc(85vh-160px)] overflow-y-auto scrollbar-thin scrollbar-track-[#222] scrollbar-thumb-[#444] hover:scrollbar-thumb-[#555]"
+          className="flex-1 overflow-y-auto scrollbar-thin scrollbar-track-[#222] scrollbar-thumb-[#444] hover:scrollbar-thumb-[#555]"
         >
           <div className="p-4 space-y-4 text-white">
             {/* Challenge Image */}
@@ -277,7 +278,7 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
             </div>
 
             {/* Tags */}
-            <div>
+            <div className="pb-4">
               <h3 className="text-xs font-medium mb-2 text-gray-400 uppercase tracking-wider">Tags</h3>
               <div className="flex flex-wrap gap-1">
                 {challenge.tags.map((tag) => (
@@ -290,8 +291,8 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Footer */}
-        <DialogFooter className="border-t border-[#333] p-4 bg-[#0A0A0A] flex flex-col sm:flex-row gap-2">
+        {/* Footer - Always visible */}
+        <DialogFooter className="border-t border-[#333] p-4 bg-[#0A0A0A] flex flex-col sm:flex-row gap-2 flex-shrink-0">
           <Button 
             variant="ghost" 
             onClick={onClose}
