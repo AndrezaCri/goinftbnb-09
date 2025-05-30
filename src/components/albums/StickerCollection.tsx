@@ -24,7 +24,7 @@ export const StickerCollection = () => {
       <div className="bg-[#1a1a1a] rounded-lg p-6 border border-[#333]">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold" style={{ color: '#FFEB3B' }}>
-            Minha Coleção
+            My Soccer Stars Collection
           </h2>
           <Badge variant="secondary" className="text-lg px-4 py-2">
             {collectedStickers}/{totalStickers} Figurinhas
