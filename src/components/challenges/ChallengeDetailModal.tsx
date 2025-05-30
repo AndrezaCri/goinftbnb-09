@@ -166,170 +166,157 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        {/* Enhanced Overlay */}
+      <DialogContent className="max-w-4xl max-h-[90vh] bg-[#0A0A0A] border-[#333] text-white p-0 overflow-hidden">
+        {/* Header with gradient accent */}
+        <div className={`bg-gradient-to-r ${theme.gradient} border-b border-[#333] p-6 relative`}>
+          {/* Close button */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10 p-1 hover:bg-white/10 rounded-full"
+          >
+            <X size={20} />
+          </button>
+          
+          <DialogHeader>
+            <DialogTitle className={`text-3xl font-bold ${theme.title} pr-12`}>
+              {challenge.title}
+            </DialogTitle>
+            <DialogDescription className="text-gray-300 text-lg">
+              Challenge by {challenge.team}
+            </DialogDescription>
+          </DialogHeader>
+        </div>
+
+        {/* Scrollable Content */}
         <div 
-          className="fixed inset-0 bg-black/90 backdrop-blur-sm animate-fade-in"
-          onClick={onClose}
-        />
-        
-        {/* Modal Content */}
-        <div className="relative z-10 w-full max-w-4xl max-h-[95vh] animate-scale-in">
-          <div className={`bg-gradient-to-br from-[#0A0A0A] via-[#111] to-[#1A1A1A] border-2 border-[#333] rounded-2xl shadow-2xl overflow-hidden`}>
-            {/* Header with gradient accent */}
-            <div className={`bg-gradient-to-r ${theme.gradient} border-b border-[#333] p-6 relative`}>
-              {/* Close button */}
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10 p-1 hover:bg-white/10 rounded-full"
-              >
-                <X size={20} />
-              </button>
-              
-              <DialogHeader>
-                <DialogTitle className={`text-3xl font-bold ${theme.title} pr-12`}>
-                  {challenge.title}
-                </DialogTitle>
-                <DialogDescription className="text-gray-300 text-lg">
-                  Challenge by {challenge.team}
-                </DialogDescription>
-              </DialogHeader>
+          ref={contentRef}
+          className="max-h-[calc(90vh-200px)] overflow-y-auto scrollbar-thin scrollbar-track-[#222] scrollbar-thumb-[#444] hover:scrollbar-thumb-[#555]"
+        >
+          <div className="p-6 space-y-6 text-white">
+            {/* Challenge Image */}
+            <div className="relative">
+              <AspectRatio ratio={16 / 9}>
+                <img
+                  src={challenge.imageUrl}
+                  alt={challenge.title}
+                  className="object-cover w-full h-full rounded-xl shadow-lg"
+                />
+                <div className="absolute top-3 right-3">
+                  <Badge variant="outline" className={`${getDifficultyColor(challenge.difficulty)} backdrop-blur-sm`}>
+                    {challenge.difficulty.toUpperCase()}
+                  </Badge>
+                </div>
+              </AspectRatio>
             </div>
 
-            {/* Scrollable Content */}
-            <div 
-              ref={contentRef}
-              className="max-h-[calc(95vh-200px)] overflow-y-auto scrollbar-thin scrollbar-track-[#222] scrollbar-thumb-[#444] hover:scrollbar-thumb-[#555]"
-            >
-              <div className="p-6 space-y-6 text-white">
-                {/* Challenge Image */}
-                <div className="relative">
-                  <AspectRatio ratio={16 / 9}>
-                    <img
-                      src={challenge.imageUrl}
-                      alt={challenge.title}
-                      className="object-cover w-full h-full rounded-xl shadow-lg"
-                    />
-                    <div className="absolute top-3 right-3">
-                      <Badge variant="outline" className={`${getDifficultyColor(challenge.difficulty)} backdrop-blur-sm`}>
-                        {challenge.difficulty.toUpperCase()}
-                      </Badge>
-                    </div>
-                  </AspectRatio>
-                </div>
-
-                {/* Challenge Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3 text-gray-300 bg-[#1A1A1A] p-4 rounded-lg border border-[#333]">
-                    <Calendar size={20} className={theme.accent} />
-                    <span className="font-medium">Deadline: {challenge.deadline}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-gray-300 bg-[#1A1A1A] p-4 rounded-lg border border-[#333]">
-                    <Users size={20} className={theme.accent} />
-                    <span className="font-medium">{challenge.participants} participants</span>
-                  </div>
-                </div>
-
-                {/* Description */}
-                <div className="bg-[#1A1A1A] border border-[#333] rounded-xl p-6">
-                  <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <Target size={20} className={theme.accent} />
-                    Challenge Description
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed text-base">{challenge.description}</p>
-                </div>
-
-                {/* Prize */}
-                <div className={`bg-gradient-to-r ${theme.gradient} border border-[#333] rounded-xl p-6`}>
-                  <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <Trophy size={20} className={theme.accent} />
-                    Prize & Rewards
-                  </h3>
-                  <div className={`${theme.accent} font-bold text-xl`}>{challenge.prize}</div>
-                </div>
-
-                {/* Advantages */}
-                <div className="bg-[#1A1A1A] border border-[#333] rounded-xl p-6">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                    <Star size={20} className={theme.accent} />
-                    Challenge Advantages
-                  </h3>
-                  <div className="grid gap-3">
-                    {advantages.map((advantage, index) => (
-                      <div key={index} className="flex items-start gap-3 text-gray-300">
-                        <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0`} style={{ backgroundColor: theme.primary }}></div>
-                        <span className="text-base leading-relaxed">{advantage}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Requirements */}
-                <div className="bg-[#1A1A1A] border border-[#333] rounded-xl p-6">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                    <Clock size={20} className={theme.accent} />
-                    Requirements
-                  </h3>
-                  <ul className="text-gray-300 space-y-2">
-                    <li className="flex items-start gap-2">
-                      <span className={`${theme.accent} font-medium`}>•</span>
-                      <span>Create a themed album with at least 10 cards</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className={`${theme.accent} font-medium`}>•</span>
-                      <span>Follow the challenge guidelines and theme</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className={`${theme.accent} font-medium`}>•</span>
-                      <span>Submit before the deadline</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className={`${theme.accent} font-medium`}>•</span>
-                      <span>Use only official content and imagery</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Tags */}
-                <div>
-                  <h3 className="text-sm font-medium mb-3 text-gray-400 uppercase tracking-wider">Tags</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {challenge.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className={`text-sm ${getDifficultyColor(challenge.difficulty)} backdrop-blur-sm`}>
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
+            {/* Challenge Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-center gap-3 text-gray-300 bg-[#1A1A1A] p-4 rounded-lg border border-[#333]">
+                <Calendar size={20} className={theme.accent} />
+                <span className="font-medium">Deadline: {challenge.deadline}</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-300 bg-[#1A1A1A] p-4 rounded-lg border border-[#333]">
+                <Users size={20} className={theme.accent} />
+                <span className="font-medium">{challenge.participants} participants</span>
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="border-t border-[#333] p-6 bg-[#0A0A0A]">
-              <DialogFooter className="flex flex-col sm:flex-row gap-3">
-                <Button 
-                  variant="ghost" 
-                  onClick={onClose}
-                  className="text-gray-300 hover:text-white hover:bg-[#333] border border-[#444] transition-all duration-200"
-                >
-                  Close
-                </Button>
-                <Button 
-                  onClick={() => onJoin(challenge.id)}
-                  disabled={isJoined}
-                  className={`flex-1 transition-all duration-200 ${
-                    isJoined 
-                      ? "bg-green-600 hover:bg-green-600 text-white cursor-not-allowed" 
-                      : `${theme.button} shadow-lg hover:shadow-xl`
-                  }`}
-                >
-                  {isJoined ? "Already Joined!" : "Join Challenge"}
-                </Button>
-              </DialogFooter>
+            {/* Description */}
+            <div className="bg-[#1A1A1A] border border-[#333] rounded-xl p-6">
+              <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                <Target size={20} className={theme.accent} />
+                Challenge Description
+              </h3>
+              <p className="text-gray-300 leading-relaxed text-base">{challenge.description}</p>
+            </div>
+
+            {/* Prize */}
+            <div className={`bg-gradient-to-r ${theme.gradient} border border-[#333] rounded-xl p-6`}>
+              <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                <Trophy size={20} className={theme.accent} />
+                Prize & Rewards
+              </h3>
+              <div className={`${theme.accent} font-bold text-xl`}>{challenge.prize}</div>
+            </div>
+
+            {/* Advantages */}
+            <div className="bg-[#1A1A1A] border border-[#333] rounded-xl p-6">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <Star size={20} className={theme.accent} />
+                Challenge Advantages
+              </h3>
+              <div className="grid gap-3">
+                {advantages.map((advantage, index) => (
+                  <div key={index} className="flex items-start gap-3 text-gray-300">
+                    <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0`} style={{ backgroundColor: theme.primary }}></div>
+                    <span className="text-base leading-relaxed">{advantage}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Requirements */}
+            <div className="bg-[#1A1A1A] border border-[#333] rounded-xl p-6">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <Clock size={20} className={theme.accent} />
+                Requirements
+              </h3>
+              <ul className="text-gray-300 space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className={`${theme.accent} font-medium`}>•</span>
+                  <span>Create a themed album with at least 10 cards</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className={`${theme.accent} font-medium`}>•</span>
+                  <span>Follow the challenge guidelines and theme</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className={`${theme.accent} font-medium`}>•</span>
+                  <span>Submit before the deadline</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className={`${theme.accent} font-medium`}>•</span>
+                  <span>Use only official content and imagery</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Tags */}
+            <div>
+              <h3 className="text-sm font-medium mb-3 text-gray-400 uppercase tracking-wider">Tags</h3>
+              <div className="flex flex-wrap gap-2">
+                {challenge.tags.map((tag) => (
+                  <Badge key={tag} variant="outline" className={`text-sm ${getDifficultyColor(challenge.difficulty)} backdrop-blur-sm`}>
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+
+        {/* Footer */}
+        <DialogFooter className="border-t border-[#333] p-6 bg-[#0A0A0A] flex flex-col sm:flex-row gap-3">
+          <Button 
+            variant="ghost" 
+            onClick={onClose}
+            className="text-gray-300 hover:text-white hover:bg-[#333] border border-[#444] transition-all duration-200"
+          >
+            Close
+          </Button>
+          <Button 
+            onClick={() => onJoin(challenge.id)}
+            disabled={isJoined}
+            className={`flex-1 transition-all duration-200 ${
+              isJoined 
+                ? "bg-green-600 hover:bg-green-600 text-white cursor-not-allowed" 
+                : `${theme.button} shadow-lg hover:shadow-xl`
+            }`}
+          >
+            {isJoined ? "Already Joined!" : "Join Challenge"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
     </Dialog>
   );
 };
