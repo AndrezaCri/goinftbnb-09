@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useRef } from "react";
 import {
   Dialog,
@@ -183,8 +184,15 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
             <X size={18} />
           </button>
           
+          {/* Difficulty Badge - Top Right */}
+          <div className="absolute top-3 right-12">
+            <Badge variant="outline" className={`${getDifficultyColor(challenge.difficulty)} text-xs px-3 py-1`}>
+              {challenge.difficulty.toUpperCase()} DIFFICULTY
+            </Badge>
+          </div>
+          
           <DialogHeader>
-            <DialogTitle className={`text-2xl font-bold ${theme.title} pr-10`}>
+            <DialogTitle className={`text-2xl font-bold ${theme.title} pr-32`}>
               {challenge.title}
             </DialogTitle>
             <DialogDescription className="text-gray-300 text-base">
@@ -209,13 +217,6 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
                 <Users size={16} className={theme.accent} />
                 <span className="font-medium text-sm">{challenge.participants} participants</span>
               </div>
-            </div>
-
-            {/* Difficulty Badge */}
-            <div className="flex justify-center">
-              <Badge variant="outline" className={`${getDifficultyColor(challenge.difficulty)} text-sm px-4 py-2`}>
-                {challenge.difficulty.toUpperCase()} DIFFICULTY
-              </Badge>
             </div>
 
             {/* Description */}
@@ -313,3 +314,4 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
     </Dialog>
   );
 };
+
