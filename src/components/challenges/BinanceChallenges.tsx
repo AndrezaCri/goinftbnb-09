@@ -20,7 +20,8 @@ const binanceChallenges = [
     difficulty: "medium",
     prize: "10,000 BNB tokens + Exclusive Binance NFT",
     tags: ["binance", "anniversary", "defi", "community"],
-    active: true
+    active: true,
+    type: "binance"
   },
   {
     id: 102,
@@ -33,7 +34,8 @@ const binanceChallenges = [
     difficulty: "hard",
     prize: "5,000 USDT + Trading Fee Discount",
     tags: ["trading", "education", "technical analysis"],
-    active: true
+    active: true,
+    type: "binance"
   },
   {
     id: 103,
@@ -46,7 +48,8 @@ const binanceChallenges = [
     difficulty: "medium",
     prize: "3,500 BNB + DeFi Project Tokens",
     tags: ["defi", "innovation", "yield farming"],
-    active: true
+    active: true,
+    type: "binance"
   },
   {
     id: 104,
@@ -59,7 +62,8 @@ const binanceChallenges = [
     difficulty: "easy",
     prize: "2,000 BNB + Rare NFT Collection",
     tags: ["nft", "digital art", "marketplace"],
-    active: true
+    active: true,
+    type: "binance"
   }
 ];
 
