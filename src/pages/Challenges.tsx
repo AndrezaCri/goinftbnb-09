@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -109,7 +108,7 @@ const castaCriptoChallenge = [
   }
 ];
 
-const allChallenges = [...binanceChallenges, ...soccerChallenges, ...corujaeCriptoChallenge, ...castaCriptoChallenge];
+const allChallenges = [...binanceChallenges, ...soccerChallenges, ...corujaCriptoChallenge, ...castaCriptoChallenge];
 
 const Challenges = () => {
   const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
@@ -289,7 +288,7 @@ const Challenges = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {corujaeCriptoChallenge.map(renderChallengeCard)}
+            {corujaCriptoChallenge.map(renderChallengeCard)}
           </div>
         </div>
 
