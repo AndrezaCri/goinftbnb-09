@@ -32,10 +32,34 @@ const Marketplace = () => {
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="mb-8 bg-[#111] border border-[#333]">
-            <TabsTrigger value="browse" style={{ color: '#FFEB3B' }}>Navegar no Mercado</TabsTrigger>
-            <TabsTrigger value="packs" style={{ color: '#FFEB3B' }}>Pacotes NFT</TabsTrigger>
-            <TabsTrigger value="trading" style={{ color: '#FFEB3B' }}>Sistema de Trocas</TabsTrigger>
-            <TabsTrigger value="my-listings" style={{ color: '#FFEB3B' }}>Minhas Listagens</TabsTrigger>
+            <TabsTrigger 
+              value="browse" 
+              className="data-[state=active]:text-black"
+              style={{ color: activeTab === "browse" ? "#000000" : "#FFEB3B" }}
+            >
+              Navegar no Mercado
+            </TabsTrigger>
+            <TabsTrigger 
+              value="packs" 
+              className="data-[state=active]:text-black"
+              style={{ color: activeTab === "packs" ? "#000000" : "#FFEB3B" }}
+            >
+              Pacotes NFT
+            </TabsTrigger>
+            <TabsTrigger 
+              value="trading" 
+              className="data-[state=active]:text-black"
+              style={{ color: activeTab === "trading" ? "#000000" : "#FFEB3B" }}
+            >
+              Sistema de Trocas
+            </TabsTrigger>
+            <TabsTrigger 
+              value="my-listings" 
+              className="data-[state=active]:text-black"
+              style={{ color: activeTab === "my-listings" ? "#000000" : "#FFEB3B" }}
+            >
+              Minhas Listagens
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="browse">
