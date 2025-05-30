@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -31,17 +30,6 @@ const initialAlbums = [
     upvotes: 98,
     downvotes: 12,
     tags: ["education", "blockchain", "community"]
-  },
-  {
-    id: 3,
-    title: "Binance",
-    creator: "Global exchange leader",
-    createdAt: "2025-05-03",
-    imageUrl: "/lovable-uploads/9eada32b-37ba-4cfc-a78e-6e750250b816.png",
-    description: "Empowering freedom through crypto and finance",
-    upvotes: 87,
-    downvotes: 5,
-    tags: ["trading", "blockchain", "innovation"]
   },
   {
     id: 4,
