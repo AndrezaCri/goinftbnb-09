@@ -78,12 +78,14 @@ export default defineConfig(({ mode }) => ({
       }
     },
     commonjsOptions: {
-      // Handle ethers and its dependencies including bn.js
+      // Handle ethers and its dependencies including bn.js and hash.js
       include: [/node_modules/],
       transformMixedEsModules: true,
-      // Explicitly handle bn.js as CommonJS
+      // Explicitly handle modules as CommonJS
       namedExports: {
-        'bn.js': ['BN']
+        'bn.js': ['BN'],
+        'hash.js': ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'ripemd160'],
+        'js-sha3': ['keccak256', 'keccak512', 'keccak384', 'keccak224', 'sha3_256', 'sha3_512', 'sha3_384', 'sha3_224', 'shake128', 'shake256']
       }
     }
   },
@@ -120,9 +122,11 @@ export default defineConfig(({ mode }) => ({
       // Include critical UI components for desktop
       '@radix-ui/react-slot',
       '@radix-ui/react-progress',
-      // Force include ethers and bn.js for compatibility
+      // Force include ethers and its problematic dependencies for compatibility
       'ethers',
-      'bn.js'
+      'bn.js',
+      'hash.js',
+      'js-sha3'
     ],
     exclude: [
       // Ultra-lazy load for desktop optimization
