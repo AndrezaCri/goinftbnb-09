@@ -22,41 +22,35 @@ const Marketplace = () => {
   }, [searchParams]);
 
   return (
-    <main className="flex flex-col min-h-screen bg-black text-white">
-      <header>
-        <Navbar />
-      </header>
+    <div className="min-h-screen bg-[#121212] text-white">
+      <Navbar />
 
-      <div className="container mx-auto p-8 max-sm:p-4">
-        <h1 className="text-4xl font-bold mb-6" style={{ color: '#FFEB3B' }}>NFT Marketplace</h1>
+      <main className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-6">NFT Marketplace</h1>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="mb-8 bg-[#111] border border-[#333]">
             <TabsTrigger 
-              value="browse" 
-              className="data-[state=active]:text-black"
-              style={{ color: activeTab === "browse" ? "#000000" : "#FFEB3B" }}
+              value="browse"
+              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Navegar no Mercado
             </TabsTrigger>
             <TabsTrigger 
-              value="packs" 
-              className="data-[state=active]:text-black"
-              style={{ color: activeTab === "packs" ? "#000000" : "#FFEB3B" }}
+              value="packs"
+              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Pacotes NFT
             </TabsTrigger>
             <TabsTrigger 
-              value="trading" 
-              className="data-[state=active]:text-black"
-              style={{ color: activeTab === "trading" ? "#000000" : "#FFEB3B" }}
+              value="trading"
+              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Sistema de Trocas
             </TabsTrigger>
             <TabsTrigger 
-              value="my-listings" 
-              className="data-[state=active]:text-black"
-              style={{ color: activeTab === "my-listings" ? "#000000" : "#FFEB3B" }}
+              value="my-listings"
+              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Minhas Listagens
             </TabsTrigger>
@@ -78,8 +72,8 @@ const Marketplace = () => {
             <MyListingsSection />
           </TabsContent>
         </Tabs>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 };
 
