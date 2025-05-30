@@ -50,7 +50,7 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
     }
   }, [isOpen]);
 
-  // Handle ESC key press
+  // Handle ESC key press and scroll page to top when modal opens
   useEffect(() => {
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
@@ -59,6 +59,13 @@ export const ChallengeDetailModal: React.FC<ChallengeDetailModalProps> = ({
     };
 
     if (isOpen) {
+      // Scroll page to top when modal opens
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+      
       document.addEventListener('keydown', handleEscKey);
       // Prevent body scroll when modal is open
       document.body.style.overflow = 'hidden';
