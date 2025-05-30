@@ -256,18 +256,6 @@ const Challenges = () => {
 
         {/* Soccer Section */}
         <div className="mb-12">
-          <div className="bg-gradient-to-r from-[#F97316]/20 to-[#F97316]/5 border border-[#F97316]/30 rounded-lg p-6 mb-6">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-[#F97316] rounded-lg flex items-center justify-center">
-                <Trophy className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-[#F97316]">Soccer Team Challenges</h2>
-                <p className="text-gray-300">Official challenges from your favorite soccer teams</p>
-              </div>
-            </div>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {soccerChallenges.map(renderChallengeCard)}
           </div>
