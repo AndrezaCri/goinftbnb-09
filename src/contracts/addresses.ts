@@ -3,7 +3,7 @@
 // IMPORTANTE: Substitua pelos endereços reais dos seus contratos
 export const CONTRACT_ADDRESSES = {
   // Contratos principais
-  NFT_CONTRACT: '0x0000000000000000000000000000000000000000', // Substitua pelo endereço real
+  NFT_CONTRACT: '0xB094cA02D1AAF7dA4668e11951AF35634fC97c29', // Endereço real do contrato NFT
   MARKETPLACE_CONTRACT: '0x0000000000000000000000000000000000000000', // Substitua pelo endereço real
   PACK_CONTRACT: '0x0000000000000000000000000000000000000000', // Substitua pelo endereço real
   
