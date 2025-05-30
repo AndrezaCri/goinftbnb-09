@@ -12,16 +12,19 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
+      // Use SWC for faster compilation with desktop optimizations
       tsDecorators: true,
       plugins: mode === 'production' ? [
         ["@swc/plugin-remove-console", {}]
       ] : []
     }),
-    mode === 'development' && componentTagger(),
+    mode === 'development' &&
+    componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Fix ethers/bn.js compatibility issue - use the CommonJS version
       "bn.js": path.resolve(__dirname, "./node_modules/bn.js/lib/bn.js"),
     },
   },
@@ -30,46 +33,57 @@ export default defineConfig(({ mode }) => ({
     minify: 'esbuild',
     cssCodeSplit: true,
     sourcemap: false,
-    chunkSizeWarningLimit: 150,
+    chunkSizeWarningLimit: 200, // Reduced for stricter bundle control
     rollupOptions: {
       output: {
         manualChunks: {
+          // Ultra-critical vendor chunk - desktop optimized
           'vendor-core': ['react', 'react-dom'],
           'router': ['react-router-dom'],
-          'ui-primitives': ['@radix-ui/react-slot'],
-          'ui-interactive': ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-checkbox'],
-          'ui-layout': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
-          'ui-feedback': ['@radix-ui/react-toast', '@radix-ui/react-progress'],
+          
+          // UI chunks by desktop priority
+          'ui-critical': ['@radix-ui/react-slot', '@radix-ui/react-progress'],
+          'ui-forms': ['@radix-ui/react-checkbox', '@radix-ui/react-select', '@radix-ui/react-dialog'],
+          'ui-desktop': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-navigation-menu'],
+          'ui-feedback': ['@radix-ui/react-toast'],
+          
+          // Data management - desktop optimized
           'query': ['@tanstack/react-query'],
+          
+          // Web3 - ultra-lazy loaded for desktop
           'web3': ['ethers'],
+          
+          // Icons - separate chunk for desktop lazy loading
           'icons': ['lucide-react'],
-          'charts': ['recharts'],
-          'utils': ['clsx', 'class-variance-authority', 'tailwind-merge'],
-          'forms': ['react-hook-form', '@hookform/resolvers', 'zod']
+          
+          // Utilities - desktop optimized
+          'utils': ['clsx', 'class-variance-authority', 'tailwind-merge']
         },
         chunkFileNames: (chunkInfo) => {
           const name = chunkInfo.name || 'chunk';
-          return `assets/js/${name}-[hash:8].js`;
+          // Desktop-optimized chunk naming
+          return `assets/js/${name}-[hash:6].js`;
         },
-        entryFileNames: 'assets/js/[name]-[hash:8].js',
+        entryFileNames: 'assets/js/[name]-[hash:6].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name || '';
           if (info.endsWith('.css')) {
-            return 'assets/css/[name]-[hash:8].[ext]';
+            return 'assets/css/[name]-[hash:6].[ext]';
           }
           if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(info)) {
-            return 'assets/img/[name]-[hash:8].[ext]';
+            return 'assets/img/[name]-[hash:6].[ext]';
           }
-          return 'assets/[name]-[hash:8].[ext]';
+          return 'assets/[name]-[hash:6].[ext]';
         }
       }
     },
     commonjsOptions: {
+      // Handle ethers and its dependencies including bn.js
       include: [/node_modules/],
       transformMixedEsModules: true,
+      // Explicitly handle bn.js as CommonJS
       namedExports: {
-        'bn.js': ['BN'],
-        'js-sha3': ['keccak256', 'sha3_256', 'sha3_512']
+        'bn.js': ['BN']
       }
     }
   },
@@ -80,6 +94,7 @@ export default defineConfig(({ mode }) => ({
     minifyIdentifiers: true,
     minifySyntax: true,
     minifyWhitespace: true,
+    // Enhanced drops for desktop production
     drop: mode === 'production' ? ['console', 'debugger'] : [],
     supported: {
       'bigint': true,
@@ -102,13 +117,16 @@ export default defineConfig(({ mode }) => ({
       'react-router-dom',
       'clsx',
       'tailwind-merge',
+      // Include critical UI components for desktop
       '@radix-ui/react-slot',
-      'js-sha3'
+      '@radix-ui/react-progress',
+      // Force include ethers and bn.js for compatibility
+      'ethers',
+      'bn.js'
     ],
     exclude: [
-      'lucide-react',
-      'ethers',
-      'recharts'
+      // Ultra-lazy load for desktop optimization
+      'lucide-react'
     ]
   },
   define: {

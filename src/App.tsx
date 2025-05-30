@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AlbumProvider } from "@/contexts/AlbumContext";
 import Index from "./pages/Index";
 
-// Ultra-aggressive lazy loading with route-based code splitting
+// Lazy load non-critical pages with better chunking
 const Albums = lazy(() => import("./pages/Albums"));
 const AlbumLab = lazy(() => import("./pages/AlbumLab"));
 const Community = lazy(() => import("./pages/Community"));
@@ -16,31 +16,22 @@ const Challenges = lazy(() => import("./pages/Challenges"));
 const Marketplace = lazy(() => import("./pages/Marketplace"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Ultra-optimized QueryClient with aggressive caching
+// Optimized QueryClient with aggressive caching
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 15, // 15 minutes
-      gcTime: 1000 * 60 * 60, // 1 hour
-      retry: 1,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      networkMode: 'offlineFirst'
+      staleTime: 1000 * 60 * 10, // 10 minutes
+      gcTime: 1000 * 60 * 30, // 30 minutes
+      retry: 1, // Reduce retries for faster failure
+      refetchOnWindowFocus: false, // Reduce unnecessary requests
     },
-    mutations: {
-      retry: 1,
-      networkMode: 'offlineFirst'
-    }
   },
 });
 
-// Ultra-fast loading component with content visibility
+// Ultra-fast loading component
 const PageLoader = React.memo(() => (
-  <div 
-    className="min-h-screen bg-[#121212] flex items-center justify-center"
-    style={{ contentVisibility: 'auto' }}
-  >
-    <div className="loader" aria-label="Loading page"></div>
+  <div className="min-h-screen bg-[#121212] flex items-center justify-center">
+    <div className="w-8 h-8 border-3 border-gray-700 border-t-[#FFEB3B] rounded-full animate-spin"></div>
   </div>
 ));
 
@@ -51,6 +42,8 @@ const App = () => {
         <AlbumProvider>
           <BrowserRouter>
             <TooltipProvider>
+              <Toaster />
+              <Sonner />
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
@@ -62,8 +55,6 @@ const App = () => {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
-              <Toaster />
-              <Sonner />
             </TooltipProvider>
           </BrowserRouter>
         </AlbumProvider>
