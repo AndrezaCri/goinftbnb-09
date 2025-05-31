@@ -7,6 +7,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AlbumProvider } from "@/contexts/AlbumContext";
 import Index from "./pages/Index";
+import { http, WagmiProvider, createConfig } from "wagmi";
+import { mainnet, linea, lineaSepolia } from "wagmi/chains";
+import { metaMask } from "wagmi/connectors";
 
 // Lazy load non-critical pages with better chunking
 const Albums = lazy(() => import("./pages/Albums"));
@@ -15,6 +18,18 @@ const Community = lazy(() => import("./pages/Community"));
 const Challenges = lazy(() => import("./pages/Challenges"));
 const Marketplace = lazy(() => import("./pages/Marketplace"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+
+//Metamask Config
+
+const config = createConfig({
+  ssr: true,
+  chains: [mainnet],
+  connectors: [metaMask()],
+  transports: {
+    [mainnet.id]:http("https://data-seed-prebsc-1-s1.bnbchain.org:8545"),
+  },
+});
+
 
 // Optimized QueryClient with aggressive caching
 const queryClient = new QueryClient({
@@ -38,6 +53,7 @@ const PageLoader = React.memo(() => (
 const App = () => {
   return (
     <React.StrictMode>
+      <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <AlbumProvider>
           <BrowserRouter>
@@ -59,6 +75,7 @@ const App = () => {
           </BrowserRouter>
         </AlbumProvider>
       </QueryClientProvider>
+      </WagmiProvider>
     </React.StrictMode>
   );
 };

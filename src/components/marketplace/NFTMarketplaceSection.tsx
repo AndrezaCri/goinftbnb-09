@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Package, Tag, ShoppingCart } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useWriteContract,useWaitForTransactionReceipt} from "wagmi";
+
 
 // Mock NFT data with real images mapped by collection and rarity
 const mockNFTs = [
@@ -68,10 +69,45 @@ const rarityColors = {
 };
 
 export const NFTMarketplaceSection = () => {
+// Estados para filtro e busca
   const [filteredNFTs, setFilteredNFTs] = useState(mockNFTs);
   const [searchQuery, setSearchQuery] = useState("");
   const [priceRange, setPriceRange] = useState([0, 0.1]);
   const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
+ 
+  //Read Smart Contract - Fund()
+  const{
+    writeContract,
+    data: hash,
+    error,
+    isPending
+  } = useWriteContract()
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+}= useWaitForTransactionReceipt({
+    hash,
+  })
+
+  function handleFund({_value}) {
+        
+    // Convert ETH to wei
+    writeContract({
+      address: "0xeE38F69e1e5d08d0A88901740186e0A5186A59Fa",
+      abi:[
+        {
+          "type":"function",
+          "name":"fund",
+          "inputs":[],
+          "outputs":[],
+          "stateMutability":"payable"
+        }
+      ],
+      functionName: "fund",
+      args: [],
+      value: _value,
+    })
+  }
   
   // Get unique collections for filter
   const collections = Array.from(new Set(mockNFTs.map(nft => nft.collection)));
@@ -128,7 +164,7 @@ export const NFTMarketplaceSection = () => {
         </div>
         
         <div className="flex flex-col gap-2 min-w-[200px]">
-          <span className="text-sm text-white">Price Range (ETH): {priceRange[0].toFixed(2)} - {priceRange[1].toFixed(2)}</span>
+          <span className="text-sm text-gray-400">Price Range (BNB): {priceRange[0].toFixed(2)} - {priceRange[1].toFixed(2)}</span>
           <Slider 
             defaultValue={[0, 0.1]} 
             max={0.1} 
@@ -166,11 +202,7 @@ export const NFTMarketplaceSection = () => {
                   <img 
                     src={nft.image} 
                     alt={nft.name}
-                    width="300"
-                    height="300"
                     className="rounded-md object-cover w-full h-full"
-                    loading="lazy"
-                    decoding="async"
                   />
                 </AspectRatio>
               </div>
@@ -185,7 +217,7 @@ export const NFTMarketplaceSection = () => {
                 <p className="text-sm text-white">Seller: {nft.seller}</p>
               </CardContent>
               <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
-                <div className="font-semibold text-white">{nft.price} ETH</div>
+                <div className="font-semibold">{nft.price} BNB</div>
                 
                 <Dialog>
                   <DialogTrigger asChild>
@@ -197,43 +229,51 @@ export const NFTMarketplaceSection = () => {
                   <DialogContent className="bg-[#111] border-[#333] text-white">
                     <DialogHeader>
                       <DialogTitle>Purchase NFT</DialogTitle>
-                      <DialogDescription className="text-white">
-                        You are about to purchase {nft.name} for {nft.price} ETH.
+                      <DialogDescription className="text-gray-400">
+                        You are about to purchase {nft.name} for {nft.price} BNB.
                       </DialogDescription>
                     </DialogHeader>
                     <div className="py-4">
                       <div className="flex items-center justify-center mb-4">
                         <img 
                           src={nft.image} 
-                          alt={nft.name}
-                          width="128"
-                          height="128"
+                          alt={nft.name} 
                           className="w-32 h-32 rounded-md"
-                          loading="lazy"
-                          decoding="async"
                         />
                       </div>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-white">Item Price:</span>
-                          <span className="text-white">{nft.price} ETH</span>
+                          <span className="text-gray-400">Item Price:</span>
+                          <span>{nft.price} BNB</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-white">Platform Fee:</span>
-                          <span className="text-white">{(nft.price * 0.025).toFixed(4)} ETH</span>
+                          <span className="text-gray-400">Platform Fee:</span>
+                          <span>{(nft.price * 0.025).toFixed(4)} BNB</span>
                         </div>
                         <Separator className="my-2 bg-[#333]" />
                         <div className="flex justify-between font-bold">
-                          <span className="text-white">Total:</span>
-                          <span className="text-white">{(nft.price * 1.025).toFixed(4)} ETH</span>
+                          <span>Total:</span>
+                          <span>{(nft.price * 1.025).toFixed(4)} BNB</span>
                         </div>
                       </div>
                     </div>
                     <DialogFooter>
                       <Button variant="outline" className="border-[#333]">Cancel</Button>
-                      <Button onClick={() => console.log(`Buying NFT: ${nft.name}`)}>
-                        Confirm Purchase
+                      <Button onClick={() => handleFund({_value: 123})} 
+
+                      disabled={isPending || isConfirming || isConfirmed}
+                      className="bg-[#FFEB3B] text-black hover:bg-[#FFD700]">
+                        {isPending ? "Processing..." : "Confirm Purchase"}
                       </Button>
+                      {hash && (
+                        <div>
+                          
+                          {isConfirming && <div> Waiting for confirmation...</div>}
+                          {isConfirmed && <div> Transaction confirmed!</div>}
+                        </div>
+                      ) }
+                      {error && <div>Error: {error.message}</div>}
+                      
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
@@ -249,3 +289,4 @@ export const NFTMarketplaceSection = () => {
     </div>
   );
 };
+

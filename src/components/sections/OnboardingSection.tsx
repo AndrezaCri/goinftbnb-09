@@ -1,27 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Wallet, Plus, ArrowLeftRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MetaMaskInstallDialog } from "@/components/dialogs/MetaMaskInstallDialog";
+import {useAccount, useConnect, useDisconnect} from "wagmi";
+
 
 export const OnboardingSection = () => {
-  const [showMetaMaskDialog, setShowMetaMaskDialog] = useState(false);
-  
-  const handleCreateWallet = () => {
-    setShowMetaMaskDialog(true);
-  };
-
-  // Scroll to dialog when it opens
-  useEffect(() => {
-    if (showMetaMaskDialog) {
-      // Wait a bit for the dialog to render, then scroll to it
-      setTimeout(() => {
-        const dialogElement = document.querySelector('[role="dialog"]');
-        if (dialogElement) {
-          dialogElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-    }
-  }, [showMetaMaskDialog]);
+//Hooks do metamask
+const {address} = useAccount();
+const {connectors, connect} = useConnect();
+const {disconnect} = useDisconnect();
 
   return (
     <section className="bg-[#111] p-8 rounded-3xl border border-[#333] max-sm:p-4">
@@ -59,15 +46,31 @@ export const OnboardingSection = () => {
       </div>
       
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button className="bg-[#FFEB3B] text-black hover:bg-[#FFD700] px-8 py-6 h-auto text-lg" onClick={() => console.log("Connect wallet")}>
-          <Wallet className="mr-2 h-5 w-5" /> Connect Wallet
-        </Button>
-        <Button variant="outline" onClick={handleCreateWallet} className="border-[ardd\xF3sia-50] px-8 py-6 h-auto text-lg bg-zinc-800 hover:bg-zinc-700 text-slate-50">
+        {address ? (
+        <Button 
+          className="bg-[#FFEB3B] text-black hover:bg-[#FFD700] px-8 py-6 h-auto text-lg"
+          onClick={() => disconnect()} >
+          <Wallet className="mr-2 h-5 w-5" /> Disconnect
+          </Button>
+          ) : (
+            connectors.map((connector) => (
+              <Button 
+                key={connector.uid} 
+                className="bg-[#FFEB3B] text-black hover:bg-[#FFD700] px-8 py-6 h-auto text-lg"
+                onClick={() => connect({connector})}>
+                <Wallet className="mr-2 h-5 w-5" /> {connector.name}
+              </Button>
+            ))
+        )}        
+        <Button 
+          variant="outline" 
+          className="border-[#FFEB3B] text-[#FFEB3B] hover:bg-[#FFEB3B]/10 px-8 py-6 h-auto text-lg"
+          onClick={() => console.log("Create wallet")}
+        >
           <Plus className="mr-2 h-5 w-5" /> Create Wallet
         </Button>
       </div>
-
-      <MetaMaskInstallDialog open={showMetaMaskDialog} onOpenChange={setShowMetaMaskDialog} />
     </section>
   );
 };
+
