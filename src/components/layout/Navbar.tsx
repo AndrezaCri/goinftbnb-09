@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Wallet, BookOpen, UsersRound, Trophy, CreditCard } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ export const Navbar = () => {
         <img
           src="/lovable-uploads/5dcc5072-cc22-4325-bb15-f782d454fcac.png"
           alt="GoINFT Logo"
-          className="h-16 w-auto"
+          className="h-24 w-auto"
         />
       </div>
 
