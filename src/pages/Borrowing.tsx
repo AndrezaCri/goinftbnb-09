@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,6 +8,7 @@ import { LoanTermsConfig } from '@/components/borrowing/LoanTermsConfig';
 import { ActiveLoans } from '@/components/borrowing/ActiveLoans';
 import { LoanProgress } from '@/components/borrowing/LoanProgress';
 import { Navbar } from '@/components/layout/Navbar';
+import { CreditCard } from 'lucide-react';
 
 export interface NFTCollateral {
   id: string;
@@ -78,124 +80,149 @@ const Borrowing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-[#121212] text-white">
       <Navbar />
-      <div className="p-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">NFT-Backed Loans</h1>
-            <p className="text-gray-600">Use your rare NFTs as collateral to borrow crypto instantly</p>
+      
+      <main className="container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center">
+            <CreditCard className="mr-2 text-[#FFEB3B]" size={24} />
+            <h1 className="text-3xl font-bold">NFT-Backed Loans</h1>
           </div>
         </div>
-      </div>
-      <Tabs defaultValue="borrow" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="borrow" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Borrow</TabsTrigger>
-          <TabsTrigger value="manage" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Manage Loans</TabsTrigger>
-        </TabsList>
+        
+        <div className="mb-8">
+          <p className="text-gray-300">
+            Use your rare NFTs as collateral to borrow crypto instantly. 
+            Secure, transparent, and efficient lending powered by blockchain technology.
+          </p>
+        </div>
 
-        <TabsContent value="borrow" className="space-y-6">
-          <LoanProgress currentStep={currentStep} />
+        <Tabs defaultValue="borrow" className="space-y-6">
+          <TabsList className="mb-8 bg-[#111] border border-[#333]">
+            <TabsTrigger 
+              value="borrow" 
+              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
+            >
+              Borrow
+            </TabsTrigger>
+            <TabsTrigger 
+              value="manage" 
+              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
+            >
+              Manage Loans
+            </TabsTrigger>
+          </TabsList>
 
-          {currentStep === 'select' && (
-            <NFTCollateralSelector onNFTSelect={handleNFTSelect} />
-          )}
+          <TabsContent value="borrow" className="space-y-6">
+            <LoanProgress currentStep={currentStep} />
 
-          {currentStep === 'terms' && loanTerms.collateralNFT && (
-            <LoanTermsConfig
-              collateralNFT={loanTerms.collateralNFT}
-              onTermsConfirm={handleTermsConfirm}
-              onBack={() => setCurrentStep('select')}
-            />
-          )}
+            {currentStep === 'select' && (
+              <NFTCollateralSelector onNFTSelect={handleNFTSelect} />
+            )}
 
-          {currentStep === 'confirm' && loanTerms.collateralNFT && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Confirm Loan Details</CardTitle>
-                <CardDescription>Review your loan terms before confirming</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h3 className="font-semibold">Collateral NFT</h3>
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src={loanTerms.collateralNFT.image}
-                        alt={loanTerms.collateralNFT.name}
-                        className="w-16 h-16 rounded-lg object-cover"
-                      />
-                      <div>
-                        <p className="font-medium">{loanTerms.collateralNFT.name}</p>
-                        <p className="text-sm text-gray-600">{loanTerms.collateralNFT.collection}</p>
-                        <p className="text-sm font-medium">${loanTerms.collateralNFT.estimatedValue.toLocaleString()}</p>
+            {currentStep === 'terms' && loanTerms.collateralNFT && (
+              <LoanTermsConfig
+                collateralNFT={loanTerms.collateralNFT}
+                onTermsConfirm={handleTermsConfirm}
+                onBack={() => setCurrentStep('select')}
+              />
+            )}
+
+            {currentStep === 'confirm' && loanTerms.collateralNFT && (
+              <Card className="bg-[#111] border-[#333] text-white">
+                <CardHeader>
+                  <CardTitle className="text-white">Confirm Loan Details</CardTitle>
+                  <CardDescription className="text-gray-400">Review your loan terms before confirming</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <h3 className="font-semibold text-white">Collateral NFT</h3>
+                      <div className="flex items-center space-x-3">
+                        <img
+                          src={loanTerms.collateralNFT.image}
+                          alt={loanTerms.collateralNFT.name}
+                          className="w-16 h-16 rounded-lg object-cover"
+                        />
+                        <div>
+                          <p className="font-medium text-white">{loanTerms.collateralNFT.name}</p>
+                          <p className="text-sm text-gray-400">{loanTerms.collateralNFT.collection}</p>
+                          <p className="text-sm font-medium text-[#FFEB3B]">${loanTerms.collateralNFT.estimatedValue.toLocaleString()}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h3 className="font-semibold text-white">Loan Terms</h3>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Borrow Amount:</span>
+                          <span className="font-medium text-white">${loanTerms.borrowAmount.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Duration:</span>
+                          <span className="font-medium text-white">{loanTerms.duration} days</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Interest Rate:</span>
+                          <span className="font-medium text-white">{loanTerms.interestRate}% APR</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Liquidation Threshold:</span>
+                          <span className="font-medium text-white">{loanTerms.liquidationThreshold}%</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-3">
-                    <h3 className="font-semibold">Loan Terms</h3>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>Borrow Amount:</span>
-                        <span className="font-medium">${loanTerms.borrowAmount.toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Duration:</span>
-                        <span className="font-medium">{loanTerms.duration} days</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Interest Rate:</span>
-                        <span className="font-medium">{loanTerms.interestRate}% APR</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Liquidation Threshold:</span>
-                        <span className="font-medium">{loanTerms.liquidationThreshold}%</span>
-                      </div>
-                    </div>
+                  <div className="flex space-x-3">
+                    <Button
+                      variant="outline"
+                      onClick={() => setCurrentStep('terms')}
+                      className="border-[#333] text-white hover:bg-[#222]"
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      onClick={handleLoanConfirm}
+                      className="flex-1 bg-[#FFEB3B] text-black hover:bg-[#E6D136]"
+                    >
+                      Confirm Loan
+                    </Button>
                   </div>
-                </div>
+                </CardContent>
+              </Card>
+            )}
 
-                <div className="flex space-x-3">
-                  <Button
-                    variant="outline"
-                    onClick={() => setCurrentStep('terms')}
+            {currentStep === 'complete' && (
+              <Card className="bg-[#111] border-[#333] text-white">
+                <CardContent className="text-center py-8">
+                  <div className="w-16 h-16 bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 text-white">Loan Created Successfully!</h3>
+                  <p className="text-gray-400 mb-6">Your NFT has been locked as collateral and crypto has been transferred to your wallet.</p>
+                  <Button 
+                    onClick={resetFlow}
+                    className="bg-[#FFEB3B] text-black hover:bg-[#E6D136]"
                   >
-                    Back
+                    Create Another Loan
                   </Button>
-                  <Button
-                    onClick={handleLoanConfirm}
-                    className="flex-1"
-                  >
-                    Confirm Loan
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
 
-          {currentStep === 'complete' && (
-            <Card>
-              <CardContent className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Loan Created Successfully!</h3>
-                <p className="text-gray-600 mb-6">Your NFT has been locked as collateral and crypto has been transferred to your wallet.</p>
-                <Button onClick={resetFlow}>Create Another Loan</Button>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
-
-        <TabsContent value="manage">
-          <ActiveLoans />
-        </TabsContent>
-      </Tabs>
+          <TabsContent value="manage">
+            <ActiveLoans />
+          </TabsContent>
+        </Tabs>
+      </main>
     </div>
-    
   );
 };
+
 export default Borrowing;
