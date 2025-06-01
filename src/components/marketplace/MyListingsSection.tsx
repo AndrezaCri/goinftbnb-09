@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -63,15 +63,40 @@ const rarityColors = {
 
 export const MyListingsSection = () => {
   const [listings, setListings] = useState(myNFTs);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [listDialogOpen, setListDialogOpen] = useState(false);
   const [currentNFT, setCurrentNFT] = useState<any>(null);
   const [price, setPrice] = useState<string>("");
   
   const listedNFTs = listings.filter(nft => nft.listed);
   const unlistedNFTs = listings.filter(nft => !nft.listed);
   
+  const handleEditPrice = (nft: any) => {
+    setCurrentNFT(nft);
+    setPrice(nft.price.toString());
+    setEditDialogOpen(true);
+  };
+  
   const handleListNFT = (nft: any) => {
     setCurrentNFT(nft);
-    setPrice(nft.listed ? nft.price.toString() : "");
+    setPrice("");
+    setListDialogOpen(true);
+  };
+  
+  const confirmPriceUpdate = () => {
+    if (!currentNFT || !price || isNaN(parseFloat(price))) return;
+    
+    const updatedListings = listings.map(nft => {
+      if (nft.id === currentNFT.id) {
+        return { ...nft, price: parseFloat(price) };
+      }
+      return nft;
+    });
+    
+    setListings(updatedListings);
+    setEditDialogOpen(false);
+    setCurrentNFT(null);
+    setPrice("");
   };
   
   const confirmListing = () => {
@@ -85,6 +110,7 @@ export const MyListingsSection = () => {
     });
     
     setListings(updatedListings);
+    setListDialogOpen(false);
     setCurrentNFT(null);
     setPrice("");
   };
@@ -99,6 +125,15 @@ export const MyListingsSection = () => {
     
     setListings(updatedListings);
   };
+
+  // Scroll to top when dialogs open
+  useEffect(() => {
+    if (editDialogOpen || listDialogOpen) {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
+  }, [editDialogOpen, listDialogOpen]);
   
   return (
     <div className="space-y-8">
@@ -144,61 +179,15 @@ export const MyListingsSection = () => {
                     <p className="text-sm font-semibold text-white">{nft.price} ETH</p>
                   </CardContent>
                   <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="outline" size="sm" className="border-[#333] text-black">
-                          <Pencil className="h-4 w-4 mr-1" />
-                          Edit Price
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="bg-[#111] border-[#333] text-white">
-                        <DialogHeader>
-                          <DialogTitle className="text-white">Update Listing Price</DialogTitle>
-                          <DialogDescription className="text-white">
-                            Enter a new price for {nft.name}
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="py-4">
-                          <div className="flex items-center justify-center mb-4">
-                            <img 
-                              src={nft.image} 
-                              alt={nft.name}
-                              width="128"
-                              height="128"
-                              className="w-32 h-32 rounded-md"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </div>
-                          <div className="flex items-center space-x-2 mb-4">
-                            <Input 
-                              type="number" 
-                              placeholder="Price in ETH"
-                              className="bg-[#0a0a0a] border-[#333] text-white placeholder:text-white"
-                              defaultValue={nft.price}
-                              onChange={(e) => setPrice(e.target.value)}
-                            />
-                            <span className="text-white">ETH</span>
-                          </div>
-                        </div>
-                        <DialogFooter>
-                          <Button variant="outline" className="border-[#333] text-white">Cancel</Button>
-                          <Button onClick={() => {
-                            if (price) {
-                              const updatedListings = listings.map(item => {
-                                if (item.id === nft.id) {
-                                  return { ...item, price: parseFloat(price) };
-                                }
-                                return item;
-                              });
-                              setListings(updatedListings);
-                            }
-                          }}>
-                            Update Price
-                          </Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="border-[#333] text-black"
+                      onClick={() => handleEditPrice(nft)}
+                    >
+                      <Pencil className="h-4 w-4 mr-1" />
+                      Edit Price
+                    </Button>
                     
                     <Button 
                       variant="destructive" 
@@ -249,63 +238,10 @@ export const MyListingsSection = () => {
                     <p className="text-sm text-white">Not listed</p>
                   </CardContent>
                   <CardFooter className="flex justify-center items-center bg-[#0a0a0a] border-t border-[#333] p-4">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button>
-                          <Tag className="h-4 w-4 mr-1" />
-                          List for Sale
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="bg-[#111] border-[#333] text-white">
-                        <DialogHeader>
-                          <DialogTitle className="text-white">List NFT for Sale</DialogTitle>
-                          <DialogDescription className="text-white">
-                            Set a price for {nft.name} to list it on the marketplace.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="py-4">
-                          <div className="flex items-center justify-center mb-4">
-                            <img 
-                              src={nft.image} 
-                              alt={nft.name}
-                              width="128"
-                              height="128"
-                              className="w-32 h-32 rounded-md"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </div>
-                          <div className="flex items-center space-x-2 mb-4">
-                            <Input 
-                              type="number" 
-                              placeholder="Price in ETH"
-                              className="bg-[#0a0a0a] border-[#333] text-white placeholder:text-white"
-                              onChange={(e) => setPrice(e.target.value)}
-                            />
-                            <span className="text-white">ETH</span>
-                          </div>
-                          <p className="text-xs text-white">
-                            Platform fee: 2.5% of sale price
-                          </p>
-                        </div>
-                        <DialogFooter>
-                          <Button variant="outline" className="border-[#333] text-white">Cancel</Button>
-                          <Button onClick={() => {
-                            if (price) {
-                              const updatedListings = listings.map(item => {
-                                if (item.id === nft.id) {
-                                  return { ...item, listed: true, price: parseFloat(price) };
-                                }
-                                return item;
-                              });
-                              setListings(updatedListings);
-                            }
-                          }}>
-                            List NFT
-                          </Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
+                    <Button onClick={() => handleListNFT(nft)}>
+                      <Tag className="h-4 w-4 mr-1" />
+                      List for Sale
+                    </Button>
                   </CardFooter>
                 </Card>
               ))}
@@ -318,6 +254,107 @@ export const MyListingsSection = () => {
           )}
         </TabsContent>
       </Tabs>
+
+      {/* Edit Price Dialog */}
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent className="bg-[#111] border-[#333] text-white">
+          <DialogHeader>
+            <DialogTitle className="text-white">Update Listing Price</DialogTitle>
+            <DialogDescription className="text-white">
+              Enter a new price for {currentNFT?.name}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            {currentNFT && (
+              <div className="flex items-center justify-center mb-4">
+                <img 
+                  src={currentNFT.image} 
+                  alt={currentNFT.name}
+                  width="128"
+                  height="128"
+                  className="w-32 h-32 rounded-md"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            )}
+            <div className="flex items-center space-x-2 mb-4">
+              <Input 
+                type="number" 
+                placeholder="Price in ETH"
+                className="bg-[#0a0a0a] border-[#333] text-white placeholder:text-white"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              <span className="text-white">ETH</span>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              className="border-[#333] text-white"
+              onClick={() => setEditDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button onClick={confirmPriceUpdate}>
+              Update Price
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* List NFT Dialog */}
+      <Dialog open={listDialogOpen} onOpenChange={setListDialogOpen}>
+        <DialogContent className="bg-[#111] border-[#333] text-white">
+          <DialogHeader>
+            <DialogTitle className="text-white">List NFT for Sale</DialogTitle>
+            <DialogDescription className="text-white">
+              Set a price for {currentNFT?.name} to list it on the marketplace.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            {currentNFT && (
+              <div className="flex items-center justify-center mb-4">
+                <img 
+                  src={currentNFT.image} 
+                  alt={currentNFT.name}
+                  width="128"
+                  height="128"
+                  className="w-32 h-32 rounded-md"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            )}
+            <div className="flex items-center space-x-2 mb-4">
+              <Input 
+                type="number" 
+                placeholder="Price in ETH"
+                className="bg-[#0a0a0a] border-[#333] text-white placeholder:text-white"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              <span className="text-white">ETH</span>
+            </div>
+            <p className="text-xs text-white">
+              Platform fee: 2.5% of sale price
+            </p>
+          </div>
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              className="border-[#333] text-white"
+              onClick={() => setListDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button onClick={confirmListing}>
+              List NFT
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
