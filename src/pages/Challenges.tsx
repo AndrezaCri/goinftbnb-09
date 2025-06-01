@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,8 +9,9 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 import { useNavigate } from "react-router-dom";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 
-// Soccer challenges (now with 6 new Brazilian football challenges in English)
+// Soccer challenges
 const soccerChallenges = [
   {
     id: 1,
@@ -97,61 +99,75 @@ const soccerChallenges = [
   }
 ];
 
-// Binance challenges (now showing only 1)
-const binanceChallenges = [
+// Football challenges (replacing Binance challenges)
+const footballChallenges = [
   {
     id: 101,
-    title: "Binance 7th Anniversary Challenge",
-    team: "Binance Community",
+    title: "Premier League Legends",
+    team: "Premier League",
     deadline: "2025-07-01",
-    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop",
-    description: "Celebrate Binance's 7th anniversary by creating an album showcasing the evolution of crypto trading and DeFi innovations. Highlight key milestones, community achievements, and the future of digital finance.",
-    participants: 1247,
+    imageUrl: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop",
+    description: "Create an album featuring the greatest Premier League players of all time. Showcase legendary moments, record-breaking performances, and iconic goals that defined English football.",
+    participants: 2247,
     difficulty: "medium",
-    prize: "10,000 BNB tokens + Exclusive Binance NFT",
-    tags: ["binance", "anniversary", "defi", "community"],
+    prize: "Exclusive Premier League NFT Collection + Match Tickets",
+    tags: ["premier-league", "legends", "england", "history"],
     active: true,
-    type: "binance"
+    type: "soccer"
+  },
+  {
+    id: 102,
+    title: "Champions League Glory",
+    team: "UEFA Champions League",
+    deadline: "2025-06-20",
+    imageUrl: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=400&h=400&fit=crop",
+    description: "Build the ultimate Champions League album featuring historic finals, legendary goals, and unforgettable moments from Europe's most prestigious tournament.",
+    participants: 1892,
+    difficulty: "hard",
+    prize: "Champions League Final Tickets + Exclusive Trophy Replica",
+    tags: ["champions-league", "europe", "finals", "glory"],
+    active: true,
+    type: "soccer"
   }
 ];
 
-// Coruja Cripto challenges
-const corujaCriptoChallenge = [
+// Football challenges (replacing Coruja Cripto challenges)
+const youthFootballChallenges = [
   {
     id: 201,
-    title: "Owl's Crypto Wisdom Collection",
-    team: "Coruja Cripto",
+    title: "Future Stars Academy",
+    team: "Youth Development",
     deadline: "2025-06-25",
-    imageUrl: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop",
-    description: "Create an educational album about cryptocurrency fundamentals and blockchain technology. Share your knowledge and wisdom with the crypto community like a wise owl.",
-    participants: 456,
+    imageUrl: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=400&fit=crop",
+    description: "Create an educational album showcasing the best young talents in world football. Highlight promising players from youth academies and their development journey.",
+    participants: 856,
     difficulty: "medium",
-    prize: "7,500 OWL tokens + Exclusive Owl NFT",
-    tags: ["education", "blockchain", "cryptocurrency", "wisdom"],
+    prize: "Youth Academy Visit + Training Session with Coaches",
+    tags: ["youth", "academy", "development", "future"],
     active: true,
-    type: "owl"
+    type: "soccer"
   }
 ];
 
-// CastaCripto challenges
-const castaCriptoChallenge = [
+// Football challenges (replacing CastaCripto challenges)
+const womenFootballChallenges = [
   {
     id: 301,
-    title: "Crypto Podcast Masters",
-    team: "CastaCripto",
+    title: "Women's Football Rising",
+    team: "Women's Football",
     deadline: "2025-07-10",
-    imageUrl: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop",
-    description: "Design an album featuring the best crypto podcasts, influencers, and educational content creators. Showcase the voices that shape the crypto community.",
-    participants: 325,
+    imageUrl: "https://images.unsplash.com/photo-1594736797933-d0fa06bf9ce2?w=400&h=400&fit=crop",
+    description: "Design an album celebrating women's football around the world. Feature top players, historic matches, and the growth of women's football globally.",
+    participants: 625,
     difficulty: "easy",
-    prize: "4,000 CAST tokens + Podcast Equipment",
-    tags: ["podcast", "influencers", "education", "community"],
+    prize: "Women's World Cup Merchandise + Stadium Tour",
+    tags: ["womens-football", "equality", "growth", "global"],
     active: true,
-    type: "cast"
+    type: "soccer"
   }
 ];
 
-const allChallenges = [...soccerChallenges, ...binanceChallenges, ...corujaCriptoChallenge, ...castaCriptoChallenge];
+const allChallenges = [...soccerChallenges, ...footballChallenges, ...youthFootballChallenges, ...womenFootballChallenges];
 
 const Challenges = () => {
   const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
@@ -193,13 +209,7 @@ const Challenges = () => {
 
   const getChallengeTheme = (type: string) => {
     switch (type) {
-      case "binance":
-        return { border: "hover:border-[#F0B90B]", button: "bg-[#F0B90B] hover:bg-[#D9A441] text-black", badge: "bg-[#F0B90B]/90 text-black", prize: "text-[#F0B90B]", label: "BINANCE" };
-      case "owl":
-        return { border: "hover:border-[#8B5CF6]", button: "bg-[#8B5CF6] hover:bg-[#7C3AED] text-white", badge: "bg-[#8B5CF6]/90 text-white", prize: "text-[#8B5CF6]", label: "CORUJA CRIPTO" };
-      case "cast":
-        return { border: "hover:border-[#06B6D4]", button: "bg-[#06B6D4] hover:bg-[#0891B2] text-white", badge: "bg-[#06B6D4]/90 text-white", prize: "text-[#06B6D4]", label: "CASTAcripto" };
-      default:
+      default: // All challenges are now soccer-themed
         return { border: "hover:border-[#F97316]", button: "bg-[#F97316] hover:bg-[#E86305] text-black", badge: "bg-[#F97316]/90 text-white", prize: "text-[#F97316]", label: "SOCCER" };
     }
   };
@@ -210,10 +220,13 @@ const Challenges = () => {
       <Card key={challenge.id} className={`bg-[#111] border-[#333] text-white overflow-hidden ${theme.border} transition-all`}>
         <div className="relative">
           <AspectRatio ratio={16 / 9}>
-            <img
+            <OptimizedImage
               src={challenge.imageUrl}
               alt={challenge.title}
+              width={400}
+              height={225}
               className="object-cover w-full h-full"
+              priority={false}
             />
             <div className="absolute top-2 right-2">
               <Badge variant="outline" className={`bg-black/70 border-current ${theme.prize}`}>
@@ -250,7 +263,7 @@ const Challenges = () => {
             </div>
           </div>
           
-          <div className={`bg-gradient-to-r ${challenge.type === 'binance' ? 'from-[#F0B90B]/10 to-[#F0B90B]/5 border-[#F0B90B]/30' : challenge.type === 'owl' ? 'from-[#8B5CF6]/10 to-[#8B5CF6]/5 border-[#8B5CF6]/30' : challenge.type === 'cast' ? 'from-[#06B6D4]/10 to-[#06B6D4]/5 border-[#06B6D4]/30' : 'from-[#F97316]/10 to-[#F97316]/5 border-[#F97316]/30'} border rounded-md p-3 mb-3`}>
+          <div className={`bg-gradient-to-r from-[#F97316]/10 to-[#F97316]/5 border-[#F97316]/30 border rounded-md p-3 mb-3`}>
             <div className="text-xs text-gray-400 mb-1">PRIZE</div>
             <div className={`${theme.prize} font-medium`}>{challenge.prize}</div>
           </div>
