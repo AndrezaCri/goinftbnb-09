@@ -108,7 +108,7 @@ const castaCriptoChallenge = [
   }
 ];
 
-const allChallenges = [...binanceChallenges, ...soccerChallenges, ...corujaCriptoChallenge, ...castaCriptoChallenge];
+const allChallenges = [...soccerChallenges, ...binanceChallenges, ...corujaCriptoChallenge, ...castaCriptoChallenge];
 
 const Challenges = () => {
   const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
@@ -247,17 +247,17 @@ const Challenges = () => {
           </p>
         </div>
 
-        {/* Binance Section */}
-        <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {binanceChallenges.map(renderChallengeCard)}
-          </div>
-        </div>
-
-        {/* Soccer Section */}
+        {/* Soccer Section - Now First */}
         <div className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {soccerChallenges.map(renderChallengeCard)}
+          </div>
+        </div>
+
+        {/* Binance Section - Now Second */}
+        <div className="mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {binanceChallenges.map(renderChallengeCard)}
           </div>
         </div>
 
