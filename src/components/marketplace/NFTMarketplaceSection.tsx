@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -205,7 +206,11 @@ export const NFTMarketplaceSection = () => {
           <Badge
             key={collection}
             variant={selectedCollection === collection ? "default" : "outline"}
-            className="cursor-pointer hover:bg-[#333] transition-colors text-white border-[#333]"
+            className={`cursor-pointer hover:bg-[#FFEB3B] hover:text-black transition-colors ${
+              selectedCollection === collection 
+                ? "bg-[#FFEB3B] text-black" 
+                : "text-white border-[#333]"
+            }`}
             onClick={() => handleCollectionFilter(collection)}
           >
             {collection}
@@ -242,7 +247,7 @@ export const NFTMarketplaceSection = () => {
                 <div className="font-semibold text-white">{nft.price * 1e-18} BNB</div>
 
                 <Dialog open={openDialogId === nft.id} onOpenChange={(open) => open ? handleOpenDialog(nft.id) : handleCloseDialog()}>
-                  <Button size="sm" onClick={() => handleOpenDialog(nft.id)}>
+                  <Button size="sm" className="bg-[#FFEB3B] text-black hover:bg-[#FFD700]" onClick={() => handleOpenDialog(nft.id)}>
                     <ShoppingCart className="mr-2 h-4 w-4" />
                     Buy Now
                   </Button>
