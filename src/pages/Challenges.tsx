@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Flag, Trophy, Users, Calendar, User, Coins, TrendingUp, Zap } from "lucide-react";
+import { Flag, Trophy, Users, Calendar, User, Coins, TrendingUp, Zap, Crown, Star } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -22,7 +22,8 @@ const soccerChallenges = [
     description: "Collect the stickers of the 3 players who stood out the most in the round (based on goals, assists, saves, etc). Build your album with the best performances from each matchday.",
     participants: 1248,
     difficulty: "easy",
-    prize: "Animated version of stickers + Fan XP",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + Animated sticker versions + Fan XP",
+    specialReward: true,
     tags: ["round", "highlights", "performance", "goals"],
     active: true,
     type: "soccer"
@@ -36,7 +37,8 @@ const soccerChallenges = [
     description: "Complete the mini-album with players and iconic moments from historic classics like Fla-Flu, Gre-Nal, São Paulo Derby. Relive the greatest rivalries in Brazilian football.",
     participants: 987,
     difficulty: "medium",
-    prize: "Exclusive digital badge + ticket discount",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + Digital badge + Ticket discount",
+    specialReward: true,
     tags: ["classics", "rivalry", "history", "tradition"],
     active: true,
     type: "soccer"
@@ -50,7 +52,8 @@ const soccerChallenges = [
     description: "Collect all stickers of players with more than 100 games for the club. Honor the true idols who wore the jersey with pride for years.",
     participants: 756,
     difficulty: "hard",
-    prize: "Physical jersey raffled among album completers",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + Physical jersey raffled",
+    specialReward: true,
     tags: ["legends", "idols", "tradition", "history"],
     active: true,
     type: "soccer"
@@ -64,7 +67,8 @@ const soccerChallenges = [
     description: "Collect stickers of Brazilians playing in foreign leagues. Follow our stars spread across the world's top championships.",
     participants: 1456,
     difficulty: "medium",
-    prize: "Special sticker of the best Brazilian of the season",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + Special Brazilian player sticker",
+    specialReward: true,
     tags: ["europe", "worldwide", "brazilians", "leagues"],
     active: true,
     type: "soccer"
@@ -78,7 +82,8 @@ const soccerChallenges = [
     description: "Choose 5 players per round. If they perform well (goals, assists, etc), you earn bonus stickers. Build your ideal team and cheer for your chosen players' performance.",
     participants: 2134,
     difficulty: "medium",
-    prize: "Early access to rare packs",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + Early access to rare packs",
+    specialReward: true,
     tags: ["fantasy", "strategy", "round", "bonus"],
     active: true,
     type: "soccer"
@@ -92,7 +97,8 @@ const soccerChallenges = [
     description: "Collective activity: if 1000 users complete the same album by the deadline, everyone unlocks a special experience sticker with access to training center visit or collective prize raffle.",
     participants: 3421,
     difficulty: "hard",
-    prize: "VIP experience or partner club fan token",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + VIP experience + Fan tokens",
+    specialReward: true,
     tags: ["community", "collective", "experience", "vip"],
     active: true,
     type: "soccer"
@@ -110,7 +116,8 @@ const footballChallenges = [
     description: "Create an album featuring the greatest Premier League players of all time. Showcase legendary moments, record-breaking performances, and iconic goals that defined English football.",
     participants: 2247,
     difficulty: "medium",
-    prize: "Exclusive Premier League NFT Collection + Match Tickets",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + Premier League NFT Collection + Match Tickets",
+    specialReward: true,
     tags: ["premier-league", "legends", "england", "history"],
     active: true,
     type: "soccer"
@@ -124,7 +131,8 @@ const footballChallenges = [
     description: "Build the ultimate Champions League album featuring historic finals, legendary goals, and unforgettable moments from Europe's most prestigious tournament.",
     participants: 1892,
     difficulty: "hard",
-    prize: "Champions League Final Tickets + Exclusive Trophy Replica",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + Champions League Final Tickets + Trophy Replica",
+    specialReward: true,
     tags: ["champions-league", "europe", "finals", "glory"],
     active: true,
     type: "soccer"
@@ -142,7 +150,8 @@ const youthFootballChallenges = [
     description: "Create an educational album showcasing the best young talents in world football. Highlight promising players from youth academies and their development journey.",
     participants: 856,
     difficulty: "medium",
-    prize: "Youth Academy Visit + Training Session with Coaches",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + Youth Academy Visit + Training Session",
+    specialReward: true,
     tags: ["youth", "academy", "development", "future"],
     active: true,
     type: "soccer"
@@ -160,7 +169,8 @@ const womenFootballChallenges = [
     description: "Design an album celebrating women's football around the world. Feature top players, historic matches, and the growth of women's football globally.",
     participants: 625,
     difficulty: "easy",
-    prize: "Women's World Cup Merchandise + Stadium Tour",
+    prize: "🎁 Winner receives ALL NFTs from their album with exclusive #1 Seal + Women's World Cup Merchandise + Stadium Tour",
+    specialReward: true,
     tags: ["womens-football", "equality", "growth", "global"],
     active: true,
     type: "soccer"
@@ -233,10 +243,16 @@ const Challenges = () => {
                 {challenge.difficulty.toUpperCase()}
               </Badge>
             </div>
-            <div className="absolute top-2 left-2">
+            <div className="absolute top-2 left-2 flex gap-2">
               <Badge variant="outline" className={theme.badge}>
                 {theme.label}
               </Badge>
+              {challenge.specialReward && (
+                <Badge variant="outline" className="bg-gradient-to-r from-yellow-500 to-amber-500 text-black border-yellow-400 font-bold flex items-center gap-1">
+                  <Crown size={12} />
+                  #1 SEAL
+                </Badge>
+              )}
             </div>
           </AspectRatio>
         </div>
@@ -264,8 +280,11 @@ const Challenges = () => {
           </div>
           
           <div className={`bg-gradient-to-r from-[#F97316]/10 to-[#F97316]/5 border-[#F97316]/30 border rounded-md p-3 mb-3`}>
-            <div className="text-xs text-gray-400 mb-1">PRIZE</div>
-            <div className={`${theme.prize} font-medium`}>{challenge.prize}</div>
+            <div className="text-xs text-gray-400 mb-1 flex items-center gap-1">
+              <Trophy size={12} />
+              EXCLUSIVE PRIZE
+            </div>
+            <div className={`${theme.prize} font-medium text-sm leading-relaxed`}>{challenge.prize}</div>
           </div>
           
           <div className="flex flex-wrap gap-1">
@@ -302,10 +321,58 @@ const Challenges = () => {
           </div>
         </div>
         
+        {/* Special Reward System Explanation */}
+        <div className="mb-8 bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/30 rounded-lg p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-gradient-to-r from-yellow-500 to-amber-500 p-2 rounded-full">
+              <Crown className="h-6 w-6 text-black" />
+            </div>
+            <h2 className="text-xl font-bold text-yellow-400">Challenge Rewards – NFTs with #1 Seal</h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-yellow-300">🎁 Prize for all GoINft Challenges:</h3>
+              <p className="text-gray-300 mb-4">
+                "The winning album creator receives ALL NFTs created for that album with the exclusive #1 Seal."
+              </p>
+              
+              <div className="space-y-2">
+                <div className="flex items-start gap-2">
+                  <Star className="h-4 w-4 text-yellow-400 mt-1 flex-shrink-0" />
+                  <span className="text-sm text-gray-300"><strong className="text-yellow-300">Guaranteed Rarity:</strong> #1 Seal NFTs are the first of all from that album.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Star className="h-4 w-4 text-yellow-400 mt-1 flex-shrink-0" />
+                  <span className="text-sm text-gray-300"><strong className="text-yellow-300">Eternal Recognition:</strong> The album creator will be forever remembered as the author of that collection.</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-yellow-300">Why is this special?</h3>
+              <div className="space-y-2">
+                <div className="flex items-start gap-2">
+                  <Star className="h-4 w-4 text-yellow-400 mt-1 flex-shrink-0" />
+                  <span className="text-sm text-gray-300">Like a "first edition" of a book — rarer and more valued</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Star className="h-4 w-4 text-yellow-400 mt-1 flex-shrink-0" />
+                  <span className="text-sm text-gray-300">Digital, traceable and valuable collectible</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Star className="h-4 w-4 text-yellow-400 mt-1 flex-shrink-0" />
+                  <span className="text-sm text-gray-300">Creates a lasting mark in the GoINft ecosystem</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div className="mb-8">
           <p className="text-gray-300">
             Join exclusive challenges from your favorite teams and communities. 
-            Earn rewards, showcase your creativity, and celebrate your passions!
+            Create winning albums and earn exclusive NFTs with the coveted #1 Seal!
           </p>
         </div>
 
