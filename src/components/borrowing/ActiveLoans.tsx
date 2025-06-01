@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -54,18 +55,18 @@ export const ActiveLoans: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'overdue': return 'bg-red-100 text-red-800';
-      case 'liquidated': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-blue-100 text-blue-800';
+      case 'active': return 'bg-green-900/20 text-green-400 border-green-500/20';
+      case 'overdue': return 'bg-red-900/20 text-red-400 border-red-500/20';
+      case 'liquidated': return 'bg-gray-900/20 text-gray-400 border-gray-500/20';
+      default: return 'bg-blue-900/20 text-blue-400 border-blue-500/20';
     }
   };
 
   const getRiskLevel = (ltv: number, threshold: number) => {
     const buffer = threshold - ltv;
-    if (buffer < 5) return { level: 'High Risk', color: 'text-red-600' };
-    if (buffer < 15) return { level: 'Medium Risk', color: 'text-yellow-600' };
-    return { level: 'Low Risk', color: 'text-green-600' };
+    if (buffer < 5) return { level: 'High Risk', color: 'text-red-400' };
+    if (buffer < 15) return { level: 'Medium Risk', color: 'text-yellow-400' };
+    return { level: 'Low Risk', color: 'text-green-400' };
   };
 
   const getDaysRemaining = (dueDate: Date) => {
@@ -77,18 +78,18 @@ export const ActiveLoans: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="bg-[#111] border-[#333] text-white">
         <CardHeader>
-          <CardTitle>Active Loans</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-white">Active Loans</CardTitle>
+          <CardDescription className="text-gray-400">
             Manage your existing NFT-backed loans and repayments
           </CardDescription>
         </CardHeader>
         <CardContent>
           {mockLoans.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-gray-600 mb-4">No active loans found</p>
-              <Button>Create Your First Loan</Button>
+              <p className="text-gray-400 mb-4">No active loans found</p>
+              <Button className="bg-[#FFEB3B] text-black hover:bg-[#E6D136]">Create Your First Loan</Button>
             </div>
           ) : (
             <div className="space-y-4">
@@ -98,7 +99,7 @@ export const ActiveLoans: React.FC = () => {
                 const repaymentProgress = ((loan.borrowAmount - loan.remainingAmount) / loan.borrowAmount) * 100;
 
                 return (
-                  <Card key={loan.id} className="border">
+                  <Card key={loan.id} className="bg-[#111] border-[#333] text-white">
                     <CardContent className="p-6">
                       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* Collateral Info */}
@@ -107,11 +108,11 @@ export const ActiveLoans: React.FC = () => {
                             <img
                               src={loan.collateralNFT.image}
                               alt={loan.collateralNFT.name}
-                              className="w-16 h-16 rounded-lg object-cover"
+                              className="w-16 h-16 rounded-lg object-cover border border-[#333]"
                             />
                             <div>
-                              <h3 className="font-semibold">{loan.collateralNFT.name}</h3>
-                              <p className="text-sm text-gray-600">{loan.collateralNFT.collection}</p>
+                              <h3 className="font-semibold text-white">{loan.collateralNFT.name}</h3>
+                              <p className="text-sm text-gray-400">{loan.collateralNFT.collection}</p>
                               <Badge className={getStatusColor(loan.status)}>
                                 {loan.status.charAt(0).toUpperCase() + loan.status.slice(1)}
                               </Badge>
@@ -119,17 +120,17 @@ export const ActiveLoans: React.FC = () => {
                           </div>
                           <div className="text-sm space-y-1">
                             <div className="flex justify-between">
-                              <span>NFT Value:</span>
-                              <span className="font-medium">${loan.collateralNFT.estimatedValue.toLocaleString()}</span>
+                              <span className="text-gray-400">NFT Value:</span>
+                              <span className="font-medium text-white">${loan.collateralNFT.estimatedValue.toLocaleString()}</span>
                             </div>
                             <div className="flex justify-between">
-                              <span>Current LTV:</span>
+                              <span className="text-gray-400">Current LTV:</span>
                               <span className={`font-medium ${riskLevel.color}`}>
                                 {loan.currentLTV}%
                               </span>
                             </div>
                             <div className="flex justify-between">
-                              <span>Risk Level:</span>
+                              <span className="text-gray-400">Risk Level:</span>
                               <span className={`font-medium ${riskLevel.color}`}>
                                 {riskLevel.level}
                               </span>
@@ -139,29 +140,29 @@ export const ActiveLoans: React.FC = () => {
 
                         {/* Loan Details */}
                         <div className="space-y-3">
-                          <h4 className="font-semibold">Loan Details</h4>
+                          <h4 className="font-semibold text-white">Loan Details</h4>
                           <div className="text-sm space-y-1">
                             <div className="flex justify-between">
-                              <span>Original Amount:</span>
-                              <span className="font-medium">${loan.borrowAmount.toLocaleString()}</span>
+                              <span className="text-gray-400">Original Amount:</span>
+                              <span className="font-medium text-white">${loan.borrowAmount.toLocaleString()}</span>
                             </div>
                             <div className="flex justify-between">
-                              <span>Remaining:</span>
-                              <span className="font-medium">${loan.remainingAmount.toLocaleString()}</span>
+                              <span className="text-gray-400">Remaining:</span>
+                              <span className="font-medium text-white">${loan.remainingAmount.toLocaleString()}</span>
                             </div>
                             <div className="flex justify-between">
-                              <span>Interest Rate:</span>
-                              <span className="font-medium">{loan.interestRate}% APR</span>
+                              <span className="text-gray-400">Interest Rate:</span>
+                              <span className="font-medium text-white">{loan.interestRate}% APR</span>
                             </div>
                             <div className="flex justify-between">
-                              <span>Due Date:</span>
-                              <span className={`font-medium ${daysRemaining < 7 ? 'text-red-600' : ''}`}>
+                              <span className="text-gray-400">Due Date:</span>
+                              <span className={`font-medium ${daysRemaining < 7 ? 'text-red-400' : 'text-white'}`}>
                                 {loan.dueDate.toLocaleDateString()}
                               </span>
                             </div>
                             <div className="flex justify-between">
-                              <span>Days Remaining:</span>
-                              <span className={`font-medium ${daysRemaining < 7 ? 'text-red-600' : ''}`}>
+                              <span className="text-gray-400">Days Remaining:</span>
+                              <span className={`font-medium ${daysRemaining < 7 ? 'text-red-400' : 'text-white'}`}>
                                 {daysRemaining > 0 ? `${daysRemaining} days` : 'Overdue'}
                               </span>
                             </div>
@@ -169,33 +170,33 @@ export const ActiveLoans: React.FC = () => {
                           
                           <div className="space-y-2">
                             <div className="flex justify-between text-sm">
-                              <span>Repayment Progress:</span>
-                              <span>{repaymentProgress.toFixed(1)}%</span>
+                              <span className="text-gray-400">Repayment Progress:</span>
+                              <span className="text-white">{repaymentProgress.toFixed(1)}%</span>
                             </div>
-                            <Progress value={repaymentProgress} className="h-2" />
+                            <Progress value={repaymentProgress} className="h-2 bg-[#333]" />
                           </div>
                         </div>
 
                         {/* Actions */}
                         <div className="space-y-3">
-                          <h4 className="font-semibold">Actions</h4>
+                          <h4 className="font-semibold text-white">Actions</h4>
                           <div className="space-y-2">
-                            <Button className="w-full" size="sm">
+                            <Button className="w-full bg-[#FFEB3B] text-black hover:bg-[#E6D136]" size="sm">
                               Make Payment
                             </Button>
-                            <Button variant="outline" className="w-full" size="sm">
+                            <Button variant="outline" className="w-full border-[#333] text-white hover:bg-[#222] bg-transparent" size="sm">
                               Extend Loan
                             </Button>
                             {loan.status === 'active' && (
-                              <Button variant="outline" className="w-full" size="sm">
+                              <Button variant="outline" className="w-full border-[#333] text-white hover:bg-[#222] bg-transparent" size="sm">
                                 Repay in Full
                               </Button>
                             )}
                           </div>
                           
                           {loan.currentLTV > 70 && (
-                            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                              <p className="text-sm text-yellow-800">
+                            <div className="bg-yellow-900/20 border border-yellow-500/20 rounded-lg p-3">
+                              <p className="text-sm text-yellow-400">
                                 ⚠️ High LTV ratio. Consider making a payment to avoid liquidation.
                               </p>
                             </div>
