@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -67,10 +68,10 @@ export const LoanTermsConfig: React.FC<LoanTermsConfigProps> = ({
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="bg-[#111] border-[#333] text-white">
         <CardHeader>
-          <CardTitle>Configure Loan Terms</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-white">Configure Loan Terms</CardTitle>
+          <CardDescription className="text-gray-400">
             Set your loan amount and duration for {collateralNFT.name}
           </CardDescription>
         </CardHeader>
@@ -78,7 +79,7 @@ export const LoanTermsConfig: React.FC<LoanTermsConfigProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="borrowAmount">Borrow Amount (USD)</Label>
+                <Label htmlFor="borrowAmount" className="text-white">Borrow Amount (USD)</Label>
                 <Input
                   id="borrowAmount"
                   type="number"
@@ -86,69 +87,70 @@ export const LoanTermsConfig: React.FC<LoanTermsConfigProps> = ({
                   value={borrowAmount || ''}
                   onChange={(e) => handleAmountChange(e.target.value)}
                   max={maxLoanAmount}
+                  className="bg-[#222] border-[#333] text-white placeholder:text-gray-400 focus:border-[#FFEB3B]"
                 />
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   Maximum: ${maxLoanAmount.toLocaleString()} (60% of NFT value)
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="duration">Loan Duration</Label>
+                <Label htmlFor="duration" className="text-white">Loan Duration</Label>
                 <Select value={duration.toString()} onValueChange={handleDurationChange}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-[#222] border-[#333] text-white focus:border-[#FFEB3B]">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="7">7 days</SelectItem>
-                    <SelectItem value="14">14 days</SelectItem>
-                    <SelectItem value="30">30 days</SelectItem>
-                    <SelectItem value="60">60 days</SelectItem>
-                    <SelectItem value="90">90 days</SelectItem>
-                    <SelectItem value="180">180 days</SelectItem>
+                  <SelectContent className="bg-[#222] border-[#333]">
+                    <SelectItem value="7" className="text-white hover:bg-[#333]">7 days</SelectItem>
+                    <SelectItem value="14" className="text-white hover:bg-[#333]">14 days</SelectItem>
+                    <SelectItem value="30" className="text-white hover:bg-[#333]">30 days</SelectItem>
+                    <SelectItem value="60" className="text-white hover:bg-[#333]">60 days</SelectItem>
+                    <SelectItem value="90" className="text-white hover:bg-[#333]">90 days</SelectItem>
+                    <SelectItem value="180" className="text-white hover:bg-[#333]">180 days</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
 
             <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4 space-y-3">
-                <h4 className="font-semibold">Loan Summary</h4>
+              <div className="bg-[#FFEB3B]/10 border border-[#FFEB3B] rounded-lg p-4 space-y-3">
+                <h4 className="font-semibold text-white">Loan Summary</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span>Loan Amount:</span>
-                    <span className="font-medium">${borrowAmount.toLocaleString()}</span>
+                    <span className="text-gray-400">Loan Amount:</span>
+                    <span className="font-medium text-white">${borrowAmount.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Interest Rate:</span>
-                    <span className="font-medium">{interestRate}% APR</span>
+                    <span className="text-gray-400">Interest Rate:</span>
+                    <span className="font-medium text-white">{interestRate}% APR</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Total Interest:</span>
-                    <span className="font-medium">${totalInterest.toFixed(2)}</span>
+                    <span className="text-gray-400">Total Interest:</span>
+                    <span className="font-medium text-white">${totalInterest.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between border-t pt-2">
-                    <span className="font-semibold">Total Repayment:</span>
-                    <span className="font-semibold">${totalRepayment.toFixed(2)}</span>
+                  <div className="flex justify-between border-t border-[#FFEB3B]/20 pt-2">
+                    <span className="font-semibold text-white">Total Repayment:</span>
+                    <span className="font-semibold text-[#FFEB3B]">${totalRepayment.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-blue-50 rounded-lg p-4 space-y-3">
-                <h4 className="font-semibold">Risk Metrics</h4>
+              <div className="bg-[#111] border border-[#333] rounded-lg p-4 space-y-3">
+                <h4 className="font-semibold text-white">Risk Metrics</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span>Loan-to-Value:</span>
-                    <span className={`font-medium ${loanToValue > 60 ? 'text-red-600' : 'text-green-600'}`}>
+                    <span className="text-gray-400">Loan-to-Value:</span>
+                    <span className={`font-medium ${loanToValue > 60 ? 'text-red-400' : 'text-green-400'}`}>
                       {loanToValue.toFixed(1)}%
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Liquidation Threshold:</span>
-                    <span className="font-medium">{liquidationThreshold}%</span>
+                    <span className="text-gray-400">Liquidation Threshold:</span>
+                    <span className="font-medium text-white">{liquidationThreshold}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Safety Buffer:</span>
-                    <span className="font-medium text-green-600">
+                    <span className="text-gray-400">Safety Buffer:</span>
+                    <span className="font-medium text-green-400">
                       {(liquidationThreshold - loanToValue).toFixed(1)}%
                     </span>
                   </div>
@@ -158,13 +160,17 @@ export const LoanTermsConfig: React.FC<LoanTermsConfigProps> = ({
           </div>
 
           <div className="flex space-x-3">
-            <Button variant="outline" onClick={onBack}>
+            <Button 
+              variant="outline" 
+              onClick={onBack}
+              className="border-[#333] text-white hover:bg-[#222] bg-transparent"
+            >
               Back
             </Button>
             <Button 
               onClick={handleConfirm} 
               disabled={!isValidLoan}
-              className="flex-1"
+              className="flex-1 bg-[#FFEB3B] text-black hover:bg-[#E6D136] disabled:opacity-50"
             >
               Review Loan Terms
             </Button>
