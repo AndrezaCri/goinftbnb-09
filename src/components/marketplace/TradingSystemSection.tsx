@@ -13,7 +13,7 @@ const userCards = [
   { 
     id: 1, 
     name: "Golden Striker", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/fa9a2fdc-8d89-438a-97ef-bebe851f5a32.png", 
     rarity: "Legendary", 
     collection: "Premier League",
     isTrading: false
@@ -21,7 +21,7 @@ const userCards = [
   { 
     id: 2, 
     name: "Midfield Maestro", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/3ff138cd-7347-4885-a303-e03841fb166c.png", 
     rarity: "Rare", 
     collection: "La Liga",
     isTrading: true
@@ -29,7 +29,7 @@ const userCards = [
   { 
     id: 3, 
     name: "Top Defender", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/92627ff6-fee9-43e4-af64-9fcfcf4e34f3.png", 
     rarity: "Uncommon", 
     collection: "Serie A",
     isTrading: false
@@ -37,7 +37,7 @@ const userCards = [
   { 
     id: 4, 
     name: "Star Goalkeeper", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/26dc6bd3-e9df-4644-8cec-affbf6c79319.png", 
     rarity: "Rare", 
     collection: "Bundesliga",
     isTrading: false
@@ -49,16 +49,16 @@ const availableTrades = [
   {
     id: 1,
     user: "ColecionadorPro",
-    userAvatar: "/placeholder.svg",
-    offering: { name: "Team Captain", rarity: "Legendary", image: "/placeholder.svg" },
-    requesting: { name: "Golden Striker", rarity: "Legendary", image: "/placeholder.svg" }
+    userAvatar: "/lovable-uploads/edda13e2-4967-47b2-922a-11d95d8c5a24.png",
+    offering: { name: "Team Captain", rarity: "Legendary", image: "/lovable-uploads/edda13e2-4967-47b2-922a-11d95d8c5a24.png" },
+    requesting: { name: "Golden Striker", rarity: "Legendary", image: "/lovable-uploads/fa9a2fdc-8d89-438a-97ef-bebe851f5a32.png" }
   },
   {
     id: 2,
     user: "NFTTrader99",
-    userAvatar: "/placeholder.svg",
-    offering: { name: "Rising Star", rarity: "Common", image: "/placeholder.svg" },
-    requesting: { name: "Midfield Maestro", rarity: "Rare", image: "/placeholder.svg" }
+    userAvatar: "/lovable-uploads/80efbc91-4123-4701-85c5-3b444308e344.png",
+    offering: { name: "Rising Star", rarity: "Common", image: "/lovable-uploads/80efbc91-4123-4701-85c5-3b444308e344.png" },
+    requesting: { name: "Midfield Maestro", rarity: "Rare", image: "/lovable-uploads/3ff138cd-7347-4885-a303-e03841fb166c.png" }
   }
 ];
 
