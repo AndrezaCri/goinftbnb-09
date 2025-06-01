@@ -34,25 +34,25 @@ const Marketplace = () => {
               value="browse"
               className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
-              Navegar no Mercado
+              Browse Marketplace
             </TabsTrigger>
             <TabsTrigger 
               value="packs"
               className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
-              Pacotes NFT
+              NFT Packs
             </TabsTrigger>
             <TabsTrigger 
               value="trading"
               className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
-              Sistema de Trocas
+              Trading System
             </TabsTrigger>
             <TabsTrigger 
               value="my-listings"
               className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
-              Minhas Listagens
+              My Listings
             </TabsTrigger>
           </TabsList>
           
