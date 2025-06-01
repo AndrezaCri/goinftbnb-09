@@ -16,12 +16,16 @@ interface MetaMaskInstallDialogProps {
 }
 
 export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDialogProps) => {
+  console.log("MetaMaskInstallDialog render - open:", open);
+
   const handleCreateAccount = () => {
+    console.log("Opening MetaMask download page");
     window.open("https://metamask.io/download/", "_blank");
     onOpenChange(false);
   };
 
   const handleCancel = () => {
+    console.log("Dialog cancelled");
     onOpenChange(false);
   };
 
@@ -32,6 +36,9 @@ export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDia
           <DialogTitle className="text-xl font-bold text-white mb-4">
             🦊 How to Create Your MetaMask Wallet
           </DialogTitle>
+          <DialogDescription className="text-[#E0E0E0] text-sm">
+            Follow these steps to create your MetaMask wallet and start using GoINFT
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-4 text-[#E0E0E0]">

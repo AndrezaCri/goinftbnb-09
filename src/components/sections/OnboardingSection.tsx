@@ -15,8 +15,13 @@ export const OnboardingSection = () => {
   const [showMetaMaskDialog, setShowMetaMaskDialog] = useState(false);
 
   const handleCreateWallet = () => {
+    console.log("Create wallet button clicked!");
+    console.log("Current showMetaMaskDialog state:", showMetaMaskDialog);
     setShowMetaMaskDialog(true);
+    console.log("Setting showMetaMaskDialog to true");
   };
+
+  console.log("OnboardingSection render - showMetaMaskDialog:", showMetaMaskDialog);
 
   return (
     <section className="bg-[#111] p-8 rounded-3xl border border-[#333] max-sm:p-4">
