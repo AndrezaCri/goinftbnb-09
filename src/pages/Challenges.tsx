@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +7,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
+import { useNavigate } from "react-router-dom";
 
 // Soccer challenges (showing 3 challenges now)
 const soccerChallenges = [
@@ -115,6 +115,7 @@ const Challenges = () => {
   const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
   const [selectedChallenge, setSelectedChallenge] = useState<typeof allChallenges[0] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
   
   const handleJoinChallenge = (id: number) => {
     if (joinedChallenges.includes(id)) {
@@ -123,7 +124,12 @@ const Challenges = () => {
     }
     
     setJoinedChallenges(prev => [...prev, id]);
-    toast.success("Successfully joined the challenge! Start creating your album.");
+    toast.success("Successfully joined the challenge! Redirecting to Lab...");
+    
+    // Navigate to the lab page
+    setTimeout(() => {
+      navigate("/album-lab");
+    }, 1500);
   };
   
   const handleOpenChallengeModal = (challenge: typeof allChallenges[0]) => {
