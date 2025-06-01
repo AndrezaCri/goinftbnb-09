@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Wallet, BookOpen, UsersRound, Trophy, CreditCard } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -11,13 +10,12 @@ export const Navbar = () => {
 
   return (
     <nav className="flex justify-between items-center px-8 py-6 max-sm:px-4">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center">
         <img
-          src="/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png"
+          src="/lovable-uploads/5dcc5072-cc22-4325-bb15-f782d454fcac.png"
           alt="GoINFT Logo"
-          className="h-12 w-auto"
+          className="h-16 w-auto"
         />
-        <span className="text-xl font-medium">GoINFT</span>
       </div>
 
       <div className="flex items-center gap-10 max-sm:hidden">
