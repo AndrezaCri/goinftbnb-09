@@ -24,13 +24,13 @@ const Albums = () => {
           <TabsList className="mb-8 bg-[#111] border border-[#333]">
             <TabsTrigger 
               value="collection"
-              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
+              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Minha Coleção
             </TabsTrigger>
             <TabsTrigger 
               value="my-albums"
-              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
+              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Meus Albums
             </TabsTrigger>

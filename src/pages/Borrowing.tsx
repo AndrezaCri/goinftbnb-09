@@ -90,8 +90,8 @@ const Borrowing = () => {
       </div>
       <Tabs defaultValue="borrow" className="space-y-6">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="borrow">Borrow</TabsTrigger>
-          <TabsTrigger value="manage">Manage Loans</TabsTrigger>
+          <TabsTrigger value="borrow" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Borrow</TabsTrigger>
+          <TabsTrigger value="manage" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Manage Loans</TabsTrigger>
         </TabsList>
 
         <TabsContent value="borrow" className="space-y-6">
@@ -199,4 +199,3 @@ const Borrowing = () => {
   );
 };
 export default Borrowing;
-// Note: The above code is a complete React component for a borrowing page that allows users to create NFT-backed loans.
