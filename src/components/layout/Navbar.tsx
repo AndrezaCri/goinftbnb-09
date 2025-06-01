@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Wallet, BookOpen, UsersRound, Trophy, CreditCard } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -14,13 +13,13 @@ export const Navbar = () => {
 
   return (
     <nav className="flex justify-between items-center px-8 py-6 max-sm:px-4">
-      <div className="flex items-center">
+      <Link to="/" className="flex items-center">
         <img
           src="/lovable-uploads/5dcc5072-cc22-4325-bb15-f782d454fcac.png"
           alt="GoINFT Logo"
-          className="h-32 w-auto"
+          className="h-40 w-auto cursor-pointer hover:opacity-80 transition-opacity"
         />
-      </div>
+      </Link>
 
       <div className="flex items-center gap-10 max-sm:hidden">
         <Link to="/" className={`text-base transition-colors ${isActive("/") ? "text-[#FFEB3B]" : "text-white hover:text-[#FFEB3B]"}`}>
