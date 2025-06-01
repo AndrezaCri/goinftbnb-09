@@ -1,4 +1,4 @@
-# ⚽ GoINft BNB – Seu Álbum de Figurinhas Web3 na Blockchain!
+# ⚽ GoINFT BNB – Seu Álbum de Figurinhas Web3 na Blockchain!
 
 ## 🧩 O que é o GoINft?
 [AppGoINft](https://preview--goinftbnb-09.lovable.app/)
