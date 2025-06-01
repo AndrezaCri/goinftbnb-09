@@ -77,7 +77,7 @@ export const OnboardingSection = () => {
         )}        
         <Button 
           variant="ghost" 
-          className="text-[#FFEB3B] hover:bg-transparent hover:text-[#FFD700] px-8 py-6 h-auto text-lg"
+          className="border border-[#FFEB3B] text-[#FFEB3B] hover:bg-transparent hover:text-[#FFD700] hover:border-[#FFD700] px-8 py-6 h-auto text-lg"
           onClick={handleCreateWallet}
         >
           <Plus className="mr-2 h-5 w-5" /> Create Wallet
