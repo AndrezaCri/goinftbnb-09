@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { useAlbums } from "@/contexts/AlbumContext";
@@ -27,7 +28,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 const AlbumLab = () => {
-  const { addAlbum } = useAlbums();
+  const { addAlbum, albums } = useAlbums();
   const navigate = useNavigate();
   const [albumTitle, setAlbumTitle] = useState("");
   const [albumDescription, setAlbumDescription] = useState("");
@@ -36,6 +37,9 @@ const AlbumLab = () => {
   const [generatedStickers, setGeneratedStickers] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [stickerCategory, setStickerCategory] = useState("sports");
+
+  // Verificar se o usuário já atingiu o limite de 2 álbuns
+  const hasReachedAlbumLimit = albums.length >= 2;
 
   const handleGenerateSticker = async () => {
   if (!aiPrompt.trim()) {
@@ -100,6 +104,12 @@ const AlbumLab = () => {
   };
 
   const handleCreateAlbum = () => {
+    // Verificar limite de álbuns antes de criar
+    if (hasReachedAlbumLimit) {
+      toast.error("Você já atingiu o limite máximo de 2 álbuns por pessoa!");
+      return;
+    }
+
     if (!albumTitle) {
       toast.error("Please enter an album title");
       return;
@@ -168,6 +178,16 @@ const AlbumLab = () => {
                 <CardTitle className="text-white">Design Your Album</CardTitle>
                 <CardDescription className="text-gray-300">
                   Create a custom album by selecting grid type and adding details
+                  {hasReachedAlbumLimit && (
+                    <span className="block mt-2 text-red-400 font-medium">
+                      ⚠️ Você atingiu o limite máximo de 2 álbuns por pessoa
+                    </span>
+                  )}
+                  {!hasReachedAlbumLimit && (
+                    <span className="block mt-2 text-green-400 font-medium">
+                      📝 Você pode criar {2 - albums.length} álbum(ns) restante(s)
+                    </span>
+                  )}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -178,7 +198,8 @@ const AlbumLab = () => {
                     placeholder="Enter album title" 
                     value={albumTitle}
                     onChange={(e) => setAlbumTitle(e.target.value)}
-                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    disabled={hasReachedAlbumLimit}
+                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
 
@@ -189,8 +210,9 @@ const AlbumLab = () => {
                     placeholder="Enter album description"
                     value={albumDescription}
                     onChange={(e) => setAlbumDescription(e.target.value)}
+                    disabled={hasReachedAlbumLimit}
                     rows={3}
-                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
 
@@ -199,14 +221,20 @@ const AlbumLab = () => {
                   <RadioGroup 
                     value={selectedGridType} 
                     onValueChange={setSelectedGridType}
+                    disabled={hasReachedAlbumLimit}
                     className="grid grid-cols-2 gap-4 sm:grid-cols-4"
                   >
                     {gridOptions.map((option) => (
                       <div key={option.value} className="flex items-center space-x-2">
-                        <RadioGroupItem value={option.value} id={option.value} className="border-gray-600" />
+                        <RadioGroupItem 
+                          value={option.value} 
+                          id={option.value} 
+                          disabled={hasReachedAlbumLimit}
+                          className="border-gray-600 disabled:opacity-50" 
+                        />
                         <Label 
                           htmlFor={option.value} 
-                          className="flex items-center gap-2 cursor-pointer text-white"
+                          className={`flex items-center gap-2 cursor-pointer text-white ${hasReachedAlbumLimit ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                           {option.icon}
                           <span>{option.label}</span>
@@ -219,9 +247,10 @@ const AlbumLab = () => {
                 <div className="pt-3">
                   <Button 
                     onClick={handleCreateAlbum}
-                    className="bg-[#FFEB3B] text-black hover:bg-[#FFEB3B]/90"
+                    disabled={hasReachedAlbumLimit}
+                    className="bg-[#FFEB3B] text-black hover:bg-[#FFEB3B]/90 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Create Album
+                    {hasReachedAlbumLimit ? "Limite Atingido" : "Create Album"}
                   </Button>
                 </div>
               </CardContent>
