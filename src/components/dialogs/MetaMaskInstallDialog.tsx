@@ -19,9 +19,32 @@ export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDia
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (open && dialogRef.current) {
-      // Scroll to top of the dialog when it opens
-      dialogRef.current.scrollTo(0, 0);
+    if (open) {
+      console.log("Dialog opened, attempting to scroll to top");
+      
+      // Use setTimeout to ensure the dialog is fully rendered
+      setTimeout(() => {
+        // Try to scroll the main page to top first
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Try to find and scroll the dialog viewport
+        const dialogElement = dialogRef.current;
+        if (dialogElement) {
+          console.log("Dialog element found, scrolling to view");
+          dialogElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
+
+        // Also try to find the Radix dialog content and scroll it
+        const radixDialog = document.querySelector('[data-radix-dialog-content]');
+        if (radixDialog) {
+          console.log("Radix dialog found, scrolling to top");
+          radixDialog.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
     }
   }, [open]);
 
