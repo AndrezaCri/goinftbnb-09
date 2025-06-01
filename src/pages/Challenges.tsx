@@ -8,25 +8,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 
-// Binance challenges (now showing only 1)
-const binanceChallenges = [
-  {
-    id: 101,
-    title: "Binance 7th Anniversary Challenge",
-    team: "Binance Community",
-    deadline: "2025-07-01",
-    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop",
-    description: "Celebrate Binance's 7th anniversary by creating an album showcasing the evolution of crypto trading and DeFi innovations. Highlight key milestones, community achievements, and the future of digital finance.",
-    participants: 1247,
-    difficulty: "medium",
-    prize: "10,000 BNB tokens + Exclusive Binance NFT",
-    tags: ["binance", "anniversary", "defi", "community"],
-    active: true,
-    type: "binance"
-  }
-];
-
-// Soccer challenges (showing only 2)
+// Soccer challenges (showing 3 challenges now)
 const soccerChallenges = [
   {
     id: 1,
@@ -55,6 +37,38 @@ const soccerChallenges = [
     tags: ["manchester united", "premier league", "legacy"],
     active: true,
     type: "soccer"
+  },
+  {
+    id: 103,
+    title: "Brazilian Football Stars",
+    team: "CBF Official",
+    deadline: "2025-07-20",
+    imageUrl: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=400&fit=crop",
+    description: "Create an album celebrating the greatest Brazilian football players of all time. From Pelé to Ronaldinho, showcase the magic of Brazilian football.",
+    participants: 425,
+    difficulty: "medium",
+    prize: "4,500 GOIN tokens + Exclusive Brazil Jersey NFT",
+    tags: ["brazil", "seleção", "legends", "history"],
+    active: true,
+    type: "soccer"
+  }
+];
+
+// Binance challenges (now showing only 1)
+const binanceChallenges = [
+  {
+    id: 101,
+    title: "Binance 7th Anniversary Challenge",
+    team: "Binance Community",
+    deadline: "2025-07-01",
+    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop",
+    description: "Celebrate Binance's 7th anniversary by creating an album showcasing the evolution of crypto trading and DeFi innovations. Highlight key milestones, community achievements, and the future of digital finance.",
+    participants: 1247,
+    difficulty: "medium",
+    prize: "10,000 BNB tokens + Exclusive Binance NFT",
+    tags: ["binance", "anniversary", "defi", "community"],
+    active: true,
+    type: "binance"
   }
 ];
 
@@ -233,9 +247,9 @@ const Challenges = () => {
           </p>
         </div>
 
-        {/* Soccer Section - Now First */}
+        {/* Soccer Section - Now First with 3 challenges */}
         <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {soccerChallenges.map(renderChallengeCard)}
           </div>
         </div>
