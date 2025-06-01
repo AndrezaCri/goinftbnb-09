@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -105,12 +104,12 @@ const soccerChallenges = [
   }
 ];
 
-// Football challenges (replacing Binance challenges)
-const footballChallenges = [
+// Binance challenges (replacing former footballChallenges)
+const binanceChallenges = [
   {
     id: 101,
     title: "Premier League Legends",
-    team: "Premier League",
+    team: "Binance",
     deadline: "2025-07-01",
     imageUrl: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop",
     description: "Create an album featuring the greatest Premier League players of all time. Showcase legendary moments, record-breaking performances, and iconic goals that defined English football.",
@@ -125,7 +124,7 @@ const footballChallenges = [
   {
     id: 102,
     title: "Champions League Glory",
-    team: "UEFA Champions League",
+    team: "Binance",
     deadline: "2025-06-20",
     imageUrl: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=400&h=400&fit=crop",
     description: "Build the ultimate Champions League album featuring historic finals, legendary goals, and unforgettable moments from Europe's most prestigious tournament.",
@@ -139,12 +138,12 @@ const footballChallenges = [
   }
 ];
 
-// Football challenges (replacing Coruja Cripto challenges)
-const youthFootballChallenges = [
+// Coruja Cripto challenges (replacing former youthFootballChallenges)
+const corujaCriptoChallenge = [
   {
     id: 201,
     title: "Future Stars Academy",
-    team: "Youth Development",
+    team: "Coruja Cripto",
     deadline: "2025-06-25",
     imageUrl: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=400&fit=crop",
     description: "Create an educational album showcasing the best young talents in world football. Highlight promising players from youth academies and their development journey.",
@@ -158,12 +157,12 @@ const youthFootballChallenges = [
   }
 ];
 
-// Football challenges (replacing CastaCripto challenges)
-const womenFootballChallenges = [
+// Casta Cripto challenges (replacing former womenFootballChallenges)
+const castaCriptoChallenge = [
   {
     id: 301,
     title: "Women's Football Rising",
-    team: "Women's Football",
+    team: "Casta Cripto",
     deadline: "2025-07-10",
     imageUrl: "https://images.unsplash.com/photo-1594736797933-d0fa06bf9ce2?w=400&h=400&fit=crop",
     description: "Design an album celebrating women's football around the world. Feature top players, historic matches, and the growth of women's football globally.",
@@ -177,7 +176,7 @@ const womenFootballChallenges = [
   }
 ];
 
-const allChallenges = [...soccerChallenges, ...footballChallenges, ...youthFootballChallenges, ...womenFootballChallenges];
+const allChallenges = [...soccerChallenges, ...binanceChallenges, ...corujaCriptoChallenge, ...castaCriptoChallenge];
 
 const Challenges = () => {
   const [joinedChallenges, setJoinedChallenges] = useState<number[]>([]);
