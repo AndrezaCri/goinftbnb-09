@@ -32,25 +32,25 @@ const Marketplace = () => {
           <TabsList className="mb-8 bg-[#111] border border-[#333]">
             <TabsTrigger 
               value="browse"
-              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
+              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Navegar no Mercado
             </TabsTrigger>
             <TabsTrigger 
               value="packs"
-              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
+              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Pacotes NFT
             </TabsTrigger>
             <TabsTrigger 
               value="trading"
-              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
+              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Sistema de Trocas
             </TabsTrigger>
             <TabsTrigger 
               value="my-listings"
-              className="data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
+              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
             >
               Minhas Listagens
             </TabsTrigger>
