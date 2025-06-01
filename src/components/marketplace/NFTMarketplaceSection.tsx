@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -108,7 +109,7 @@ export const NFTMarketplaceSection = () => {
       functionName: "fund",
       args: [],
       value: _value,
-      chainId,
+      chain: { id: chainId },
       account: address,
     })
   }
