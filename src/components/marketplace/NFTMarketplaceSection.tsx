@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Package, Tag, ShoppingCart } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useWriteContract, useWaitForTransactionReceipt, useAccount, useChainId } from "wagmi";
+import { useWriteContract, useWaitForTransactionReceipt, useAccount } from "wagmi";
 
 // Mock NFT data with real images mapped by collection and rarity
 const mockNFTs = [
@@ -77,7 +76,6 @@ export const NFTMarketplaceSection = () => {
 
   // Hooks do wagmi
   const { address } = useAccount();
-  const chainId = useChainId();
 
   //Read Smart Contract - Fund()
   const {
@@ -109,7 +107,6 @@ export const NFTMarketplaceSection = () => {
       functionName: "fund",
       args: [],
       value: _value,
-      chain: { id: chainId },
       account: address,
     })
   }
