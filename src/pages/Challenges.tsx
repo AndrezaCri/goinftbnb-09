@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 
-// Binance challenges (showing only 2)
+// Binance challenges (now showing only 1)
 const binanceChallenges = [
   {
     id: 101,
@@ -21,20 +21,6 @@ const binanceChallenges = [
     difficulty: "medium",
     prize: "10,000 BNB tokens + Exclusive Binance NFT",
     tags: ["binance", "anniversary", "defi", "community"],
-    active: true,
-    type: "binance"
-  },
-  {
-    id: 102,
-    title: "Crypto Trading Masters",
-    team: "Binance Academy",
-    deadline: "2025-06-20",
-    imageUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=400&fit=crop",
-    description: "Design an educational album about advanced trading strategies, technical analysis, and risk management. Share your trading knowledge with the community.",
-    participants: 892,
-    difficulty: "hard",
-    prize: "5,000 USDT + Trading Fee Discount",
-    tags: ["trading", "education", "technical analysis"],
     active: true,
     type: "binance"
   }
