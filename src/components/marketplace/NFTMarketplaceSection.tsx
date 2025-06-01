@@ -8,8 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Package, Tag, ShoppingCart } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
-
+import { useWriteContract, useWaitForTransactionReceipt, useAccount, useChainId } from "wagmi";
 
 // Mock NFT data with real images mapped by collection and rarity
 const mockNFTs = [
@@ -75,6 +74,10 @@ export const NFTMarketplaceSection = () => {
   const [priceRange, setPriceRange] = useState([0, 0.1]);
   const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
 
+  // Hooks do wagmi
+  const { address } = useAccount();
+  const chainId = useChainId();
+
   //Read Smart Contract - Fund()
   const {
     writeContract,
@@ -89,8 +92,7 @@ export const NFTMarketplaceSection = () => {
     hash,
   })
 
-  function handleFund({ _value }) {
-
+  function handleFund({ _value }: { _value: bigint }) {
     // Convert ETH to wei
     writeContract({
       address: "0xeE38F69e1e5d08d0A88901740186e0A5186A59Fa",
@@ -106,6 +108,8 @@ export const NFTMarketplaceSection = () => {
       functionName: "fund",
       args: [],
       value: _value,
+      chainId,
+      account: address,
     })
   }
 
@@ -217,7 +221,7 @@ export const NFTMarketplaceSection = () => {
                 <p className="text-sm text-white">Seller: {nft.seller}</p>
               </CardContent>
               <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
-                <div className="font-semibold">{nft.price} BNB</div>
+                <div className="font-semibold">{nft.price * 1e-18} BNB</div>
 
                 <Dialog>
                   <DialogTrigger asChild>
@@ -259,17 +263,20 @@ export const NFTMarketplaceSection = () => {
                     </div>
                     <DialogFooter>
                       <Button variant="outline" className="border-[#333]">Cancel</Button>
-                      <Button onClick={() => handleFund({ _value: BigInt(nft.price*1.025) })}
-
-                        disabled={isPending || isConfirming || isConfirmed}
-                        className="bg-[#FFEB3B] text-black hover:bg-[#FFD700]">
+                      <Button 
+                        onClick={() => handleFund({ _value: BigInt(Math.floor(nft.price * 1.025)) })}
+                        disabled={isPending || isConfirming || isConfirmed || !address}
+                        className="bg-[#FFEB3B] text-black hover:bg-[#FFD700]"
+                      >
                         {isPending
                           ? "Processing..."
                           : isConfirming
                             ? "Waiting for confirmation..."
                             : isConfirmed
                               ? "Transaction confirmed!"
-                              : "Confirm Purchase"}
+                              : !address
+                                ? "Connect Wallet"
+                                : "Confirm Purchase"}
                       </Button>
                     </DialogFooter>
                   </DialogContent>
@@ -286,4 +293,3 @@ export const NFTMarketplaceSection = () => {
     </div>
   );
 };
-
