@@ -62,7 +62,7 @@ export const NFTCollateralSelector: React.FC<NFTCollateralSelectorProps> = ({
           Choose which NFT you'd like to use as collateral for your loan
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="bg-gray-700">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 bg-gray-700">
           {mockNFTs.map(nft => <div key={nft.id} className={`border rounded-lg p-4 cursor-pointer transition-all ${selectedNFT?.id === nft.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`} onClick={() => handleSelect(nft)}>
               <img src={nft.image} alt={nft.name} className="w-full h-48 object-cover rounded-lg mb-3" />
