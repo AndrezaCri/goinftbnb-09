@@ -278,7 +278,7 @@ export const NFTMarketplaceSection = () => {
                       </div>
                     </div>
                     <DialogFooter>
-                      <Button variant="outline" className="border-[#333] text-white" onClick={handleCloseDialog}>Cancel</Button>
+                      <Button variant="outline" className="bg-transparent border-[#333] text-white hover:bg-transparent" onClick={handleCloseDialog}>Cancel</Button>
                       <Button 
                         onClick={() => handleFund({ _value: BigInt(Math.floor(nft.price * 1.025)) })}
                         disabled={isPending || isConfirming || isConfirmed || !address}
