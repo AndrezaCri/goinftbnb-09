@@ -18,7 +18,7 @@ const myNFTs = [
   { 
     id: 1, 
     name: "Speedy Winger", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png", 
     collection: "Premier League",
     rarity: "Rare",
     listed: true,
@@ -27,7 +27,7 @@ const myNFTs = [
   { 
     id: 2, 
     name: "Captain's Armband", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/5d66beca-ee47-4a4e-a404-dc84aa62883f.png", 
     collection: "La Liga",
     rarity: "Uncommon",
     listed: true,
@@ -36,7 +36,7 @@ const myNFTs = [
   { 
     id: 3, 
     name: "Golden Trophy", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/48f299fc-e84b-45a2-94c9-a2654f4dffa6.png", 
     collection: "Champions League",
     rarity: "Legendary",
     listed: false,
@@ -45,7 +45,7 @@ const myNFTs = [
   { 
     id: 4, 
     name: "Team Jersey", 
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/9760dfd8-0775-48ba-8fc6-859c8dfd1323.png", 
     collection: "Serie A",
     rarity: "Common",
     listed: false,
