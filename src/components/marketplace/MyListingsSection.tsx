@@ -146,7 +146,7 @@ export const MyListingsSection = () => {
                   <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant="outline" size="sm" className="border-[#333] text-white">
+                        <Button variant="outline" size="sm" className="border-[#333] text-black">
                           <Pencil className="h-4 w-4 mr-1" />
                           Edit Price
                         </Button>
