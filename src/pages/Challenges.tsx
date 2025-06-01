@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -254,9 +255,9 @@ const Challenges = () => {
           </p>
         </div>
 
-        {/* All Challenges - Side by Side */}
+        {/* All Challenges - Updated Grid Layout */}
         <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
             {allChallenges.map(renderChallengeCard)}
           </div>
         </div>
