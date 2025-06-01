@@ -183,7 +183,7 @@ const AlbumLab = () => {
                       ⚠️ Você atingiu o limite máximo de 2 álbuns por pessoa
                     </span>
                   )}
-                  {!hasReachedAlbumLimit && (
+                  {!hasReachedAlbumLimit && albums.length > 0 && (
                     <span className="block mt-2 text-green-400 font-medium">
                       📝 Você pode criar {2 - albums.length} álbum(ns) restante(s)
                     </span>
