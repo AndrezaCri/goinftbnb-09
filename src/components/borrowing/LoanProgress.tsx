@@ -1,8 +1,11 @@
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+
 interface LoanProgressProps {
   currentStep: 'select' | 'terms' | 'confirm' | 'complete';
 }
+
 export const LoanProgress: React.FC<LoanProgressProps> = ({
   currentStep
 }) => {
@@ -23,28 +26,48 @@ export const LoanProgress: React.FC<LoanProgressProps> = ({
     title: 'Complete',
     description: 'Loan created'
   }];
+
   const getStepIndex = (step: string) => steps.findIndex(s => s.id === step);
   const currentIndex = getStepIndex(currentStep);
-  return <Card>
-      <CardContent className="py-6 bg-gray-700">
+
+  return (
+    <Card className="bg-[#111] border-[#333] text-white">
+      <CardContent className="py-6">
         <div className="flex items-center justify-between">
-          {steps.map((step, index) => <div key={step.id} className="flex items-center">
+          {steps.map((step, index) => (
+            <div key={step.id} className="flex items-center">
               <div className="flex flex-col items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${index <= currentIndex ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'}`}>
-                  {index < currentIndex ? <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                  index <= currentIndex 
+                    ? 'bg-[#FFEB3B] text-black' 
+                    : 'bg-gray-600 text-gray-300'
+                }`}>
+                  {index < currentIndex ? (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg> : index + 1}
+                    </svg>
+                  ) : (
+                    index + 1
+                  )}
                 </div>
                 <div className="mt-2 text-center">
-                  <p className={`text-sm font-medium ${index <= currentIndex ? 'text-blue-600' : 'text-gray-600'}`}>
+                  <p className={`text-sm font-medium ${
+                    index <= currentIndex ? 'text-[#FFEB3B]' : 'text-gray-400'
+                  }`}>
                     {step.title}
                   </p>
                   <p className="text-xs text-gray-500">{step.description}</p>
                 </div>
               </div>
-              {index < steps.length - 1 && <div className={`w-16 h-0.5 mx-4 ${index < currentIndex ? 'bg-blue-600' : 'bg-gray-200'}`} />}
-            </div>)}
+              {index < steps.length - 1 && (
+                <div className={`w-16 h-0.5 mx-4 ${
+                  index < currentIndex ? 'bg-[#FFEB3B]' : 'bg-gray-600'
+                }`} />
+              )}
+            </div>
+          ))}
         </div>
       </CardContent>
-    </Card>;
+    </Card>
+  );
 };
