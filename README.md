@@ -20,12 +20,12 @@ Tudo isso sobre a poderosa **BNB Chain**, garantindo **propriedade real**, **esc
 | Funcionalidade       | Descrição                                                                     |
 |----------------------|---------------------------------------------------------------------------    |
 | 🧑 Perfil Web3        | Conecte sua carteira via **MetaMask** e gerencie seus ativos digitais.      |
-| 📁 Meus Álbuns        | Crie seus álbuns temáticos, veja progresso e itens duplicados.              |
+| 📁 Meus Álbuns        | Veja seus álbuns temáticos, veja progresso e itens duplicados.              |
 | 🖌️ Album Lab          | Utilize recursos de IA para criar álbums exclusivos                         |
 | 🛒 Marketplace        | Compre, venda ou troque figurinhas diretamente com outros colecionadores.   |
 | 💰 Defi               | Utilize NFTs raros como colateral para operações de empréstimo              |
 | 🎁 Pacotes Surpresa   | Compre pacotes aleatórios e descubra quais NFTs raros você encontrou!       |
-| 🔗 Blockchain BNB     | Totalmente integrado à BNB Chain (BEP-721), com leitura e escrita on-chain. |
+| 🔗 Blockchain BNB     | Totalmente integrado à BNB Chain, com leitura e escrita on-chain.           |
 
 ---
 
