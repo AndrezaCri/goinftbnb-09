@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -247,25 +248,10 @@ const Challenges = () => {
           </p>
         </div>
 
-        {/* Soccer Section - Now First with 3 challenges */}
+        {/* All Challenges - Side by Side */}
         <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {soccerChallenges.map(renderChallengeCard)}
-          </div>
-        </div>
-
-        {/* Binance Section - Now Second */}
-        <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {binanceChallenges.map(renderChallengeCard)}
-          </div>
-        </div>
-
-        {/* Coruja Cripto and CastaCripto Section - Side by Side */}
-        <div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {corujaCriptoChallenge.map(renderChallengeCard)}
-            {castaCriptoChallenge.map(renderChallengeCard)}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+            {allChallenges.map(renderChallengeCard)}
           </div>
         </div>
 
