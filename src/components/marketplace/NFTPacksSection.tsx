@@ -156,7 +156,7 @@ export const NFTPacksSection = () => {
                 </DialogTrigger>
                 <DialogContent className="bg-[#111] border-[#333] text-white">
                   <DialogHeader>
-                    <DialogTitle>Purchase Pack</DialogTitle>
+                    <DialogTitle className="text-white">Purchase Pack</DialogTitle>
                     <DialogDescription className="text-white">
                       You are about to purchase {pack.name} for {pack.price} ETH.
                     </DialogDescription>
@@ -194,7 +194,7 @@ export const NFTPacksSection = () => {
       <Dialog open={showRevealDialog} onOpenChange={setShowRevealDialog}>
         <DialogContent className="bg-[#111] border-[#333] text-white max-w-3xl">
           <DialogHeader>
-            <DialogTitle>{isOpening ? "Opening Pack" : "Your New NFTs!"}</DialogTitle>
+            <DialogTitle className="text-white">{isOpening ? "Opening Pack" : "Your New NFTs!"}</DialogTitle>
           </DialogHeader>
 
           {isOpening ? (

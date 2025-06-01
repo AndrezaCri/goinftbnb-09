@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -102,16 +103,16 @@ export const MyListingsSection = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold mb-4">My NFT Listings</h2>
-        <p className="text-gray-400 mb-6">
+        <h2 className="text-2xl font-bold mb-4 text-white">My NFT Listings</h2>
+        <p className="text-white mb-6">
           Manage your NFTs. List items for sale or remove them from the marketplace.
         </p>
       </div>
 
       <Tabs defaultValue="listed" className="w-full">
         <TabsList className="mb-6 bg-[#111] border border-[#333]">
-          <TabsTrigger value="listed">Listed NFTs ({listedNFTs.length})</TabsTrigger>
-          <TabsTrigger value="unlisted">Not Listed ({unlistedNFTs.length})</TabsTrigger>
+          <TabsTrigger value="listed" className="text-white">Listed NFTs ({listedNFTs.length})</TabsTrigger>
+          <TabsTrigger value="unlisted" className="text-white">Not Listed ({unlistedNFTs.length})</TabsTrigger>
         </TabsList>
         
         <TabsContent value="listed">
@@ -134,26 +135,26 @@ export const MyListingsSection = () => {
                   </div>
                   <CardContent>
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-bold text-lg">{nft.name}</h3>
+                      <h3 className="font-bold text-lg text-white">{nft.name}</h3>
                       <Badge className={`${rarityColors[nft.rarity as keyof typeof rarityColors]} text-black`}>
                         {nft.rarity}
                       </Badge>
                     </div>
-                    <p className="text-sm text-gray-400 mb-2">Collection: {nft.collection}</p>
-                    <p className="text-sm font-semibold">{nft.price} ETH</p>
+                    <p className="text-sm text-white mb-2">Collection: {nft.collection}</p>
+                    <p className="text-sm font-semibold text-white">{nft.price} ETH</p>
                   </CardContent>
                   <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant="outline" size="sm" className="border-[#333]">
+                        <Button variant="outline" size="sm" className="border-[#333] text-white">
                           <Pencil className="h-4 w-4 mr-1" />
                           Edit Price
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="bg-[#111] border-[#333] text-white">
                         <DialogHeader>
-                          <DialogTitle>Update Listing Price</DialogTitle>
-                          <DialogDescription className="text-gray-400">
+                          <DialogTitle className="text-white">Update Listing Price</DialogTitle>
+                          <DialogDescription className="text-white">
                             Enter a new price for {nft.name}
                           </DialogDescription>
                         </DialogHeader>
@@ -173,15 +174,15 @@ export const MyListingsSection = () => {
                             <Input 
                               type="number" 
                               placeholder="Price in ETH"
-                              className="bg-[#0a0a0a] border-[#333]"
+                              className="bg-[#0a0a0a] border-[#333] text-white placeholder:text-white"
                               defaultValue={nft.price}
                               onChange={(e) => setPrice(e.target.value)}
                             />
-                            <span>ETH</span>
+                            <span className="text-white">ETH</span>
                           </div>
                         </div>
                         <DialogFooter>
-                          <Button variant="outline" className="border-[#333]">Cancel</Button>
+                          <Button variant="outline" className="border-[#333] text-white">Cancel</Button>
                           <Button onClick={() => {
                             if (price) {
                               const updatedListings = listings.map(item => {
@@ -213,8 +214,8 @@ export const MyListingsSection = () => {
             </div>
           ) : (
             <div className="text-center py-12">
-              <Package className="h-12 w-12 mx-auto text-gray-500 mb-4" />
-              <p className="text-gray-400">You don't have any NFTs listed for sale.</p>
+              <Package className="h-12 w-12 mx-auto text-white mb-4" />
+              <p className="text-white">You don't have any NFTs listed for sale.</p>
             </div>
           )}
         </TabsContent>
@@ -239,13 +240,13 @@ export const MyListingsSection = () => {
                   </div>
                   <CardContent>
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-bold text-lg">{nft.name}</h3>
+                      <h3 className="font-bold text-lg text-white">{nft.name}</h3>
                       <Badge className={`${rarityColors[nft.rarity as keyof typeof rarityColors]} text-black`}>
                         {nft.rarity}
                       </Badge>
                     </div>
-                    <p className="text-sm text-gray-400 mb-2">Collection: {nft.collection}</p>
-                    <p className="text-sm text-gray-400">Not listed</p>
+                    <p className="text-sm text-white mb-2">Collection: {nft.collection}</p>
+                    <p className="text-sm text-white">Not listed</p>
                   </CardContent>
                   <CardFooter className="flex justify-center items-center bg-[#0a0a0a] border-t border-[#333] p-4">
                     <Dialog>
@@ -257,8 +258,8 @@ export const MyListingsSection = () => {
                       </DialogTrigger>
                       <DialogContent className="bg-[#111] border-[#333] text-white">
                         <DialogHeader>
-                          <DialogTitle>List NFT for Sale</DialogTitle>
-                          <DialogDescription className="text-gray-400">
+                          <DialogTitle className="text-white">List NFT for Sale</DialogTitle>
+                          <DialogDescription className="text-white">
                             Set a price for {nft.name} to list it on the marketplace.
                           </DialogDescription>
                         </DialogHeader>
@@ -278,17 +279,17 @@ export const MyListingsSection = () => {
                             <Input 
                               type="number" 
                               placeholder="Price in ETH"
-                              className="bg-[#0a0a0a] border-[#333]"
+                              className="bg-[#0a0a0a] border-[#333] text-white placeholder:text-white"
                               onChange={(e) => setPrice(e.target.value)}
                             />
-                            <span>ETH</span>
+                            <span className="text-white">ETH</span>
                           </div>
-                          <p className="text-xs text-gray-400">
+                          <p className="text-xs text-white">
                             Platform fee: 2.5% of sale price
                           </p>
                         </div>
                         <DialogFooter>
-                          <Button variant="outline" className="border-[#333]">Cancel</Button>
+                          <Button variant="outline" className="border-[#333] text-white">Cancel</Button>
                           <Button onClick={() => {
                             if (price) {
                               const updatedListings = listings.map(item => {
@@ -311,8 +312,8 @@ export const MyListingsSection = () => {
             </div>
           ) : (
             <div className="text-center py-12">
-              <Package className="h-12 w-12 mx-auto text-gray-500 mb-4" />
-              <p className="text-gray-400">You don't have any unlisted NFTs.</p>
+              <Package className="h-12 w-12 mx-auto text-white mb-4" />
+              <p className="text-white">You don't have any unlisted NFTs.</p>
             </div>
           )}
         </TabsContent>

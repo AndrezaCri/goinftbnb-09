@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -163,12 +164,12 @@ export const NFTMarketplaceSection = () => {
             placeholder="Search NFTs..."
             value={searchQuery}
             onChange={handleSearch}
-            className="bg-[#111] border-[#333] text-white"
+            className="bg-[#111] border-[#333] text-white placeholder:text-white"
           />
         </div>
 
         <div className="flex flex-col gap-2 min-w-[200px]">
-          <span className="text-sm text-gray-400">Price Range (BNB): {priceRange[0].toFixed(2)} - {priceRange[1].toFixed(2)}</span>
+          <span className="text-sm text-white">Price Range (BNB): {priceRange[0].toFixed(2)} - {priceRange[1].toFixed(2)}</span>
           <Slider
             defaultValue={[0, 0.1]}
             max={0.1}
@@ -232,8 +233,8 @@ export const NFTMarketplaceSection = () => {
                   </DialogTrigger>
                   <DialogContent className="bg-[#111] border-[#333] text-white">
                     <DialogHeader>
-                      <DialogTitle>Purchase NFT</DialogTitle>
-                      <DialogDescription className="text-gray-400">
+                      <DialogTitle className="text-white">Purchase NFT</DialogTitle>
+                      <DialogDescription className="text-white">
                         You are about to purchase {nft.name} for {nft.price * 1e-18} BNB.
                       </DialogDescription>
                     </DialogHeader>
@@ -247,22 +248,22 @@ export const NFTMarketplaceSection = () => {
                       </div>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-gray-400">Item Price:</span>
-                          <span>{nft.price * 1e-18} BNB</span>
+                          <span className="text-white">Item Price:</span>
+                          <span className="text-white">{nft.price * 1e-18} BNB</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-400">Platform Fee:</span>
-                          <span>{(nft.price * 0.025 * 1e-18).toFixed(4)} BNB</span>
+                          <span className="text-white">Platform Fee:</span>
+                          <span className="text-white">{(nft.price * 0.025 * 1e-18).toFixed(4)} BNB</span>
                         </div>
                         <Separator className="my-2 bg-[#333]" />
                         <div className="flex justify-between font-bold">
-                          <span>Total:</span>
-                          <span>{(nft.price * 1.025 * 1e-18).toFixed(4)} BNB</span>
+                          <span className="text-white">Total:</span>
+                          <span className="text-white">{(nft.price * 1.025 * 1e-18).toFixed(4)} BNB</span>
                         </div>
                       </div>
                     </div>
                     <DialogFooter>
-                      <Button variant="outline" className="border-[#333]">Cancel</Button>
+                      <Button variant="outline" className="border-[#333] text-white">Cancel</Button>
                       <Button 
                         onClick={() => handleFund({ _value: BigInt(Math.floor(nft.price * 1.025)) })}
                         disabled={isPending || isConfirming || isConfirmed || !address}

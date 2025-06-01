@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -97,16 +98,16 @@ export const TradingSystemSection = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold mb-2">Sistema de Trocas</h2>
-        <p className="text-gray-400 mb-6">
+        <h2 className="text-2xl font-bold mb-2 text-white">Sistema de Trocas</h2>
+        <p className="text-white mb-6">
           Troque seus cards com outros colecionadores. Encontre alguém que tenha o card que você precisa e ofereça um dos seus cards em troca.
         </p>
       </div>
 
       <Tabs defaultValue="my-cards" className="w-full">
         <TabsList className="mb-6 bg-[#111] border border-[#333]">
-          <TabsTrigger value="my-cards">Seus Cards</TabsTrigger>
-          <TabsTrigger value="available-trades">Trocas Disponíveis</TabsTrigger>
+          <TabsTrigger value="my-cards" className="text-white">Seus Cards</TabsTrigger>
+          <TabsTrigger value="available-trades" className="text-white">Trocas Disponíveis</TabsTrigger>
         </TabsList>
 
         <TabsContent value="my-cards">
@@ -117,10 +118,10 @@ export const TradingSystemSection = () => {
                   placeholder="Buscar seus cards..." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-[#111] border-[#333] text-white"
+                  className="bg-[#111] border-[#333] text-white placeholder:text-white"
                 />
               </div>
-              <Button variant="outline" className="border-[#333]">
+              <Button variant="outline" className="border-[#333] text-white">
                 <Search className="h-4 w-4 mr-2" />
                 Buscar
               </Button>
@@ -140,12 +141,12 @@ export const TradingSystemSection = () => {
                   </div>
                   <CardContent>
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-bold text-lg">{card.name}</h3>
+                      <h3 className="font-bold text-lg text-white">{card.name}</h3>
                       <Badge className={`${rarityColors[card.rarity as keyof typeof rarityColors]} text-black`}>
                         {card.rarity}
                       </Badge>
                     </div>
-                    <p className="text-sm text-gray-400 mb-2">Collection: {card.collection}</p>
+                    <p className="text-sm text-white mb-2">Collection: {card.collection}</p>
                     {card.isTrading && (
                       <Badge variant="outline" className="border-green-500 text-green-500">
                         Em negociação
@@ -175,10 +176,10 @@ export const TradingSystemSection = () => {
               <div className="flex-1">
                 <Input 
                   placeholder="Buscar trocas disponíveis..." 
-                  className="bg-[#111] border-[#333] text-white"
+                  className="bg-[#111] border-[#333] text-white placeholder:text-white"
                 />
               </div>
-              <Button variant="outline" className="border-[#333]">
+              <Button variant="outline" className="border-[#333] text-white">
                 <Search className="h-4 w-4 mr-2" />
                 Buscar
               </Button>
@@ -190,11 +191,11 @@ export const TradingSystemSection = () => {
                   <CardHeader>
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-[#333] flex items-center justify-center">
-                        <Users className="h-5 w-5" />
+                        <Users className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg">{trade.user}</CardTitle>
-                        <p className="text-sm text-gray-400">Quer fazer uma troca</p>
+                        <CardTitle className="text-lg text-white">{trade.user}</CardTitle>
+                        <p className="text-sm text-white">Quer fazer uma troca</p>
                       </div>
                     </div>
                   </CardHeader>
@@ -202,14 +203,14 @@ export const TradingSystemSection = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                       {/* Card oferecido */}
                       <div className="text-center">
-                        <p className="text-sm text-gray-400 mb-2">Oferece:</p>
+                        <p className="text-sm text-white mb-2">Oferece:</p>
                         <div className="bg-[#1a1a1a] rounded-lg p-3">
                           <img 
                             src={trade.offering.image} 
                             alt={trade.offering.name}
                             className="w-20 h-20 mx-auto rounded-md mb-2"
                           />
-                          <p className="font-semibold text-sm">{trade.offering.name}</p>
+                          <p className="font-semibold text-sm text-white">{trade.offering.name}</p>
                           <Badge className={`${rarityColors[trade.offering.rarity as keyof typeof rarityColors]} text-black mt-1`}>
                             {trade.offering.rarity}
                           </Badge>
@@ -223,14 +224,14 @@ export const TradingSystemSection = () => {
 
                       {/* Card desejado */}
                       <div className="text-center">
-                        <p className="text-sm text-gray-400 mb-2">Quer:</p>
+                        <p className="text-sm text-white mb-2">Quer:</p>
                         <div className="bg-[#1a1a1a] rounded-lg p-3">
                           <img 
                             src={trade.requesting.image} 
                             alt={trade.requesting.name}
                             className="w-20 h-20 mx-auto rounded-md mb-2"
                           />
-                          <p className="font-semibold text-sm">{trade.requesting.name}</p>
+                          <p className="font-semibold text-sm text-white">{trade.requesting.name}</p>
                           <Badge className={`${rarityColors[trade.requesting.rarity as keyof typeof rarityColors]} text-black mt-1`}>
                             {trade.requesting.rarity}
                           </Badge>
@@ -242,7 +243,7 @@ export const TradingSystemSection = () => {
                     <div className="flex gap-2 w-full">
                       <Button 
                         variant="outline" 
-                        className="flex-1 border-[#333]"
+                        className="flex-1 border-[#333] text-white"
                         onClick={() => handleViewProfile(trade.user)}
                       >
                         Ver Perfil
