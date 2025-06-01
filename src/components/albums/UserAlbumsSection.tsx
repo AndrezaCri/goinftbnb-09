@@ -15,6 +15,10 @@ export const UserAlbumsSection = () => {
         return <Grid2x2 className="h-4 w-4" />;
       case '3x3':
         return <Grid3x3 className="h-4 w-4" />;
+      case '3x4':
+        return <GridIcon className="h-4 w-4" />;
+      case '4x4':
+        return <GridIcon className="h-4 w-4" />;
       default:
         return <GridIcon className="h-4 w-4" />;
     }
@@ -39,12 +43,12 @@ export const UserAlbumsSection = () => {
       <h2 className="text-2xl font-bold">My Albums</h2>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {albums.map((album) => (
-          <Card key={album.id} className="hover:shadow-lg transition-shadow">
+          <Card key={album.id} className="hover:shadow-lg transition-shadow bg-gray-800 border-gray-700">
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
-                  <CardTitle className="text-lg">{album.title}</CardTitle>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <CardTitle className="text-lg text-white">{album.title}</CardTitle>
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
                     {getGridIcon(album.gridType)}
                     <span>{album.gridType} Grid</span>
                   </div>
@@ -53,17 +57,17 @@ export const UserAlbumsSection = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => handleDeleteAlbum(album.id, album.title)}
-                  className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                  className="text-red-400 hover:text-red-300 hover:bg-red-400/10"
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground line-clamp-2">
+              <p className="text-sm text-gray-300 line-clamp-2">
                 {album.description || 'No description'}
               </p>
-              <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+              <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
                 <span>Created {new Date(album.createdAt).toLocaleDateString()}</span>
                 <span>{album.stickers.length} stickers</span>
               </div>
