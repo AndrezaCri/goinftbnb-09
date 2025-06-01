@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,47 +9,89 @@ import { toast } from "sonner";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 import { useNavigate } from "react-router-dom";
 
-// Soccer challenges (showing 3 challenges now)
+// Soccer challenges (now with 6 new Brazilian football challenges)
 const soccerChallenges = [
   {
     id: 1,
-    title: "World Cup Legends Challenge",
-    team: "FIFA Official",
+    title: "Estrelas da Rodada",
+    team: "Craques em Alta",
     deadline: "2025-07-15",
-    imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop",
-    description: "Create an album featuring iconic World Cup moments through history",
-    participants: 248,
-    difficulty: "medium",
-    prize: "5,000 GOIN tokens",
-    tags: ["world cup", "legends", "history"],
+    imageUrl: "https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=400&h=400&fit=crop",
+    description: "Colecione as figurinhas dos 3 jogadores que mais se destacaram na rodada (com base em gols, assistências, defesas, etc). Monte seu álbum com os melhores desempenhos de cada jornada.",
+    participants: 1248,
+    difficulty: "easy",
+    prize: "Versão animada das figurinhas + XP de torcedor",
+    tags: ["rodada", "destaques", "performance", "gols"],
     active: true,
     type: "soccer"
   },
   {
     id: 2,
-    title: "Manchester United Legacy",
-    team: "Manchester United",
+    title: "Rivalidade Histórica",
+    team: "Clássicos Imortais",
     deadline: "2025-06-30",
     imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop",
-    description: "Design an album showcasing Manchester United's greatest players",
-    participants: 187,
-    difficulty: "hard",
-    prize: "Limited edition NFT + 3,000 GOIN tokens",
-    tags: ["manchester united", "premier league", "legacy"],
+    description: "Complete o mini-álbum com jogadores e momentos icônicos de clássicos históricos como Fla-Flu, Gre-Nal, Derby Paulista. Reviva as maiores rivalidades do futebol brasileiro.",
+    participants: 987,
+    difficulty: "medium",
+    prize: "Emblema digital exclusivo + desconto em ingresso",
+    tags: ["clássicos", "rivalidade", "história", "tradição"],
     active: true,
     type: "soccer"
   },
   {
-    id: 103,
-    title: "Brazilian Football Stars",
-    team: "CBF Official",
+    id: 3,
+    title: "Camisa Pesada",
+    team: "Lendas da Camisa",
     deadline: "2025-07-20",
     imageUrl: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=400&fit=crop",
-    description: "Create an album celebrating the greatest Brazilian football players of all time. From Pelé to Ronaldinho, showcase the magic of Brazilian football.",
-    participants: 425,
+    description: "Colecione todas as figurinhas de jogadores com mais de 100 jogos pelo clube. Homenageie os verdadeiros ídolos que vestiram a camisa com orgulho por anos.",
+    participants: 756,
+    difficulty: "hard",
+    prize: "Camisa física sorteada entre quem completar o álbum",
+    tags: ["lendas", "ídolos", "tradição", "história"],
+    active: true,
+    type: "soccer"
+  },
+  {
+    id: 4,
+    title: "Brasileiros pelo Mundo",
+    team: "Exportação FC",
+    deadline: "2025-08-01",
+    imageUrl: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=400&fit=crop",
+    description: "Colecione figurinhas de brasileiros que jogam em ligas estrangeiras. Acompanhe nossos craques espalhados pelos principais campeonatos mundiais.",
+    participants: 1456,
     difficulty: "medium",
-    prize: "4,500 GOIN tokens + Exclusive Brazil Jersey NFT",
-    tags: ["brazil", "seleção", "legends", "history"],
+    prize: "Figurinha especial do melhor brasileiro da temporada",
+    tags: ["europa", "mundial", "brasileiros", "ligas"],
+    active: true,
+    type: "soccer"
+  },
+  {
+    id: 5,
+    title: "Fantasy NFT",
+    team: "Time dos Sonhos",
+    deadline: "2025-07-10",
+    imageUrl: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop",
+    description: "Escolha 5 jogadores por rodada. Se eles forem bem (gols, assistências, etc), você ganha figurinhas bônus. Monte seu time ideal e torça pelo desempenho dos seus escolhidos.",
+    participants: 2134,
+    difficulty: "medium",
+    prize: "Acesso antecipado a pacotes raros",
+    tags: ["fantasy", "estratégia", "rodada", "bônus"],
+    active: true,
+    type: "soccer"
+  },
+  {
+    id: 6,
+    title: "Torcida que Joga Junto",
+    team: "Força da Comunidade",
+    deadline: "2025-08-15",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop",
+    description: "Atividade coletiva: se 1000 usuários completarem o mesmo álbum até a data limite, todos desbloqueiam uma figurinha de experiência especial com acesso a visita ao CT ou sorteio de prêmio coletivo.",
+    participants: 3421,
+    difficulty: "hard",
+    prize: "Experiência VIP ou fan token do clube parceiro",
+    tags: ["comunidade", "coletivo", "experiência", "vip"],
     active: true,
     type: "soccer"
   }
