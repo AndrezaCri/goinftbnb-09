@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -80,10 +80,22 @@ export const NFTPacksSection = () => {
   const [isOpening, setIsOpening] = useState(false);
   const [revealedNFTs, setRevealedNFTs] = useState<any[]>([]);
   const [showRevealDialog, setShowRevealDialog] = useState(false);
+  const [showPurchaseDialog, setShowPurchaseDialog] = useState(false);
+  const [selectedPack, setSelectedPack] = useState<any>(null);
+
+  // Scroll to top when any dialog opens
+  useEffect(() => {
+    if (showPurchaseDialog || showRevealDialog) {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
+  }, [showPurchaseDialog, showRevealDialog]);
 
   const handleOpenPack = () => {
     setIsOpening(true);
     setShowRevealDialog(true);
+    setShowPurchaseDialog(false);
     
     // Simulate random NFT selection
     setTimeout(() => {
@@ -96,6 +108,11 @@ export const NFTPacksSection = () => {
       setRevealedNFTs(revealed);
       setIsOpening(false);
     }, 3000);
+  };
+
+  const handleBuyPackClick = (pack: any) => {
+    setSelectedPack(pack);
+    setShowPurchaseDialog(true);
   };
 
   return (
@@ -147,48 +164,50 @@ export const NFTPacksSection = () => {
             <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
               <div className="font-semibold text-white">{pack.price} ETH</div>
               
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button>
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Buy Pack
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="bg-[#111] border-[#333] text-white">
-                  <DialogHeader>
-                    <DialogTitle className="text-white">Purchase Pack</DialogTitle>
-                    <DialogDescription className="text-white">
-                      You are about to purchase {pack.name} for {pack.price} ETH.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="py-4">
-                    <div className="flex items-center justify-center mb-4">
-                      <Package className="w-24 h-24 text-[#FFEB3B]" />
-                    </div>
-                    <p className="text-center mb-4 text-white">{pack.description}</p>
-                    <div className="flex justify-center space-x-2 mb-4">
-                      {pack.containsRarity.map(rarity => (
-                        <Badge 
-                          key={rarity}
-                          className={`${rarityColors[rarity as keyof typeof rarityColors]} text-black`}
-                        >
-                          {rarity}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <DialogFooter>
-                    <Button variant="outline" className="border-[#333] text-white">Cancel</Button>
-                    <Button onClick={handleOpenPack}>
-                      Purchase & Open
-                    </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
+              <Button onClick={() => handleBuyPackClick(pack)}>
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                Buy Pack
+              </Button>
             </CardFooter>
           </Card>
         ))}
       </div>
+
+      {/* Purchase Pack Dialog */}
+      <Dialog open={showPurchaseDialog} onOpenChange={setShowPurchaseDialog}>
+        <DialogContent className="bg-[#111] border-[#333] text-white">
+          <DialogHeader>
+            <DialogTitle className="text-white">Purchase Pack</DialogTitle>
+            <DialogDescription className="text-white">
+              You are about to purchase {selectedPack?.name} for {selectedPack?.price} ETH.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <div className="flex items-center justify-center mb-4">
+              <Package className="w-24 h-24 text-[#FFEB3B]" />
+            </div>
+            <p className="text-center mb-4 text-white">{selectedPack?.description}</p>
+            <div className="flex justify-center space-x-2 mb-4">
+              {selectedPack?.containsRarity.map((rarity: string) => (
+                <Badge 
+                  key={rarity}
+                  className={`${rarityColors[rarity as keyof typeof rarityColors]} text-black`}
+                >
+                  {rarity}
+                </Badge>
+              ))}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" className="border-[#333] text-white" onClick={() => setShowPurchaseDialog(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleOpenPack}>
+              Purchase & Open
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* NFT Reveal Dialog */}
       <Dialog open={showRevealDialog} onOpenChange={setShowRevealDialog}>
