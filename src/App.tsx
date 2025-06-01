@@ -11,12 +11,14 @@ import { http, WagmiProvider, createConfig } from "wagmi";
 import { mainnet, linea, lineaSepolia } from "wagmi/chains";
 import { metaMask } from "wagmi/connectors";
 
+
 // Lazy load non-critical pages with better chunking
 const Albums = lazy(() => import("./pages/Albums"));
 const AlbumLab = lazy(() => import("./pages/AlbumLab"));
 const Community = lazy(() => import("./pages/Community"));
 const Challenges = lazy(() => import("./pages/Challenges"));
 const Marketplace = lazy(() => import("./pages/Marketplace"));
+const Borrowing = lazy(() => import("./pages/Borrowing"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 //Metamask Config
@@ -68,6 +70,7 @@ const App = () => {
                   <Route path="/community" element={<Community />} />
                   <Route path="/challenges" element={<Challenges />} />
                   <Route path="/marketplace" element={<Marketplace />} />
+                  <Route path="/borrowing" element={<Borrowing />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>

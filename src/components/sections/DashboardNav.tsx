@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Album, ShoppingCart, BookOpen, UsersRound, Trophy } from "lucide-react";
+import { Album, ShoppingCart, BookOpen, UsersRound, Trophy, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -51,6 +51,11 @@ export const DashboardNav = () => {
           icon={<Trophy className="h-5 w-5" />} 
           label="Challenges" 
           to="/challenges" 
+        />
+          <DashboardButton 
+          icon={<CreditCard className="h-5 w-5" />} 
+          label="Defi" 
+          to="/borrowing" 
         />
       </div>
     </section>
