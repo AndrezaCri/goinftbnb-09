@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ExternalLink, X } from "lucide-react";
 import {
   Dialog,
@@ -17,6 +16,14 @@ interface MetaMaskInstallDialogProps {
 
 export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDialogProps) => {
   console.log("MetaMaskInstallDialog render - open:", open);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (open && dialogRef.current) {
+      // Scroll to top of the dialog when it opens
+      dialogRef.current.scrollTo(0, 0);
+    }
+  }, [open]);
 
   const handleCreateAccount = () => {
     console.log("Opening MetaMask download page");
@@ -31,7 +38,10 @@ export const MetaMaskInstallDialog = ({ open, onOpenChange }: MetaMaskInstallDia
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md bg-[#0D0D0D] border-[#333] text-white">
+      <DialogContent 
+        ref={dialogRef}
+        className="sm:max-w-md bg-[#0D0D0D] border-[#333] text-white"
+      >
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-white mb-4">
             🦊 How to Create Your MetaMask Wallet
