@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,7 @@ const myNFTs = [
   { 
     id: 1, 
     name: "Speedy Winger", 
-    image: "/lovable-uploads/366a2e5c-a8bb-4ad3-93cd-79ad1a85b72f.png", 
+    image: "/lovable-uploads/fa9a2fdc-8d89-438a-97ef-bebe851f5a32.png", 
     collection: "Premier League",
     rarity: "Rare",
     listed: true,
