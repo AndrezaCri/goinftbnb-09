@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,7 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Package, Tag, ShoppingCart } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useWriteContract, useWaitForTransactionReceipt, useAccount } from "wagmi";
 import { mainnet } from "wagmi/chains";
 
@@ -75,6 +74,7 @@ export const NFTMarketplaceSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [priceRange, setPriceRange] = useState([0, 0.1]);
   const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
+  const [openDialogId, setOpenDialogId] = useState<number | null>(null);
 
   // Hooks do wagmi
   const { address } = useAccount();
@@ -156,6 +156,23 @@ export const NFTMarketplaceSection = () => {
     setFilteredNFTs(result);
   };
 
+  // Scroll to top when dialog opens
+  useEffect(() => {
+    if (openDialogId !== null) {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
+  }, [openDialogId]);
+
+  const handleOpenDialog = (nftId: number) => {
+    setOpenDialogId(nftId);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialogId(null);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-4 items-center">
@@ -224,13 +241,11 @@ export const NFTMarketplaceSection = () => {
               <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
                 <div className="font-semibold text-white">{nft.price * 1e-18} BNB</div>
 
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button size="sm">
-                      <ShoppingCart className="mr-2 h-4 w-4" />
-                      Buy Now
-                    </Button>
-                  </DialogTrigger>
+                <Dialog open={openDialogId === nft.id} onOpenChange={(open) => open ? handleOpenDialog(nft.id) : handleCloseDialog()}>
+                  <Button size="sm" onClick={() => handleOpenDialog(nft.id)}>
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    Buy Now
+                  </Button>
                   <DialogContent className="bg-[#111] border-[#333] text-white">
                     <DialogHeader>
                       <DialogTitle className="text-white">Purchase NFT</DialogTitle>
@@ -263,7 +278,7 @@ export const NFTMarketplaceSection = () => {
                       </div>
                     </div>
                     <DialogFooter>
-                      <Button variant="outline" className="border-[#333] text-white">Cancel</Button>
+                      <Button variant="outline" className="border-[#333] text-white" onClick={handleCloseDialog}>Cancel</Button>
                       <Button 
                         onClick={() => handleFund({ _value: BigInt(Math.floor(nft.price * 1.025)) })}
                         disabled={isPending || isConfirming || isConfirmed || !address}
