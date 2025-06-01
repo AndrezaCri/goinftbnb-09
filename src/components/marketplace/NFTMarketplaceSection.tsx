@@ -221,7 +221,7 @@ export const NFTMarketplaceSection = () => {
                 <p className="text-sm text-white">Seller: {nft.seller}</p>
               </CardContent>
               <CardFooter className="flex justify-between items-center bg-[#0a0a0a] border-t border-[#333] p-4">
-                <div className="font-semibold">{nft.price * 1e-18} BNB</div>
+                <div className="font-semibold text-white">{nft.price * 1e-18} BNB</div>
 
                 <Dialog>
                   <DialogTrigger asChild>
