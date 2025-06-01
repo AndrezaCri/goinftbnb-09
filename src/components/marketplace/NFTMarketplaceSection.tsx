@@ -9,6 +9,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Package, Tag, ShoppingCart } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useWriteContract, useWaitForTransactionReceipt, useAccount } from "wagmi";
+import { mainnet } from "wagmi/chains";
 
 // Mock NFT data with real images mapped by collection and rarity
 const mockNFTs = [
@@ -108,6 +109,7 @@ export const NFTMarketplaceSection = () => {
       args: [],
       value: _value,
       account: address,
+      chain: mainnet,
     })
   }
 
