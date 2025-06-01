@@ -291,13 +291,16 @@ export const MyListingsSection = () => {
           </div>
           <DialogFooter>
             <Button 
-              variant="outline" 
-              className="border-[#333] text-white"
+              variant="ghost" 
+              className="bg-transparent border-none text-white hover:bg-white/10"
               onClick={() => setEditDialogOpen(false)}
             >
               Cancel
             </Button>
-            <Button onClick={confirmPriceUpdate}>
+            <Button 
+              className="bg-transparent border-none text-white hover:bg-white/10"
+              onClick={confirmPriceUpdate}
+            >
               Update Price
             </Button>
           </DialogFooter>
@@ -343,13 +346,16 @@ export const MyListingsSection = () => {
           </div>
           <DialogFooter>
             <Button 
-              variant="outline" 
-              className="border-[#333] text-white"
+              variant="ghost" 
+              className="bg-transparent border-none text-white hover:bg-white/10"
               onClick={() => setListDialogOpen(false)}
             >
               Cancel
             </Button>
-            <Button onClick={confirmListing}>
+            <Button 
+              className="bg-transparent border-none text-white hover:bg-white/10"
+              onClick={confirmListing}
+            >
               List NFT
             </Button>
           </DialogFooter>
