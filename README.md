@@ -1,52 +1,66 @@
-# ⚽ GoINFT BNB – Seu Álbum de Figurinhas Web3 na Blockchain!
+## Foundry
 
-## 🧩 O que é o GoINft?
-[AppGoINft](https://goinftbnb-09.lovable.app/)
+**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
-**GoINft BNB** é um aplicativo Web3 que transforma a experiência clássica de colecionar figurinhas em algo totalmente digital, divertido e descentralizado! Aqui, torcedores e fãs de futebol podem:
+Foundry consists of:
 
-- 🎉 Criar álbuns exclusivos. Fortaleça seu clube e comunidade Web3
-- 💰 Defi: utilize NFTs raros nas operações de empréstimo
-- 📦 Comprar pacotes de figurinhas digitais (NFTs)
-- 🔄 Trocar figurinhas com outros usuários
-- 🏆 Completar álbuns temáticos de clubes e comunidades Web3
+-   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
+-   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
+-   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
+-   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
 
-Tudo isso sobre a poderosa **BNB Chain**, garantindo **propriedade real**, **escassez digital** e **transparência blockchain**.
+## Documentation
 
----
+https://book.getfoundry.sh/
 
-## 💡 Funcionalidades Principais
+## Usage
 
-| Funcionalidade       | Descrição                                                                     |
-|----------------------|---------------------------------------------------------------------------    |
-| 🧑 Perfil Web3        | Conecte sua carteira via **MetaMask** e gerencie seus ativos digitais.      |
-| 📁 Meus Álbuns        | Veja seus álbuns temáticos, veja progresso e itens duplicados.              |
-| 🖌️ Album Lab          | Utilize recursos de IA para criar álbums exclusivos                         |
-| 🛒 Marketplace        | Compre, venda ou troque figurinhas diretamente com outros colecionadores.   |
-| 💰 Defi               | Utilize NFTs raros como colateral para operações de empréstimo              |
-| 🎁 Pacotes Surpresa   | Compre pacotes aleatórios e descubra quais NFTs raros você encontrou!       |
-| 🔗 Blockchain BNB     | Totalmente integrado à BNB Chain, com leitura e escrita on-chain.           |
+### Build
 
----
+```shell
+$ forge build
+```
 
-## 🌐 Tecnologias Usadas
+### Test
 
-- **Frontend:** 
-- **Blockchain:** BNB Smart Chain 
-- **Carteira Web3:** Integração com **MetaMask** (Wagmi)
-- **Autenticação:** Supabase Auth
-- **Armazenamento:** IPFS ou Supabase Storage
-- **Deploy:** Hospedado via Lovable Cloud Preview
+```shell
+$ forge test
+```
 
----
+### Format
 
-## 🚀 Próximos Passos
+```shell
+$ forge fmt
+```
 
-- 🔐 Implementar operações de Defi e mintagem de NFTs
-- 🎨 Implementar a ferramenta Album Lab com recuros de IA robustos
-- ⚙️ Implementar algoritmo de criação de pacote de NFTs aleatórios
-- 🏟️ Parcerias com clubes e comunidades Web3 para criação de Álbuns
-- 💳 Integração com on-ramp/off-ramp para compra de tokens e pagamento para parceiros institucionais
+### Gas Snapshots
 
+```shell
+$ forge snapshot
+```
 
-> 🎉 **GoINft BNB** está reinventando o colecionismo com o poder da Web3. Junte-se à revolução digital no futebol!
+### Anvil
+
+```shell
+$ anvil
+```
+
+### Deploy
+
+```shell
+$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```
+
+### Cast
+
+```shell
+$ cast <subcommand>
+```
+
+### Help
+
+```shell
+$ forge --help
+$ anvil --help
+$ cast --help
+```
