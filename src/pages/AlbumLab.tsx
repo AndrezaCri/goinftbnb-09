@@ -40,7 +40,6 @@ const AlbumLab = () => {
   // Verificar se o usuário já atingiu o limite de 2 álbuns
   const hasReachedAlbumLimit = albums.length >= 2;
 
-
   const handleGenerateSticker = async () => {
     if (!aiPrompt.trim()) {
       toast.error("Please enter an AI prompt first");
@@ -81,6 +80,7 @@ const AlbumLab = () => {
       setLoading(false);
     }
   };
+
   const handleCreateAlbum = () => {
     // Verificar limite de álbuns antes de criar
     if (hasReachedAlbumLimit) {
@@ -98,7 +98,7 @@ const AlbumLab = () => {
       title: albumTitle,
       description: albumDescription,
       gridType: selectedGridType,
-      stickers: generatedStickers,
+      stickers: generatedSticker ? [generatedSticker] : [],
     });
 
     toast.success(`Album "${albumTitle}" created successfully!`);
