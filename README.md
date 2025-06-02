@@ -1,3 +1,6 @@
+### GoINFT Smart Contract deployed in BSC testnet
+0x29c21baad990a8087D06F6492efDaA53485054Df
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
