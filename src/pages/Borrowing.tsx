@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,7 +8,6 @@ import { ActiveLoans } from '@/components/borrowing/ActiveLoans';
 import { LoanProgress } from '@/components/borrowing/LoanProgress';
 import { Navbar } from '@/components/layout/Navbar';
 import { CreditCard } from 'lucide-react';
-
 export interface NFTCollateral {
   id: string;
   name: string;
@@ -19,7 +17,6 @@ export interface NFTCollateral {
   estimatedValue: number;
   isRare: boolean;
 }
-
 export interface LoanTerms {
   collateralNFT: NFTCollateral | null;
   borrowAmount: number;
@@ -27,7 +24,6 @@ export interface LoanTerms {
   interestRate: number;
   liquidationThreshold: number;
 }
-
 export interface Loan {
   id: string;
   collateralNFT: NFTCollateral;
@@ -41,7 +37,6 @@ export interface Loan {
   liquidationThreshold: number;
   currentLTV: number;
 }
-
 const Borrowing = () => {
   const [currentStep, setCurrentStep] = useState<'select' | 'terms' | 'confirm' | 'complete'>('select');
   const [loanTerms, setLoanTerms] = useState<LoanTerms>({
@@ -51,23 +46,25 @@ const Borrowing = () => {
     interestRate: 8.5,
     liquidationThreshold: 80
   });
-
   const handleNFTSelect = (nft: NFTCollateral) => {
-    setLoanTerms(prev => ({ ...prev, collateralNFT: nft }));
+    setLoanTerms(prev => ({
+      ...prev,
+      collateralNFT: nft
+    }));
     setCurrentStep('terms');
   };
-
   const handleTermsConfirm = (terms: Partial<LoanTerms>) => {
-    setLoanTerms(prev => ({ ...prev, ...terms }));
+    setLoanTerms(prev => ({
+      ...prev,
+      ...terms
+    }));
     setCurrentStep('confirm');
   };
-
   const handleLoanConfirm = () => {
     // Here you would integrate with smart contracts
     console.log('Creating loan with terms:', loanTerms);
     setCurrentStep('complete');
   };
-
   const resetFlow = () => {
     setCurrentStep('select');
     setLoanTerms({
@@ -78,9 +75,7 @@ const Borrowing = () => {
       liquidationThreshold: 80
     });
   };
-
-  return (
-    <div className="min-h-screen bg-[#121212] text-white">
+  return <div className="min-h-screen bg-[#121212] text-white">
       <Navbar />
       
       <main className="container mx-auto px-4 py-8">
@@ -100,16 +95,10 @@ const Borrowing = () => {
 
         <Tabs defaultValue="borrow" className="space-y-6">
           <TabsList className="mb-8 bg-[#111] border border-[#333]">
-            <TabsTrigger 
-              value="borrow" 
-              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
-            >
+            <TabsTrigger value="borrow" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">
               Borrow
             </TabsTrigger>
-            <TabsTrigger 
-              value="manage" 
-              className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black"
-            >
+            <TabsTrigger value="manage" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">
               Manage Loans
             </TabsTrigger>
           </TabsList>
@@ -117,20 +106,11 @@ const Borrowing = () => {
           <TabsContent value="borrow" className="space-y-6">
             <LoanProgress currentStep={currentStep} />
 
-            {currentStep === 'select' && (
-              <NFTCollateralSelector onNFTSelect={handleNFTSelect} />
-            )}
+            {currentStep === 'select' && <NFTCollateralSelector onNFTSelect={handleNFTSelect} />}
 
-            {currentStep === 'terms' && loanTerms.collateralNFT && (
-              <LoanTermsConfig
-                collateralNFT={loanTerms.collateralNFT}
-                onTermsConfirm={handleTermsConfirm}
-                onBack={() => setCurrentStep('select')}
-              />
-            )}
+            {currentStep === 'terms' && loanTerms.collateralNFT && <LoanTermsConfig collateralNFT={loanTerms.collateralNFT} onTermsConfirm={handleTermsConfirm} onBack={() => setCurrentStep('select')} />}
 
-            {currentStep === 'confirm' && loanTerms.collateralNFT && (
-              <Card className="bg-[#111] border-[#333] text-white">
+            {currentStep === 'confirm' && loanTerms.collateralNFT && <Card className="bg-[#111] border-[#333] text-white">
                 <CardHeader>
                   <CardTitle className="text-white">Confirm Loan Details</CardTitle>
                   <CardDescription className="text-gray-400">Review your loan terms before confirming</CardDescription>
@@ -140,11 +120,7 @@ const Borrowing = () => {
                     <div className="space-y-4">
                       <h3 className="font-semibold text-white">Collateral NFT</h3>
                       <div className="flex items-center space-x-3">
-                        <img
-                          src={loanTerms.collateralNFT.image}
-                          alt={loanTerms.collateralNFT.name}
-                          className="w-16 h-16 rounded-lg object-cover"
-                        />
+                        <img src={loanTerms.collateralNFT.image} alt={loanTerms.collateralNFT.name} className="w-16 h-16 rounded-lg object-cover" />
                         <div>
                           <p className="font-medium text-white">{loanTerms.collateralNFT.name}</p>
                           <p className="text-sm text-gray-400">{loanTerms.collateralNFT.collection}</p>
@@ -177,26 +153,17 @@ const Borrowing = () => {
                   </div>
 
                   <div className="flex space-x-3">
-                    <Button
-                      variant="outline"
-                      onClick={() => setCurrentStep('terms')}
-                      className="border-[#333] text-white hover:bg-[#222]"
-                    >
+                    <Button variant="outline" onClick={() => setCurrentStep('terms')} className="border-[#333] text-slate-100 bg-zinc-900 hover:bg-zinc-800">
                       Back
                     </Button>
-                    <Button
-                      onClick={handleLoanConfirm}
-                      className="flex-1 bg-[#FFEB3B] text-black hover:bg-[#E6D136]"
-                    >
+                    <Button onClick={handleLoanConfirm} className="flex-1 bg-[#FFEB3B] text-black hover:bg-[#E6D136]">
                       Confirm Loan
                     </Button>
                   </div>
                 </CardContent>
-              </Card>
-            )}
+              </Card>}
 
-            {currentStep === 'complete' && (
-              <Card className="bg-[#111] border-[#333] text-white">
+            {currentStep === 'complete' && <Card className="bg-[#111] border-[#333] text-white">
                 <CardContent className="text-center py-8">
                   <div className="w-16 h-16 bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,15 +172,11 @@ const Borrowing = () => {
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-white">Loan Created Successfully!</h3>
                   <p className="text-gray-400 mb-6">Your NFT has been locked as collateral and crypto has been transferred to your wallet.</p>
-                  <Button 
-                    onClick={resetFlow}
-                    className="bg-[#FFEB3B] text-black hover:bg-[#E6D136]"
-                  >
+                  <Button onClick={resetFlow} className="bg-[#FFEB3B] text-black hover:bg-[#E6D136]">
                     Create Another Loan
                   </Button>
                 </CardContent>
-              </Card>
-            )}
+              </Card>}
           </TabsContent>
 
           <TabsContent value="manage">
@@ -221,8 +184,6 @@ const Borrowing = () => {
           </TabsContent>
         </Tabs>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Borrowing;
