@@ -3,6 +3,9 @@
 ## 🧩 O que é o GoINft?
 [AppGoINFT](https://preview--goinftbnb-09.lovable.app/)
 
+## Run local: 
+npm run dev
+
 **GoINft BNB** é um aplicativo Web3 que transforma a experiência clássica de colecionar figurinhas em algo totalmente digital, divertido e descentralizado! Aqui, torcedores e fãs de futebol podem:
 
 - 🎉 Criar álbuns exclusivos. Fortaleça seu clube e comunidade Web3
