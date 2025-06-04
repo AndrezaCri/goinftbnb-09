@@ -1,9 +1,9 @@
 # ⚽ GoINFT BNB – Seu Álbum de Figurinhas Web3 na Blockchain!Add commentMore actions
 
-# Branches
+## Branches
 
-main: FrontEnd
-goinft-smartcontracts: Solidity Smart Contracts
+main: FrontEnd </br>
+goinft-smartcontracts: Solidity Smart Contracts </br>
 
 ## 🧩 O que é o GoINft?
 [AppGoINFT](https://preview--goinftbnb-09.lovable.app/)
