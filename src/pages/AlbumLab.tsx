@@ -25,6 +25,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const AlbumLab = () => {
   const { addAlbum, albums } = useAlbums();
@@ -48,34 +49,31 @@ const AlbumLab = () => {
 
     setLoading(true);
     try {
-      const enhancedPrompt = `${aiPrompt} - style: ${stickerCategory}, sticker design`;
-
-      const response = await fetch("https://api.openai.com/v1/images/generations", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "dall-e-3",
-          prompt: enhancedPrompt,
-          n: 1,
-          size: "1024x1024"
-        })
+      console.log('Calling generate-sticker function with prompt:', aiPrompt);
+      
+      const { data, error } = await supabase.functions.invoke('generate-sticker', {
+        body: {
+          prompt: aiPrompt,
+          category: stickerCategory
+        }
       });
 
-      const data = await response.json();
+      if (error) {
+        console.error('Supabase function error:', error);
+        toast.error("Error calling sticker generation service");
+        return;
+      }
 
-      if (data?.data?.[0]?.url) {
-        setGeneratedSticker(data.data[0].url);
+      if (data?.imageUrl) {
+        setGeneratedSticker(data.imageUrl);
         toast.success("Sticker generated successfully!");
       } else {
         toast.error("Failed to generate image");
-        console.error(data);
+        console.error('No image URL in response:', data);
       }
     } catch (error) {
-      toast.error("Error calling OpenAI API");
-      console.error("OpenAI error", error);
+      toast.error("Error generating sticker");
+      console.error("Sticker generation error:", error);
     } finally {
       setLoading(false);
     }
