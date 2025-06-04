@@ -11,7 +11,6 @@ import { http, WagmiProvider, createConfig } from "wagmi";
 import { mainnet, linea, lineaSepolia } from "wagmi/chains";
 import { metaMask } from "wagmi/connectors";
 
-
 // Lazy load non-critical pages with better chunking
 const Albums = lazy(() => import("./pages/Albums"));
 const AlbumLab = lazy(() => import("./pages/AlbumLab"));
@@ -19,10 +18,10 @@ const Community = lazy(() => import("./pages/Community"));
 const Challenges = lazy(() => import("./pages/Challenges"));
 const Marketplace = lazy(() => import("./pages/Marketplace"));
 const Borrowing = lazy(() => import("./pages/Borrowing"));
+const Auth = lazy(() => import("./pages/Auth"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 //Metamask Config
-
 const config = createConfig({
   ssr: true,
   chains: [mainnet],
@@ -31,7 +30,6 @@ const config = createConfig({
     [mainnet.id]:http("https://data-seed-prebsc-1-s1.bnbchain.org:8545"),
   },
 });
-
 
 // Optimized QueryClient with aggressive caching
 const queryClient = new QueryClient({
@@ -65,6 +63,7 @@ const App = () => {
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
+                  <Route path="/auth" element={<Auth />} />
                   <Route path="/albums" element={<Albums />} />
                   <Route path="/album-lab" element={<AlbumLab />} />
                   <Route path="/community" element={<Community />} />
