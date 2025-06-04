@@ -6,12 +6,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AlbumProvider } from "@/contexts/AlbumContext";
-import Index from "./pages/Index";
 import { http, WagmiProvider, createConfig } from "wagmi";
 import { mainnet, linea, lineaSepolia } from "wagmi/chains";
 import { metaMask } from "wagmi/connectors";
 
 // Lazy load non-critical pages with better chunking
+const Index = lazy(() => import("./pages/Index"));
 const Albums = lazy(() => import("./pages/Albums"));
 const AlbumLab = lazy(() => import("./pages/AlbumLab"));
 const Community = lazy(() => import("./pages/Community"));
@@ -54,29 +54,29 @@ const App = () => {
   return (
     <React.StrictMode>
       <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <AlbumProvider>
-          <BrowserRouter>
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <Suspense fallback={<PageLoader />}>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="/albums" element={<Albums />} />
-                  <Route path="/album-lab" element={<AlbumLab />} />
-                  <Route path="/community" element={<Community />} />
-                  <Route path="/challenges" element={<Challenges />} />
-                  <Route path="/marketplace" element={<Marketplace />} />
-                  <Route path="/borrowing" element={<Borrowing />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-            </TooltipProvider>
-          </BrowserRouter>
-        </AlbumProvider>
-      </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <AlbumProvider>
+            <BrowserRouter>
+              <TooltipProvider>
+                <Toaster />
+                <Sonner />
+                <Suspense fallback={<PageLoader />}>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/albums" element={<Albums />} />
+                    <Route path="/album-lab" element={<AlbumLab />} />
+                    <Route path="/community" element={<Community />} />
+                    <Route path="/challenges" element={<Challenges />} />
+                    <Route path="/marketplace" element={<Marketplace />} />
+                    <Route path="/borrowing" element={<Borrowing />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
+              </TooltipProvider>
+            </BrowserRouter>
+          </AlbumProvider>
+        </QueryClientProvider>
       </WagmiProvider>
     </React.StrictMode>
   );
