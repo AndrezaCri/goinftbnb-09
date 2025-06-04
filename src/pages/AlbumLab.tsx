@@ -1,8 +1,6 @@
-
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
-import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
-import { useSupabaseAlbums } from "@/hooks/useSupabaseAlbums";
+import { useAlbums } from "@/contexts/AlbumContext";
 import {
   Card,
   CardContent,
@@ -13,18 +11,23 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Grid2x2, Grid3x3, GridIcon, Wand2, Sparkles } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { Grid2x2, Grid3x3, GridIcon, Wand2, Image, ImagePlus, Sparkles } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import { validateAlbumTitle, validateAlbumDescription, validateAIPrompt, sanitizeInput } from "@/utils/inputValidation";
 
 const AlbumLab = () => {
-  const { albums, createAlbum, addStickerToAlbum } = useSupabaseAlbums();
+  const { addAlbum, albums } = useAlbums();
   const navigate = useNavigate();
   const [albumTitle, setAlbumTitle] = useState("");
   const [albumDescription, setAlbumDescription] = useState("");
@@ -34,98 +37,87 @@ const AlbumLab = () => {
   const [loading, setLoading] = useState(false);
   const [stickerCategory, setStickerCategory] = useState("sports");
 
-  // Check album limit (max 5 albums for better UX)
-  const hasReachedAlbumLimit = albums.length >= 5;
+  // Verificar se o usuário já atingiu o limite de 2 álbuns
+  const hasReachedAlbumLimit = albums.length >= 2;
+
 
   const handleGenerateSticker = async () => {
-    const promptValidation = validateAIPrompt(aiPrompt);
-    if (!promptValidation.isValid) {
-      toast.error(promptValidation.error);
+    if (!aiPrompt.trim()) {
+      toast.error("Please enter an AI prompt first");
       return;
     }
 
     setLoading(true);
     try {
-      console.log('Calling generate-sticker function with prompt:', aiPrompt);
-      
-      const { data, error } = await supabase.functions.invoke('generate-sticker', {
-        body: {
-          prompt: sanitizeInput(aiPrompt),
-          category: stickerCategory
-        }
+      const enhancedPrompt = `${aiPrompt} - style: ${stickerCategory}, sticker design`;
+
+      const response = await fetch("https://api.openai.com/v1/images/generations", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: "dall-e-3",
+          prompt: enhancedPrompt,
+          n: 1,
+          size: "1024x1024"
+        })
       });
 
-      if (error) {
-        console.error('Supabase function error:', error);
-        toast.error("Error calling sticker generation service");
-        return;
-      }
+      const data = await response.json();
 
-      if (data?.imageUrl) {
-        setGeneratedSticker(data.imageUrl);
+      if (data?.data?.[0]?.url) {
+        setGeneratedSticker(data.data[0].url);
         toast.success("Sticker generated successfully!");
       } else {
         toast.error("Failed to generate image");
-        console.error('No image URL in response:', data);
+        console.error(data);
       }
     } catch (error) {
-      toast.error("Error generating sticker");
-      console.error("Sticker generation error:", error);
+      toast.error("Error calling OpenAI API");
+      console.error("OpenAI error", error);
     } finally {
       setLoading(false);
     }
   };
-
-  const handleCreateAlbum = async () => {
+  const handleCreateAlbum = () => {
+    // Verificar limite de álbuns antes de criar
     if (hasReachedAlbumLimit) {
-      toast.error("You have reached the maximum limit of 5 albums!");
+      toast.error("Você já atingiu o limite máximo de 2 álbuns por pessoa!");
       return;
     }
 
-    const titleValidation = validateAlbumTitle(albumTitle);
-    if (!titleValidation.isValid) {
-      toast.error(titleValidation.error);
+    if (!albumTitle) {
+      toast.error("Please enter an album title");
       return;
     }
 
-    const descriptionValidation = validateAlbumDescription(albumDescription);
-    if (!descriptionValidation.isValid) {
-      toast.error(descriptionValidation.error);
-      return;
-    }
+    // Salvar o álbum usando o contexto
+    addAlbum({
+      title: albumTitle,
+      description: albumDescription,
+      gridType: selectedGridType,
+      stickers: generatedStickers,
+    });
 
-    const albumData = {
-      title: sanitizeInput(albumTitle),
-      description: sanitizeInput(albumDescription),
-      grid_type: selectedGridType,
-    };
+    toast.success(`Album "${albumTitle}" created successfully!`);
 
-    const newAlbum = await createAlbum(albumData);
-    
-    if (newAlbum) {
-      toast.success(`Album "${albumData.title}" created successfully!`);
+    // Limpar formulário
+    setAlbumTitle("");
+    setAlbumDescription("");
+    setGeneratedSticker(null);
+    setAiPrompt("");
 
-      // Add generated sticker to the new album if exists
-      if (generatedSticker) {
-        await addStickerToAlbum(newAlbum.id, generatedSticker, sanitizeInput(aiPrompt));
-      }
-
-      // Clear form
-      setAlbumTitle("");
-      setAlbumDescription("");
-      setGeneratedSticker(null);
-      setAiPrompt("");
-
-      // Navigate to albums page
-      setTimeout(() => {
-        navigate("/albums");
-      }, 1500);
-    }
+    // Navegar para a página de álbuns após 1.5 segundos
+    setTimeout(() => {
+      navigate("/albums");
+    }, 1500);
   };
 
   const clearStickers = () => {
     setGeneratedSticker(null);
-    toast.info("Sticker cleared");
+    toast.info("All stickers cleared");
   };
 
   const gridOptions = [
@@ -144,219 +136,216 @@ const AlbumLab = () => {
   ];
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-[#121212] text-white">
-        <Navbar />
-        <main className="container mx-auto px-4 py-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Album Lab</h1>
-            <p className="text-gray-300">Create custom NFT albums and stickers</p>
-          </div>
+    <div className="min-h-screen bg-[#121212] text-white">
+      <Navbar />
+      <main className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">Album Lab</h1>
+          <p className="text-gray-300">Create custom NFT albums and stickers</p>
+        </div>
 
-          <Tabs defaultValue="create-album" className="space-y-6">
-            <TabsList className="bg-gray-800 border-gray-700">
-              <TabsTrigger value="create-album" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Create Album</TabsTrigger>
-              <TabsTrigger value="generate-stickers" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Generate Stickers</TabsTrigger>
-            </TabsList>
+        <Tabs defaultValue="create-album" className="space-y-6">
+          <TabsList className="bg-gray-800 border-gray-700">
+            <TabsTrigger value="create-album" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Create Album</TabsTrigger>
+            <TabsTrigger value="generate-stickers" className="text-white data-[state=active]:bg-[#FFEB3B] data-[state=active]:text-black">Generate Stickers</TabsTrigger>
+          </TabsList>
 
-            <TabsContent value="create-album">
-              <Card className="bg-gray-800 border-gray-700">
-                <CardHeader>
-                  <CardTitle className="text-white">Design Your Album</CardTitle>
+          <TabsContent value="create-album">
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader>
+                <CardTitle className="text-white">Design Your Album</CardTitle>
+                <CardDescription className="text-gray-300">
+                  Create a custom album by selecting grid type and adding details
+                  {hasReachedAlbumLimit && (
+                    <span className="block mt-2 text-red-400 font-medium">
+                      ⚠️ Você atingiu o limite máximo de 2 álbuns por pessoa
+                    </span>
+                  )}
+                  {!hasReachedAlbumLimit && albums.length > 0 && (
+                    <span className="block mt-2 text-green-400 font-medium">
+                      📝 Você pode criar {2 - albums.length} álbum(ns) restante(s)
+                    </span>
+                  )}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-3">
+                  <Label htmlFor="album-title" className="text-white">Album Title</Label>
+                  <Input
+                    id="album-title"
+                    placeholder="Enter album title"
+                    value={albumTitle}
+                    onChange={(e) => setAlbumTitle(e.target.value)}
+                    disabled={hasReachedAlbumLimit}
+                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                </div>
+
+                <div className="space-y-3">
+                  <Label htmlFor="album-description" className="text-white">Album Description</Label>
+                  <Textarea
+                    id="album-description"
+                    placeholder="Enter album description"
+                    value={albumDescription}
+                    onChange={(e) => setAlbumDescription(e.target.value)}
+                    disabled={hasReachedAlbumLimit}
+                    rows={3}
+                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                </div>
+
+                <div className="space-y-3">
+                  <Label className="text-white">Grid Type</Label>
+                  <RadioGroup
+                    value={selectedGridType}
+                    onValueChange={setSelectedGridType}
+                    disabled={hasReachedAlbumLimit}
+                    className="grid grid-cols-2 gap-4 sm:grid-cols-4"
+                  >
+                    {gridOptions.map((option) => (
+                      <div key={option.value} className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value={option.value}
+                          id={option.value}
+                          disabled={hasReachedAlbumLimit}
+                          className="border-gray-600 disabled:opacity-50"
+                        />
+                        <Label
+                          htmlFor={option.value}
+                          className={`flex items-center gap-2 cursor-pointer text-white ${hasReachedAlbumLimit ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                          {option.icon}
+                          <span>{option.label}</span>
+                        </Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                </div>
+
+                <div className="pt-3">
+                  <Button
+                    onClick={handleCreateAlbum}
+                    disabled={hasReachedAlbumLimit}
+                    className="bg-[#FFEB3B] text-black hover:bg-[#FFEB3B]/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {hasReachedAlbumLimit ? "Limite Atingido" : "Create Album"}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="generate-stickers">
+            <div className="grid gap-8 md:grid-cols-2">
+              <Card className="md:sticky md:top-24 h-fit bg-gray-800 border-gray-700">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-white">
+                    <Sparkles className="h-5 w-5 text-purple-500" />
+                    AI Sticker Generator
+                  </CardTitle>
                   <CardDescription className="text-gray-300">
-                    Create a custom album by selecting grid type and adding details
-                    {hasReachedAlbumLimit && (
-                      <span className="block mt-2 text-red-400 font-medium">
-                        ⚠️ You have reached the maximum limit of 5 albums
-                      </span>
-                    )}
-                    {!hasReachedAlbumLimit && albums.length > 0 && (
-                      <span className="block mt-2 text-green-400 font-medium">
-                        📝 You can create {5 - albums.length} more album(s)
-                      </span>
-                    )}
+                    Use AI to create unique NFT stickers for your albums
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-3">
-                    <Label htmlFor="album-title" className="text-white">Album Title</Label>
-                    <Input
-                      id="album-title"
-                      placeholder="Enter album title (2-100 characters)"
-                      value={albumTitle}
-                      onChange={(e) => setAlbumTitle(e.target.value)}
-                      disabled={hasReachedAlbumLimit}
-                      maxLength={100}
-                      className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
-                    />
-                  </div>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="ai-prompt" className="text-white">Describe your sticker</Label>
+                    <div className="relative">
+                      <Textarea
+                        id="ai-prompt"
+                        placeholder="e.g., A soccer player with blue jersey making a bicycle kick"
+                        value={aiPrompt}
+                        onChange={(e) => setAiPrompt(e.target.value)}
+                        rows={4}
+                        className="pr-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                      />
+                      <Wand2 className="absolute right-3 top-3 h-5 w-5 text-gray-400 opacity-70" />
+                    </div>
 
-                  <div className="space-y-3">
-                    <Label htmlFor="album-description" className="text-white">Album Description</Label>
-                    <Textarea
-                      id="album-description"
-                      placeholder="Enter album description (optional, max 500 characters)"
-                      value={albumDescription}
-                      onChange={(e) => setAlbumDescription(e.target.value)}
-                      disabled={hasReachedAlbumLimit}
-                      maxLength={500}
-                      rows={3}
-                      className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
-                    />
-                  </div>
-
-                  <div className="space-y-3">
-                    <Label className="text-white">Grid Type</Label>
-                    <RadioGroup
-                      value={selectedGridType}
-                      onValueChange={setSelectedGridType}
-                      disabled={hasReachedAlbumLimit}
-                      className="grid grid-cols-2 gap-4 sm:grid-cols-4"
-                    >
-                      {gridOptions.map((option) => (
-                        <div key={option.value} className="flex items-center space-x-2">
-                          <RadioGroupItem
-                            value={option.value}
-                            id={option.value}
-                            disabled={hasReachedAlbumLimit}
-                            className="border-gray-600 disabled:opacity-50"
-                          />
-                          <Label
-                            htmlFor={option.value}
-                            className={`flex items-center gap-2 cursor-pointer text-white ${hasReachedAlbumLimit ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    {/* Prompt suggestions */}
+                    <div className="pt-2">
+                      <p className="text-xs text-gray-400 mb-2">Try these suggestions:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {stickerPromptSuggestions.map((suggestion, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setAiPrompt(suggestion)}
+                            className="text-xs bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md transition-colors text-white"
                           >
-                            {option.icon}
-                            <span>{option.label}</span>
-                          </Label>
-                        </div>
-                      ))}
-                    </RadioGroup>
+                            {suggestion.length > 20 ? `${suggestion.substring(0, 20)}...` : suggestion}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-
-                  <div className="pt-3">
-                    <Button
-                      onClick={handleCreateAlbum}
-                      disabled={hasReachedAlbumLimit}
-                      className="bg-[#FFEB3B] text-black hover:bg-[#FFEB3B]/90 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {hasReachedAlbumLimit ? "Limit Reached" : "Create Album"}
-                    </Button>
-                  </div>
+                  <Button
+                    onClick={handleGenerateSticker}
+                    disabled={loading || !aiPrompt.trim()}
+                    className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+                  >
+                    {loading ? (
+                      <span>Generating...</span>
+                    ) : (
+                      <>
+                        <Wand2 className="mr-2 h-4 w-4" />
+                        <span>Generate Sticker</span>
+                      </>
+                    )}
+                  </Button>
                 </CardContent>
               </Card>
-            </TabsContent>
 
-            <TabsContent value="generate-stickers">
-              <div className="grid gap-8 md:grid-cols-2">
-                <Card className="md:sticky md:top-24 h-fit bg-gray-800 border-gray-700">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="flex items-center gap-2 text-white">
-                      <Sparkles className="h-5 w-5 text-purple-500" />
-                      AI Sticker Generator
-                    </CardTitle>
+              <Card className="bg-gray-800 border-gray-700">
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <div>
+                    <CardTitle className="text-white">Generated Stickers</CardTitle>
                     <CardDescription className="text-gray-300">
-                      Use AI to create unique NFT stickers for your albums
+                      AI-generated NFT stickers for your albums
                     </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="ai-prompt" className="text-white">Describe your sticker</Label>
-                      <div className="relative">
-                        <Textarea
-                          id="ai-prompt"
-                          placeholder="e.g., A soccer player with blue jersey making a bicycle kick (5-200 characters)"
-                          value={aiPrompt}
-                          onChange={(e) => setAiPrompt(e.target.value)}
-                          maxLength={200}
-                          rows={4}
-                          className="pr-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                        />
-                        <Wand2 className="absolute right-3 top-3 h-5 w-5 text-gray-400 opacity-70" />
-                      </div>
-                      <div className="text-xs text-gray-400">
-                        {aiPrompt.length}/200 characters
-                      </div>
-
-                      {/* Prompt suggestions */}
-                      <div className="pt-2">
-                        <p className="text-xs text-gray-400 mb-2">Try these suggestions:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {stickerPromptSuggestions.map((suggestion, index) => (
-                            <button
-                              key={index}
-                              onClick={() => setAiPrompt(suggestion)}
-                              className="text-xs bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md transition-colors text-white"
-                            >
-                              {suggestion.length > 20 ? `${suggestion.substring(0, 20)}...` : suggestion}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                  </div>
+                  {generatedSticker && (
                     <Button
-                      onClick={handleGenerateSticker}
-                      disabled={loading || !aiPrompt.trim()}
-                      className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+                      variant="ghost"
+                      size="sm"
+                      onClick={clearStickers}
+                      className="text-white hover:bg-gray-700"
                     >
-                      {loading ? (
-                        <span>Generating...</span>
-                      ) : (
-                        <>
-                          <Wand2 className="mr-2 h-4 w-4" />
-                          <span>Generate Sticker</span>
-                        </>
-                      )}
+                      Clear All
                     </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-gray-800 border-gray-700">
-                  <CardHeader className="flex flex-row items-center justify-between pb-2">
-                    <div>
-                      <CardTitle className="text-white">Generated Stickers</CardTitle>
-                      <CardDescription className="text-gray-300">
-                        AI-generated NFT stickers for your albums
-                      </CardDescription>
+                  )}
+                </CardHeader>
+                <CardContent>
+                  {!generatedSticker ? (
+                    <div className="text-center py-12">
+                      <div className="text-gray-400 mb-4">
+                        <Sparkles className="mx-auto h-12 w-12 opacity-50" />
+                      </div>
+                      <p className="text-gray-400">No stickers generated yet</p>
+                      <p className="text-sm text-gray-500 mt-2">Use the AI generator to create your first sticker</p>
                     </div>
-                    {generatedSticker && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={clearStickers}
-                        className="text-white hover:bg-gray-700"
-                      >
-                        Clear
-                      </Button>
-                    )}
-                  </CardHeader>
-                  <CardContent>
-                    {!generatedSticker ? (
-                      <div className="text-center py-12">
-                        <div className="text-gray-400 mb-4">
-                          <Sparkles className="mx-auto h-12 w-12 opacity-50" />
-                        </div>
-                        <p className="text-gray-400">No stickers generated yet</p>
-                        <p className="text-sm text-gray-500 mt-2">Use the AI generator to create your first sticker</p>
+                  ) : (
+                    <div className="group relative rounded-lg overflow-hidden border border-gray-600 hover:border-[#FFEB3B]/50 transition-all">
+                      <AspectRatio ratio={1 / 1}>
+                        <img
+                          src={generatedSticker}
+                          alt="Generated sticker"
+                          className="object-cover w-full h-full"
+                        />
+                      </AspectRatio>
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 transition-opacity">
+                        <Button size="sm" variant="outline" className="h-8 bg-black/80 text-white border-white/30 hover:bg-white/20">
+                          Save
+                        </Button>
                       </div>
-                    ) : (
-                      <div className="group relative rounded-lg overflow-hidden border border-gray-600 hover:border-[#FFEB3B]/50 transition-all">
-                        <AspectRatio ratio={1 / 1}>
-                          <img
-                            src={generatedSticker}
-                            alt="Generated sticker"
-                            className="object-cover w-full h-full"
-                          />
-                        </AspectRatio>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-          </Tabs>
-        </main>
-      </div>
-    </ProtectedRoute>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </main>
+    </div>
   );
 };
 

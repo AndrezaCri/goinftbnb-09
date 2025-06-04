@@ -6,23 +6,11 @@ export const Hero = () => {
   const navigate = useNavigate();
 
   const handleCollectClick = () => {
-    try {
-      navigate("/marketplace?tab=packs");
-    } catch (error) {
-      console.error("Navigation error:", error);
-      // Fallback to window.location if navigate fails
-      window.location.href = "/marketplace?tab=packs";
-    }
+    navigate("/marketplace?tab=packs");
   };
 
   const handleTradeClick = () => {
-    try {
-      navigate("/marketplace?tab=trading");
-    } catch (error) {
-      console.error("Navigation error:", error);
-      // Fallback to window.location if navigate fails
-      window.location.href = "/marketplace?tab=trading";
-    }
+    navigate("/marketplace?tab=trading");
   };
 
   return (

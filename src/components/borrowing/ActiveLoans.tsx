@@ -13,7 +13,7 @@ export const ActiveLoans: React.FC = () => {
       id: '1',
       collateralNFT: {
         id: '1',
-        name: 'Neymar #1234',
+        name: 'Bored Ape #1234',
         collection: 'Bored Ape Yacht Club',
         image: '/placeholder.svg',
         floorPrice: 45000,
@@ -34,7 +34,7 @@ export const ActiveLoans: React.FC = () => {
       id: '2',
       collateralNFT: {
         id: '2',
-        name: 'Marta #5678',
+        name: 'CryptoPunk #5678',
         collection: 'CryptoPunks',
         image: '/placeholder.svg',
         floorPrice: 85000,

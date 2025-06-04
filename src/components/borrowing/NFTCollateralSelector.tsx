@@ -15,32 +15,32 @@ export const NFTCollateralSelector: React.FC<NFTCollateralSelectorProps> = ({
   // Mock NFT data with non-logo images
   const mockNFTs: NFTCollateral[] = [{
     id: '1',
-    name: 'Neymar #1234',
-    collection: 'Neymar Collection',
+    name: 'Bored Ape #1234',
+    collection: 'Bored Ape Yacht Club',
     image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=400&fit=crop&auto=format',
     floorPrice: 45000,
     estimatedValue: 52000,
     isRare: true
   }, {
     id: '2',
-    name: 'Marta #5678',
-    collection: 'Marta Collection',
+    name: 'CryptoPunk #5678',
+    collection: 'CryptoPunks',
     image: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop&auto=format',
     floorPrice: 85000,
     estimatedValue: 95000,
     isRare: true
   }, {
     id: '3',
-    name: 'Cristiano Ronaldo #9999',
-    collection: 'Cristiano Ronaldo Collection',
+    name: 'Mutant Ape #9999',
+    collection: 'Mutant Ape Yacht Club',
     image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=400&h=400&fit=crop&auto=format',
     floorPrice: 12000,
     estimatedValue: 15000,
     isRare: false
   }, {
     id: '4',
-    name: 'Messi #4567',
-    collection: 'Messi Collection',
+    name: 'Azuki #4567',
+    collection: 'Azuki',
     image: 'https://images.unsplash.com/photo-1458668383970-8ddd3927deed?w=400&h=400&fit=crop&auto=format',
     floorPrice: 8500,
     estimatedValue: 10200,
